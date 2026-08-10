@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Docker Fundamentals</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/reveal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/theme/white.css">
+    <style>
+        .reveal h1 { color: #2c3e50; }
+        .reveal h2 { color: #34495e; }
+        .reveal .slides section { text-align: left; }
+        .reveal ul { margin-left: 20px; }
+        .reveal table { margin: 20px auto; border-collapse: collapse; }
+        .reveal table th, .reveal table td { border: 1px solid #ddd; padding: 8px 12px; }
+        .reveal table th { background-color: #3498db; color: white; }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <section>
+                <h1>Docker Fundamentals</h1>
+                <p>Container Technology for Computer Science</p>
+                <p><small>KTU - Computer Science</small></p>
+            </section>
+
+            <section>
+                <h2>What are Containers?</h2>
+                <ul>
+                    <li>Lightweight, standalone packages</li>
+                    <li>Include everything needed to run software</li>
+                    <li>Isolated from each other</li>
+                    <li>Share host OS kernel</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>VMs vs Containers</h2>
+                <table>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Virtual Machines</th>
+                        <th>Containers</th>
+                    </tr>
+                    <tr>
+                        <td>Isolation</td>
+                        <td>Hardware-level</td>
+                        <td>OS kernel-level</td>
+                    </tr>
+                    <tr>
+                        <td>Size</td>
+                        <td>Gigabytes</td>
+                        <td>Megabytes</td>
+                    </tr>
+                    <tr>
+                        <td>Startup</td>
+                        <td>Minutes</td>
+                        <td>Seconds</td>
+                    </tr>
+                </table>
+            </section>
+
+            <section>
+                <h2>Docker Architecture</h2>
+                <ul>
+                    <li><strong>Docker Client:</strong> User interface</li>
+                    <li><strong>Docker Daemon:</strong> Manages objects</li>
+                    <li><strong>Docker Registry:</strong> Stores images</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>Images and Containers</h2>
+                <p><strong>Image:</strong> Read-only template</p>
+                <p><strong>Container:</strong> Runnable instance of an image</p>
+            </section>
+
+            <section>
+                <h1>Thank You</h1>
+                <p><a href="../book/01-fundamentals.html">Back to Book</a></p>
+            </section>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/reveal.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            slideNumber: true,
+            transition: 'slide'
+        });
+    </script>
+</body>
+</html>

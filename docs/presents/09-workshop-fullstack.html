@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workshop - Fullstack Application</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/reveal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/theme/white.css">
+    <style>
+        .reveal h1 { color: #2c3e50; }
+        .reveal h2 { color: #34495e; }
+        .reveal .slides section { text-align: left; }
+        .reveal ul { margin-left: 20px; }
+        .reveal pre { font-size: 0.6em; }
+        .reveal code { background-color: #f4f4f4; padding: 2px 6px; border-radius: 3px; }
+        .reveal pre code { background-color: #282c34; color: #abb2bf; padding: 10px; }
+        .reveal .mermaid { text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <section>
+                <h1>Workshop: Fullstack App</h1>
+                <p>React + FastAPI + PostgreSQL</p>
+                <p><small>KTU - Computer Science</small></p>
+            </section>
+
+            <section>
+                <h2>Fullstack Architecture</h2>
+                <div class="mermaid">
+                    graph TB
+                        subgraph Frontend
+                            React[React+TypeScript]
+                        end
+                        subgraph Backend
+                            FastAPI[FastAPI]
+                        end
+                        subgraph Database
+                            PG[PostgreSQL]
+                        end
+                        subgraph Proxy
+                            Nginx[Nginx]
+                        end
+                        Client[Client] -->|HTTP| Nginx
+                        Nginx -->|/api| FastAPI
+                        Nginx -->|/*| React
+                        FastAPI -->|SQL| PG
+                </div>
+            </section>
+
+            <section>
+                <h2>Architecture</h2>
+                <ul>
+                    <li><strong>Frontend:</strong> React + TypeScript (Vite)</li>
+                    <li><strong>Backend:</strong> FastAPI (Python)</li>
+                    <li><strong>Database:</strong> PostgreSQL 15</li>
+                    <li><strong>Proxy:</strong> Nginx</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>Project Structure</h2>
+                <pre><code>fullstack-app/
+├── frontend/
+│   ├── Dockerfile
+│   ├── package.json
+│   └── src/
+├── backend/
+│   ├── Dockerfile
+│   ├── requirements.txt
+│   └── main.py
+├── database/
+│   └── init.sql
+└── docker-compose.yml</code></pre>
+            </section>
+
+            <section>
+                <h2>Docker Compose</h2>
+                <pre><code>services:
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:80"
+
+  backend:
+    build: ./backend
+    environment:
+      - DATABASE_URL=postgresql://user:pass@db/app
+    depends_on:
+      - db
+
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: app
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:</code></pre>
+            </section>
+
+            <section>
+                <h2>Backend Dockerfile</h2>
+                <pre><code>FROM python:3.11-slim
+
+WORKDIR /app
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY . .
+
+EXPOSE 8000
+
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0"]</code></pre>
+            </section>
+
+            <section>
+                <h2>Frontend Dockerfile</h2>
+                <pre><code># Build stage
+FROM node:18 AS builder
+WORKDIR /app
+COPY package*.json .
+RUN npm ci
+COPY . .
+RUN npm run build
+
+# Production stage
+FROM nginx:alpine
+COPY --from=builder /app/dist /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+EXPOSE 80</code></pre>
+            </section>
+
+            <section>
+                <h2>Run the Application</h2>
+                <pre><code># Build and start all services
+docker compose up -d --build
+
+# View logs
+docker compose logs -f
+
+# Access frontend
+http://localhost:3000
+
+# Stop all services
+docker compose down</code></pre>
+            </section>
+
+            <section>
+                <h1>Thank You</h1>
+                <p><a href="../book/09-workshop-fullstack/">Back to Book</a></p>
+            </section>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            slideNumber: true,
+            transition: 'slide'
+        });
+        mermaid.initialize({ 
+            startOnLoad: false, 
+            theme: 'default',
+            flowchart: { useMaxWidth: true, htmlLabels: true }
+        });
+        Reveal.on('slidechanged', (event) => {
+            const mermaidDivs = event.currentSlide.querySelectorAll('.mermaid');
+            if (mermaidDivs.length > 0) {
+                mermaid.init(undefined, mermaidDivs);
+            }
+        });
+    </script>
+</body>
+</html>

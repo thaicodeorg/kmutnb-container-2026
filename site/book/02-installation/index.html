@@ -1,0 +1,1306 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../01-fundamentals/">
+      
+      
+        <link rel="next" href="../03-basic-operations/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>2. Installation - Kmutnb Docker container</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans+Thai+Looped:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"IBM Plex Sans Thai Looped";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#chapter-2-docker-ce-installation-on-centos-9-stream" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Kmutnb Docker container" class="md-header__button md-logo" aria-label="Kmutnb Docker container" data-md-component="logo">
+      
+  <img src="../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Kmutnb Docker container
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              2. Installation
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Kmutnb Docker container" class="md-nav__button md-logo" aria-label="Kmutnb Docker container" data-md-component="logo">
+      
+  <img src="../../assets/logo.png" alt="logo">
+
+    </a>
+    Kmutnb Docker container
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Book
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Book
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Fundamentals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Installation
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#21-remove-old-docker-versions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Remove Old Docker Versions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#22-install-yum-utils" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Install yum-utils
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#23-add-docker-ce-repository" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 Add Docker CE Repository
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#24-install-docker-ce-packages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 Install Docker CE Packages
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#25-start-and-enable-docker-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5 Start and Enable Docker Service
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#26-verify-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6 Verify Installation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#27-add-current-user-to-docker-group" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.7 Add Current User to Docker Group
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#28-rootless-mode-setup-optional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.8 Rootless Mode Setup (Optional)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.8 Rootless Mode Setup (Optional)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prerequisites
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#install-docker-in-rootless-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Install Docker in Rootless Mode
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set-environment-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Set Environment Variables
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#start-rootless-docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Start Rootless Docker
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verify-rootless-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verify Rootless Mode
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#29-configure-docker-daemon" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.9 Configure Docker Daemon
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quiz" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quiz
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-basic-operations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Basic Operations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-dockerfile/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Dockerfile
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-docker-compose/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Docker Compose
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-advanced/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Advanced
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-workshop-basic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Workshop Basic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-workshop-webserver/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Workshop Webserver
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-workshop-fullstack/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Workshop Fullstack
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#21-remove-old-docker-versions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Remove Old Docker Versions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#22-install-yum-utils" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Install yum-utils
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#23-add-docker-ce-repository" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 Add Docker CE Repository
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#24-install-docker-ce-packages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 Install Docker CE Packages
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#25-start-and-enable-docker-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5 Start and Enable Docker Service
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#26-verify-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6 Verify Installation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#27-add-current-user-to-docker-group" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.7 Add Current User to Docker Group
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#28-rootless-mode-setup-optional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.8 Rootless Mode Setup (Optional)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.8 Rootless Mode Setup (Optional)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prerequisites
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#install-docker-in-rootless-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Install Docker in Rootless Mode
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set-environment-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Set Environment Variables
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#start-rootless-docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Start Rootless Docker
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verify-rootless-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verify Rootless Mode
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#29-configure-docker-daemon" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.9 Configure Docker Daemon
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quiz" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quiz
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<div class="admonition tip">
+<p class="admonition-title">Slides Available</p>
+<p>📊 <strong>View Presentation</strong> → <a href="../../presents/02-installation.html">Open Slides</a></p>
+</div>
+<h1 id="chapter-2-docker-ce-installation-on-centos-9-stream">Chapter 2: Docker CE Installation on CentOS 9 Stream</h1>
+<h2 id="overview">Overview</h2>
+<p>This chapter covers the complete installation process of Docker Community Edition (CE) on CentOS 9 Stream, including rootless mode configuration.</p>
+<hr />
+<h2 id="21-remove-old-docker-versions">2.1 Remove Old Docker Versions</h2>
+<p>Before installing Docker CE, remove any older versions that may conflict:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>dnf<span class="w"> </span>remove<span class="w"> </span>-y<span class="w"> </span>docker<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>docker-client<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>docker-client-latest<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>docker-common<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>docker-latest<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>docker-latest-logrotate<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>docker-logrotate<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>docker-engine
+</code></pre></div>
+<hr />
+<h2 id="22-install-yum-utils">2.2 Install yum-utils</h2>
+<p>Install the <code>yum-utils</code> package which provides the <code>yum-config-manager</code> utility:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>yum-utils
+</code></pre></div>
+<hr />
+<h2 id="23-add-docker-ce-repository">2.3 Add Docker CE Repository</h2>
+<p>Add the official Docker CE repository for CentOS/RHEL:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>yum-config-manager<span class="w"> </span>--add-repo<span class="w"> </span>https://download.docker.com/linux/centos/docker-ce.repo
+</code></pre></div>
+<p>Verify the repository was added:</p>
+<div class="highlight"><pre><span></span><code>dnf<span class="w"> </span>repolist<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>docker-ce
+</code></pre></div>
+<hr />
+<h2 id="24-install-docker-ce-packages">2.4 Install Docker CE Packages</h2>
+<p>Install Docker CE, CLI, containerd.io, Buildx, and Compose plugin:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>docker-ce<span class="w"> </span>docker-ce-cli<span class="w"> </span>containerd.io<span class="w"> </span>docker-buildx-plugin<span class="w"> </span>docker-compose-plugin
+</code></pre></div>
+<hr />
+<h2 id="25-start-and-enable-docker-service">2.5 Start and Enable Docker Service</h2>
+<p>Start the Docker daemon and enable it to start on boot:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>docker
+sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>docker
+</code></pre></div>
+<p>Verify the service is running:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>status<span class="w"> </span>docker
+</code></pre></div>
+<hr />
+<h2 id="26-verify-installation">2.6 Verify Installation</h2>
+<p>Run the hello-world container to verify Docker is working correctly:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>docker<span class="w"> </span>run<span class="w"> </span>hello-world
+</code></pre></div>
+<p>Check the Docker version:</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>--version
+docker<span class="w"> </span>compose<span class="w"> </span>version
+</code></pre></div>
+<hr />
+<h2 id="27-add-current-user-to-docker-group">2.7 Add Current User to Docker Group</h2>
+<p>Avoid using <code>sudo</code> for every Docker command by adding your user to the <code>docker</code> group:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>usermod<span class="w"> </span>-aG<span class="w"> </span>docker<span class="w"> </span><span class="nv">$USER</span>
+newgrp<span class="w"> </span>docker
+</code></pre></div>
+<p>Verify you can run Docker without sudo:</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>hello-world
+</code></pre></div>
+<hr />
+<h2 id="28-rootless-mode-setup-optional">2.8 Rootless Mode Setup (Optional)</h2>
+<p>Docker can run in rootless mode for enhanced security:</p>
+<h3 id="prerequisites">Prerequisites</h3>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>fuse-overlayfs<span class="w"> </span>slirp4netns<span class="w"> </span>uidmap
+</code></pre></div>
+<h3 id="install-docker-in-rootless-mode">Install Docker in Rootless Mode</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Disable root Docker first</span>
+sudo<span class="w"> </span>systemctl<span class="w"> </span>disable<span class="w"> </span>--now<span class="w"> </span>docker
+
+<span class="c1"># Install rootless Docker</span>
+dockerd-rootless-setuptool.sh<span class="w"> </span>install
+</code></pre></div>
+<h3 id="set-environment-variables">Set Environment Variables</h3>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span>/usr/bin:<span class="nv">$PATH</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">DOCKER_HOST</span><span class="o">=</span>unix:///run/user/<span class="k">$(</span>id<span class="w"> </span>-u<span class="k">)</span>/docker.sock
+</code></pre></div>
+<h3 id="start-rootless-docker">Start Rootless Docker</h3>
+<div class="highlight"><pre><span></span><code>systemctl<span class="w"> </span>--user<span class="w"> </span>start<span class="w"> </span>docker
+systemctl<span class="w"> </span>--user<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>docker
+</code></pre></div>
+<h3 id="verify-rootless-mode">Verify Rootless Mode</h3>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>hello-world
+</code></pre></div>
+<hr />
+<h2 id="29-configure-docker-daemon">2.9 Configure Docker Daemon</h2>
+<p>Edit the Docker daemon configuration file:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>/etc/docker
+sudo<span class="w"> </span>tee<span class="w"> </span>/etc/docker/daemon.json<span class="w"> </span><span class="s">&lt;&lt;EOF</span>
+<span class="s">{</span>
+<span class="s">    &quot;log-driver&quot;: &quot;json-file&quot;,</span>
+<span class="s">    &quot;log-opts&quot;: {</span>
+<span class="s">        &quot;max-size&quot;: &quot;10m&quot;,</span>
+<span class="s">        &quot;max-file&quot;: &quot;3&quot;</span>
+<span class="s">    },</span>
+<span class="s">    &quot;storage-driver&quot;: &quot;overlay2&quot;</span>
+<span class="s">}</span>
+<span class="s">EOF</span>
+</code></pre></div>
+<p>Restart Docker to apply changes:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>daemon-reload
+sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>docker
+</code></pre></div>
+<hr />
+<h2 id="summary">Summary</h2>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Command</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Remove old versions</td>
+<td><code>dnf remove docker*</code></td>
+</tr>
+<tr>
+<td>Install yum-utils</td>
+<td><code>dnf install yum-utils</code></td>
+</tr>
+<tr>
+<td>Add repository</td>
+<td><code>yum-config-manager --add-repo ...</code></td>
+</tr>
+<tr>
+<td>Install Docker CE</td>
+<td><code>dnf install docker-ce ...</code></td>
+</tr>
+<tr>
+<td>Start service</td>
+<td><code>systemctl start docker</code></td>
+</tr>
+<tr>
+<td>Enable on boot</td>
+<td><code>systemctl enable docker</code></td>
+</tr>
+<tr>
+<td>Add user to group</td>
+<td><code>usermod -aG docker $USER</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="quiz">Quiz</h2>
+<details class="question">
+<summary>Question 1: What command removes old Docker versions before a fresh install?</summary>
+<p><strong>Answer:</strong></p>
+<p><code>sudo dnf remove docker docker-client docker-engine</code></p>
+</details>
+<details class="question">
+<summary>Question 2: Which utility package provides yum-config-manager?</summary>
+<p><strong>Answer:</strong></p>
+<p><code>yum-utils</code> — install with <code>sudo dnf install -y yum-utils</code></p>
+</details>
+<details class="question">
+<summary>Question 3: What is the URL of the official Docker CE repository for CentOS?</summary>
+<p><strong>Answer:</strong></p>
+<p><code>https://download.docker.com/linux/centos/docker-ce.repo</code></p>
+</details>
+<details class="question">
+<summary>Question 4: Name the five main Docker CE packages to install.</summary>
+<p><strong>Answer:</strong></p>
+<p><code>docker-ce</code>, <code>docker-ce-cli</code>, <code>containerd.io</code>, <code>docker-buildx-plugin</code>, <code>docker-compose-plugin</code></p>
+</details>
+<details class="question">
+<summary>Question 5: What two commands start and enable the Docker service on boot?</summary>
+<p><strong>Answer:</strong></p>
+<p><code>sudo systemctl start docker</code> and <code>sudo systemctl enable docker</code></p>
+</details>
+<details class="question">
+<summary>Question 6: How do you add your current user to the docker group to avoid using sudo?</summary>
+<p><strong>Answer:</strong></p>
+<p><code>sudo usermod -aG docker $USER</code> then <code>newgrp docker</code></p>
+</details>
+<details class="question">
+<summary>Question 7: What prerequisite packages are needed for rootless Docker mode?</summary>
+<p><strong>Answer:</strong></p>
+<p><code>fuse-overlayfs</code>, <code>slirp4netns</code>, and <code>uidmap</code></p>
+</details>
+<details class="question">
+<summary>Question 8: What is the path to the Docker daemon configuration file?</summary>
+<p><strong>Answer:</strong></p>
+<p><code>/etc/docker/daemon.json</code></p>
+</details>
+<details class="question">
+<summary>Question 9: Which log rotation settings should be configured in daemon.json?</summary>
+<p><strong>Answer:</strong></p>
+<p><code>"max-size": "10m"</code> and <code>"max-file": "3"</code> under the <code>log-opts</code> key</p>
+</details>
+<details class="question">
+<summary>Question 10: What command verifies Docker is installed and working correctly?</summary>
+<p><strong>Answer:</strong></p>
+<p><code>sudo docker run hello-world</code> — it pulls and runs the hello-world image</p>
+</details>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../01-fundamentals/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 1. Fundamentals">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                1. Fundamentals
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../03-basic-operations/" class="md-footer__link md-footer__link--next" aria-label="Next: 3. Basic Operations">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                3. Basic Operations
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2025 sawangpong muadphet
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.top", "navigation.footer"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

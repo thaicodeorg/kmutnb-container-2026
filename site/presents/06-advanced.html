@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Docker Topics</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/reveal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/theme/white.css">
+    <style>
+        .reveal h1 { color: #2c3e50; }
+        .reveal h2 { color: #34495e; }
+        .reveal .slides section { text-align: left; }
+        .reveal ul { margin-left: 20px; }
+        .reveal pre { font-size: 0.6em; }
+        .reveal code { background-color: #f4f4f4; padding: 2px 6px; border-radius: 3px; }
+        .reveal pre code { background-color: #282c34; color: #abb2bf; padding: 10px; }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <section>
+                <h1>Advanced Docker Topics</h1>
+                <p>Security, Logging, Swarm, Kubernetes</p>
+                <p><small>KTU - Computer Science</small></p>
+            </section>
+
+            <section>
+                <h2>Docker Security</h2>
+                <ul>
+                    <li><strong>Rootless Mode:</strong> Run daemon as non-root</li>
+                    <li><strong>User Namespaces:</strong> Remap container root</li>
+                    <li><strong>Seccomp Profiles:</strong> Limit system calls</li>
+                    <li><strong>AppArmor:</strong> Mandatory access control</li>
+                    <li><strong>Read-only containers:</strong> Prevent writes</li>
+                </ul>
+                <pre><code># Run read-only container
+docker run --read-only --tmpfs /tmp nginx
+
+# Drop capabilities
+docker run --cap-drop ALL --cap-add NET_BIND_SERVICE nginx</code></pre>
+            </section>
+
+            <section>
+                <h2>Logging and Monitoring</h2>
+                <pre><code># View container logs
+docker logs --tail 100 --follow &lt;container&gt;
+
+# Configure log driver
+docker run --log-driver=json-file \
+    --log-opt max-size=10m \
+    --log-opt max-file=3 nginx
+
+# Docker stats
+docker stats
+docker stats --no-stream</code></pre>
+            </section>
+
+            <section>
+                <h2>Docker Swarm</h2>
+                <pre><code># Initialize swarm
+docker swarm init
+
+# Join swarm
+docker swarm join --token &lt;token&gt; &lt;manager&gt;
+
+# Deploy service
+docker service create --name web --replicas 3 -p 80:80 nginx
+
+# Scale service
+docker service scale web=5
+
+# List services
+docker service ls</code></pre>
+            </section>
+
+            <section>
+                <h2>Stack Deployment</h2>
+                <pre><code># Deploy stack from compose file
+docker stack deploy -c docker-compose.yml myapp
+
+# List stacks
+docker stack ls
+
+# List services in stack
+docker stack services myapp
+
+# Remove stack
+docker stack rm myapp</code></pre>
+            </section>
+
+            <section>
+                <h2>Kubernetes Overview</h2>
+                <ul>
+                    <li><strong>Pod:</strong> Smallest deployable unit</li>
+                    <li><strong>Deployment:</strong> Manages pod replicas</li>
+                    <li><strong>Service:</strong> Network endpoint for pods</li>
+                    <li><strong>ConfigMap/Secret:</strong> Configuration data</li>
+                    <li><strong>Ingress:</strong> HTTP routing rules</li>
+                </ul>
+                <pre><code>kubectl get pods
+kubectl get services
+kubectl get deployments</code></pre>
+            </section>
+
+            <section>
+                <h1>Thank You</h1>
+                <p><a href="../book/06-advanced.html">Back to Book</a></p>
+            </section>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/reveal.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            slideNumber: true,
+            transition: 'slide'
+        });
+    </script>
+</body>
+</html>

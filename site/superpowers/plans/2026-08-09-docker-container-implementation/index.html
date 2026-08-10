@@ -1,0 +1,1690 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Docker Container Technology Implementation Plan - Kmutnb Docker container</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans+Thai+Looped:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"IBM Plex Sans Thai Looped";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#docker-container-technology-implementation-plan" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Kmutnb Docker container" class="md-header__button md-logo" aria-label="Kmutnb Docker container" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Kmutnb Docker container
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Docker Container Technology Implementation Plan
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Kmutnb Docker container" class="md-nav__button md-logo" aria-label="Kmutnb Docker container" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    Kmutnb Docker container
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Book
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Book
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../book/01-fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Fundamentals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../book/02-installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../book/03-basic-operations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Basic Operations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../book/04-dockerfile/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Dockerfile
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../book/05-docker-compose/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Docker Compose
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../book/06-advanced/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Advanced
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../book/07-workshop-basic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Workshop Basic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../book/08-workshop-webserver/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Workshop Webserver
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../book/09-workshop-fullstack/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Workshop Fullstack
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#global-constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Global Constraints
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#file-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        File Structure
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="File Structure">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-1-create-indexmd-with-wiki-links" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task 1: Create index.md with wiki-links
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-2-create-book-chapter-template" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task 2: Create book chapter template
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-3-create-revealjs-presentation-template" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task 3: Create reveal.js presentation template
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-4-create-all-book-chapters-02-09" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task 4: Create all book chapters (02-09)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rootless-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rootless Mode
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quiz" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quiz
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#containers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Containers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#networking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Networking
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#volumes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Volumes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quiz_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quiz
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multi-stage-builds" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multi-stage Builds
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Best Practices
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quiz_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quiz
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#services-networks-volumes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Services, Networks, Volumes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quiz_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quiz
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quiz_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quiz
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quiz_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quiz
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#frontend-react-typescript" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Frontend (React + TypeScript)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#backend-fastapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Backend (FastAPI)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-the-application" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Running the Application
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quiz_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quiz
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Quiz">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-5-create-all-presentations-02-09" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task 5: Create all presentations (02-09)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-6-update-mkdocsyml-for-navigation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task 6: Update mkdocs.yml for navigation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task-7-final-verification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task 7: Final verification
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementation-order" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation Order
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="docker-container-technology-implementation-plan">Docker Container Technology Implementation Plan</h1>
+<blockquote>
+<p><strong>For agentic workers:</strong> REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (<code>- [ ]</code>) syntax for tracking.</p>
+</blockquote>
+<p><strong>Goal:</strong> Create a complete MkDocs educational resource with 9 book chapters, 9 reveal.js presentations, and 10 quizzes per chapter for teaching Docker Container Technology to CS students.</p>
+<p><strong>Architecture:</strong> Flat file structure with 1:1 mapping between book chapters and presentations. Each book chapter includes a callout linking to its presentation, main content, and 10 quiz questions. Presentations are standalone reveal.js HTML files.</p>
+<p><strong>Tech Stack:</strong> MkDocs, Material for MkDocs theme, reveal.js, Markdown, HTML, TypeScript (workshop example), Python FastAPI (workshop example), PostgreSQL (workshop example)</p>
+<h2 id="global-constraints">Global Constraints</h2>
+<ul>
+<li>Base OS for examples: CentOS 9 Stream</li>
+<li>Language: English</li>
+<li>Theme: Material for MkDocs</li>
+<li>Presentations: reveal.js (standalone HTML)</li>
+<li>Quiz format: Collapsible <code>&lt;details&gt;</code> blocks</li>
+<li>Links: <code>[[wiki-link]]</code> format in index.md</li>
+</ul>
+<hr />
+<h2 id="file-structure">File Structure</h2>
+<div class="highlight"><pre><span></span><code>docs/
+├── index.md                         # Table of contents with wiki-links
+├── book/
+│   ├── 01-fundamentals.md
+│   ├── 02-installation.md
+│   ├── 03-basic-operations.md
+│   ├── 04-dockerfile.md
+│   ├── 05-docker-compose.md
+│   ├── 06-advanced.md
+│   ├── 07-workshop-basic.md
+│   ├── 08-workshop-webserver.md
+│   └── 09-workshop-fullstack.md
+├── presents/
+│   ├── 01-fundamentals.html
+│   ├── 02-installation.html
+│   ├── 03-basic-operations.html
+│   ├── 04-dockerfile.html
+│   ├── 05-docker-compose.html
+│   ├── 06-advanced.html
+│   ├── 07-workshop-basic.html
+│   ├── 08-workshop-webserver.html
+│   └── 09-workshop-fullstack.html
+└── assets/
+    └── logo.png
+</code></pre></div>
+<hr />
+<h3 id="task-1-create-indexmd-with-wiki-links">Task 1: Create index.md with wiki-links</h3>
+<p><strong>Files:</strong>
+- Modify: <code>docs/index.md</code></p>
+<p><strong>Interfaces:</strong>
+- Consumes: None
+- Produces: Table of contents linking to all book chapters and presentations</p>
+<ul>
+<li>[ ] <strong>Step 1: Write index.md content</strong></li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="gu">## Docker Technology</span>
+
+<span class="gu">### Book</span>
+
+<span class="k">-</span><span class="w"> </span>[[book/01-fundamentals|1. Fundamentals]]
+<span class="k">-</span><span class="w"> </span>[[book/02-installation|2. Installation]]
+<span class="k">-</span><span class="w"> </span>[[book/03-basic-operations|3. Basic Operations]]
+<span class="k">-</span><span class="w"> </span>[[book/04-dockerfile|4. Dockerfile]]
+<span class="k">-</span><span class="w"> </span>[[book/05-docker-compose|5. Docker Compose]]
+<span class="k">-</span><span class="w"> </span>[[book/06-advanced|6. Advanced]]
+<span class="k">-</span><span class="w"> </span>[[book/07-workshop-basic|7. Workshop: Basic]]
+<span class="k">-</span><span class="w"> </span>[[book/08-workshop-webserver|8. Workshop: Webserver]]
+<span class="k">-</span><span class="w"> </span>[[book/09-workshop-fullstack|9. Workshop: Fullstack]]
+
+<span class="gu">### Presentations</span>
+
+<span class="k">-</span><span class="w"> </span>[[presents/01-fundamentals|1. Fundamentals Slides]]
+<span class="k">-</span><span class="w"> </span>[[presents/02-installation|2. Installation Slides]]
+<span class="k">-</span><span class="w"> </span>[[presents/03-basic-operations|3. Basic Operations Slides]]
+<span class="k">-</span><span class="w"> </span>[[presents/04-dockerfile|4. Dockerfile Slides]]
+<span class="k">-</span><span class="w"> </span>[[presents/05-docker-compose|5. Docker Compose Slides]]
+<span class="k">-</span><span class="w"> </span>[[presents/06-advanced|6. Advanced Slides]]
+<span class="k">-</span><span class="w"> </span>[[presents/07-workshop-basic|7. Workshop: Basic Slides]]
+<span class="k">-</span><span class="w"> </span>[[presents/08-workshop-webserver|8. Workshop: Webserver Slides]]
+<span class="k">-</span><span class="w"> </span>[[presents/09-workshop-fullstack|9. Workshop: Fullstack Slides]]
+</code></pre></div>
+<ul>
+<li>[ ] <strong>Step 2: Verify links work</strong></li>
+</ul>
+<p>Run: <code>mkdocs serve</code> and click each link in browser</p>
+<ul>
+<li>[ ] <strong>Step 3: Commit</strong></li>
+</ul>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>add<span class="w"> </span>docs/index.md
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;feat: add index.md with wiki-links to all chapters&quot;</span>
+</code></pre></div>
+<hr />
+<h3 id="task-2-create-book-chapter-template">Task 2: Create book chapter template</h3>
+<p><strong>Files:</strong>
+- Create: <code>docs/book/01-fundamentals.md</code> (first chapter as template)</p>
+<p><strong>Interfaces:</strong>
+- Consumes: None
+- Produces: Chapter template with callout, content structure, quiz format</p>
+<ul>
+<li>[ ] <strong>Step 1: Create chapter with callout and quiz structure</strong></li>
+</ul>
+<div class="highlight"><pre><span></span><code>!!! tip &quot;Slides Available&quot;
+    📊 <span class="gs">**View Presentation**</span> → [<span class="nt">Open Slides</span>](<span class="na">../presents/01-fundamentals.html</span>)
+
+<span class="gh"># Fundamentals</span>
+
+<span class="gu">## What are Containers?</span>
+
+[Content here]
+
+<span class="gu">## VMs vs Containers</span>
+
+[Content here]
+
+<span class="gu">## Docker Architecture</span>
+
+[Content here]
+
+---
+
+<span class="gu">## Quiz</span>
+
+??? question &quot;Question 1: What is a container?&quot;
+    <span class="gs">**Answer:**</span>
+
+    A lightweight, standalone, executable package that includes everything needed to run a piece of software.
+
+??? question &quot;Question 2: What is the difference between a VM and a container?&quot;
+    <span class="gs">**Answer:**</span>
+
+    VMs virtualize hardware, containers virtualize the OS kernel.
+
+[Continue for 10 questions]
+</code></pre></div>
+<ul>
+<li>[ ] <strong>Step 2: Verify rendering</strong></li>
+</ul>
+<p>Run: <code>mkdocs serve</code> and check callout, collapsible quizzes render correctly</p>
+<ul>
+<li>[ ] <strong>Step 3: Commit</strong></li>
+</ul>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>add<span class="w"> </span>docs/book/01-fundamentals.md
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;feat: add chapter template with callout and quiz structure&quot;</span>
+</code></pre></div>
+<hr />
+<h3 id="task-3-create-revealjs-presentation-template">Task 3: Create reveal.js presentation template</h3>
+<p><strong>Files:</strong>
+- Create: <code>docs/presents/01-fundamentals.html</code></p>
+<p><strong>Interfaces:</strong>
+- Consumes: None
+- Produces: reveal.js HTML template for all presentations</p>
+<ul>
+<li>[ ] <strong>Step 1: Create reveal.js HTML template</strong></li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;!doctype html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span> <span class="na">lang</span><span class="o">=</span><span class="s">&quot;en&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;utf-8&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;viewport&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;width=device-width, initial-scale=1.0&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>Docker Fundamentals<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/reveal.css&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/theme/white.css&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;reveal&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;slides&quot;</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">section</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>Docker Fundamentals<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Container Technology for Computer Science<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+            <span class="p">&lt;/</span><span class="nt">section</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">section</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span>What are Containers?<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
+                    <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>Lightweight<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+                    <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>Standalone<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+                    <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>Executable<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+                <span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+            <span class="p">&lt;/</span><span class="nt">section</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">section</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span>VMs vs Containers<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>[Content]<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+            <span class="p">&lt;/</span><span class="nt">section</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">section</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span>Docker Architecture<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>[Content]<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+            <span class="p">&lt;/</span><span class="nt">section</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">section</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>Thank You<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;../book/01-fundamentals.html&quot;</span><span class="p">&gt;</span>Back to Book<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+            <span class="p">&lt;/</span><span class="nt">section</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/reveal.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="w">        </span><span class="nx">Reveal</span><span class="p">.</span><span class="nx">initialize</span><span class="p">({</span>
+<span class="w">            </span><span class="nx">hash</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">            </span><span class="nx">slideNumber</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">        </span><span class="p">});</span>
+<span class="w">    </span><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</code></pre></div>
+<ul>
+<li>[ ] <strong>Step 2: Verify presentation opens</strong></li>
+</ul>
+<p>Run: <code>mkdocs serve</code> and open <code>http://127.0.0.1:8000/presents/01-fundamentals.html</code></p>
+<ul>
+<li>[ ] <strong>Step 3: Commit</strong></li>
+</ul>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>add<span class="w"> </span>docs/presents/01-fundamentals.html
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;feat: add reveal.js presentation template&quot;</span>
+</code></pre></div>
+<hr />
+<h3 id="task-4-create-all-book-chapters-02-09">Task 4: Create all book chapters (02-09)</h3>
+<p><strong>Files:</strong>
+- Create: <code>docs/book/02-installation.md</code>
+- Create: <code>docs/book/03-basic-operations.md</code>
+- Create: <code>docs/book/04-dockerfile.md</code>
+- Create: <code>docs/book/05-docker-compose.md</code>
+- Create: <code>docs/book/06-advanced.md</code>
+- Create: <code>docs/book/07-workshop-basic.md</code>
+- Create: <code>docs/book/08-workshop-webserver.md</code>
+- Create: <code>docs/book/09-workshop-fullstack.md</code></p>
+<p><strong>Interfaces:</strong>
+- Consumes: Template from Task 2
+- Produces: All 9 book chapters with content and quizzes</p>
+<ul>
+<li>[ ] <strong>Step 1: Create 02-installation.md</strong></li>
+</ul>
+<div class="highlight"><pre><span></span><code>!!! tip &quot;Slides Available&quot;
+    📊 <span class="gs">**View Presentation**</span> → [<span class="nt">Open Slides</span>](<span class="na">../presents/02-installation.html</span>)
+
+<span class="gh"># Installation</span>
+
+<span class="gu">## Prerequisites</span>
+
+<span class="k">-</span><span class="w"> </span>CentOS 9 Stream
+<span class="k">-</span><span class="w"> </span>Root access or sudo privileges
+
+<span class="gu">## Install Docker CE</span>
+
+```bash
+<span class="gh"># Remove old versions</span>
+sudo dnf remove docker \
+    docker-client \
+    docker-client-latest \
+    docker-common \
+    docker-latest \
+    docker-latest-logrotate \
+    docker-logrotate \
+    docker-engine
+
+<span class="gh"># Install yum-utils</span>
+sudo dnf install -y yum-utils
+
+<span class="gh"># Add Docker repository</span>
+sudo dnf config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+
+<span class="gh"># Install Docker</span>
+sudo dnf install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+<span class="gh"># Start and enable Docker</span>
+sudo systemctl start docker
+sudo systemctl enable docker
+</code></pre></div>
+<h2 id="rootless-mode">Rootless Mode</h2>
+<p>[Content here]</p>
+<hr />
+<h2 id="quiz">Quiz</h2>
+<p>[10 questions about installation]
+<div class="highlight"><pre><span></span><code>- [ ] **Step 2: Create 03-basic-operations.md**
+
+```markdown
+!!! tip &quot;Slides Available&quot;
+    📊 **View Presentation** → [Open Slides](../presents/03-basic-operations.html)
+
+# Basic Operations
+
+## Images
+
+```bash
+# List images
+docker images
+
+# Pull image
+docker pull centos:stream9
+
+# Search images
+docker search nginx
+</code></pre></div></p>
+<h2 id="containers">Containers</h2>
+<div class="highlight"><pre><span></span><code><span class="c1"># Run container</span>
+docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>--name<span class="w"> </span>my-nginx<span class="w"> </span>-p<span class="w"> </span><span class="m">8080</span>:80<span class="w"> </span>nginx
+
+<span class="c1"># List containers</span>
+docker<span class="w"> </span>ps<span class="w"> </span>-a
+
+<span class="c1"># Stop container</span>
+docker<span class="w"> </span>stop<span class="w"> </span>my-nginx
+
+<span class="c1"># Remove container</span>
+docker<span class="w"> </span>rm<span class="w"> </span>my-nginx
+</code></pre></div>
+<h2 id="networking">Networking</h2>
+<p>[Content here]</p>
+<h2 id="volumes">Volumes</h2>
+<p>[Content here]</p>
+<hr />
+<h2 id="quiz_1">Quiz</h2>
+<p>[10 questions about basic operations]
+<div class="highlight"><pre><span></span><code>- [ ] **Step 3: Create 04-dockerfile.md**
+
+```markdown
+!!! tip &quot;Slides Available&quot;
+    📊 **View Presentation** → [Open Slides](../presents/04-dockerfile.html)
+
+# Dockerfile
+
+## Basic Instructions
+
+```dockerfile
+FROM centos:stream9
+WORKDIR /app
+COPY . .
+RUN dnf install -y python3
+CMD [&quot;python3&quot;, &quot;app.py&quot;]
+</code></pre></div></p>
+<h2 id="multi-stage-builds">Multi-stage Builds</h2>
+<div class="highlight"><pre><span></span><code><span class="c"># Build stage</span>
+<span class="k">FROM</span><span class="w"> </span><span class="s">node:18-alpine</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="s">builder</span>
+<span class="k">WORKDIR</span><span class="w"> </span><span class="s">/app</span>
+<span class="k">COPY</span><span class="w"> </span>package*.json<span class="w"> </span>.
+<span class="k">RUN</span><span class="w"> </span>npm<span class="w"> </span>install
+<span class="k">COPY</span><span class="w"> </span>.<span class="w"> </span>.
+<span class="k">RUN</span><span class="w"> </span>npm<span class="w"> </span>run<span class="w"> </span>build
+
+<span class="c"># Production stage</span>
+<span class="k">FROM</span><span class="w"> </span><span class="s">nginx:alpine</span>
+<span class="k">COPY</span><span class="w"> </span>--from<span class="o">=</span>builder<span class="w"> </span>/app/dist<span class="w"> </span>/usr/share/nginx/html
+</code></pre></div>
+<h2 id="best-practices">Best Practices</h2>
+<p>[Content here]</p>
+<hr />
+<h2 id="quiz_2">Quiz</h2>
+<p>[10 questions about Dockerfile]
+<div class="highlight"><pre><span></span><code>- [ ] **Step 4: Create 05-docker-compose.md**
+
+```markdown
+!!! tip &quot;Slides Available&quot;
+    📊 **View Presentation** → [Open Slides](../presents/05-docker-compose.html)
+
+# Docker Compose
+
+## YAML Syntax
+
+```yaml
+version: &#39;3.8&#39;
+services:
+  web:
+    image: nginx:alpine
+    ports:
+      - &quot;80:80&quot;
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_PASSWORD: secret
+</code></pre></div></p>
+<h2 id="services-networks-volumes">Services, Networks, Volumes</h2>
+<p>[Content here]</p>
+<hr />
+<h2 id="quiz_3">Quiz</h2>
+<p>[10 questions about Docker Compose]
+<div class="highlight"><pre><span></span><code>- [ ] **Step 5: Create 06-advanced.md**
+
+```markdown
+!!! tip &quot;Slides Available&quot;
+    📊 **View Presentation** → [Open Slides](../presents/06-advanced.html)
+
+# Advanced Topics
+
+## Security
+
+[Content here]
+
+## Logging &amp; Monitoring
+
+[Content here]
+
+## Docker Swarm
+
+[Content here]
+
+## Kubernetes Overview
+
+[Content here]
+
+---
+
+## Quiz
+
+[10 questions about advanced topics]
+</code></pre></div></p>
+<ul>
+<li>[ ] <strong>Step 6: Create 07-workshop-basic.md</strong></li>
+</ul>
+<div class="highlight"><pre><span></span><code>!!! tip &quot;Slides Available&quot;
+    📊 <span class="gs">**View Presentation**</span> → [<span class="nt">Open Slides</span>](<span class="na">../presents/07-workshop-basic.html</span>)
+
+<span class="gh"># Workshop: Basic Operations</span>
+
+<span class="gu">## Objectives</span>
+
+<span class="k">-</span><span class="w"> </span>Run a container
+<span class="k">-</span><span class="w"> </span>Exec into a container
+<span class="k">-</span><span class="w"> </span>Stop and remove containers
+
+<span class="gu">## Lab Exercise</span>
+
+```bash
+<span class="gh"># Step 1: Run CentOS container</span>
+docker run -it --name lab-centos centos:stream9 /bin/bash
+
+<span class="gh"># Step 2: Inside container, check OS</span>
+cat /etc/os-release
+
+<span class="gh"># Step 3: Exit container</span>
+exit
+
+<span class="gh"># Step 4: List containers</span>
+docker ps -a
+
+<span class="gh"># Step 5: Stop container</span>
+docker stop lab-centos
+
+<span class="gh"># Step 6: Remove container</span>
+docker rm lab-centos
+</code></pre></div>
+<hr />
+<h2 id="quiz_4">Quiz</h2>
+<p>[10 questions about basic operations]
+<div class="highlight"><pre><span></span><code>- [ ] **Step 7: Create 08-workshop-webserver.md**
+
+```markdown
+!!! tip &quot;Slides Available&quot;
+    📊 **View Presentation** → [Open Slides](../presents/08-workshop-webserver.html)
+
+# Workshop: Web Server
+
+## Objectives
+
+- Deploy Nginx on CentOS 9 Stream
+- Custom configuration
+- SSL setup
+
+## Lab Exercise
+
+```bash
+# Step 1: Create project directory
+mkdir -p ~/nginx-docker &amp;&amp; cd ~/nginx-docker
+
+# Step 2: Create Dockerfile
+cat &gt; Dockerfile &lt;&lt; &#39;EOF&#39;
+FROM centos:stream9
+RUN dnf install -y nginx
+COPY nginx.conf /etc/nginx/nginx.conf
+EXPOSE 80
+CMD [&quot;nginx&quot;, &quot;-g&quot;, &quot;daemon off;&quot;]
+EOF
+
+# Step 3: Create custom nginx.conf
+cat &gt; nginx.conf &lt;&lt; &#39;EOF&#39;
+events {}
+http {
+    server {
+        listen 80;
+        location / {
+            root /usr/share/nginx/html;
+            index index.html;
+        }
+    }
+}
+EOF
+
+# Step 4: Build and run
+docker build -t my-nginx .
+docker run -d -p 8080:80 my-nginx
+</code></pre></div></p>
+<hr />
+<h2 id="quiz_5">Quiz</h2>
+<p>[10 questions about web server]
+<div class="highlight"><pre><span></span><code>- [ ] **Step 8: Create 09-workshop-fullstack.md**
+
+```markdown
+!!! tip &quot;Slides Available&quot;
+    📊 **View Presentation** → [Open Slides](../presents/09-workshop-fullstack.html)
+
+# Workshop: Fullstack Application
+
+## Architecture
+
+| Component | Technology |
+|-----------|------------|
+| Frontend | ReactJS + TypeScript |
+| Backend | FastAPI |
+| Database | PostgreSQL |
+| Proxy | Nginx |
+
+## Project Structure
+</code></pre></div>
+fullstack-app/
+├── docker-compose.yml
+├── frontend/
+│   ├── Dockerfile
+│   ├── package.json
+│   └── src/
+├── backend/
+│   ├── Dockerfile
+│   ├── requirements.txt
+│   └── app/
+└── nginx/
+    └── nginx.conf
+<div class="highlight"><pre><span></span><code>## docker-compose.yml
+
+```yaml
+version: &#39;3.8&#39;
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: appdb
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: secret
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  backend:
+    build: ./backend
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgresql://user:secret@db:5432/appdb
+
+  frontend:
+    build: ./frontend
+    depends_on:
+      - backend
+
+  nginx:
+    image: nginx:alpine
+    ports:
+      - &quot;80:80&quot;
+    depends_on:
+      - frontend
+      - backend
+
+volumes:
+  pgdata:
+</code></pre></div></p>
+<h2 id="frontend-react-typescript">Frontend (React + TypeScript)</h2>
+<div class="highlight"><pre><span></span><code><span class="k">FROM</span><span class="w"> </span><span class="s">node:18-alpine</span>
+<span class="k">WORKDIR</span><span class="w"> </span><span class="s">/app</span>
+<span class="k">COPY</span><span class="w"> </span>package*.json<span class="w"> </span>.
+<span class="k">RUN</span><span class="w"> </span>npm<span class="w"> </span>install
+<span class="k">COPY</span><span class="w"> </span>.<span class="w"> </span>.
+<span class="k">RUN</span><span class="w"> </span>npm<span class="w"> </span>run<span class="w"> </span>build
+<span class="k">FROM</span><span class="w"> </span><span class="s">nginx:alpine</span>
+<span class="k">COPY</span><span class="w"> </span>--from<span class="o">=</span><span class="m">0</span><span class="w"> </span>/app/dist<span class="w"> </span>/usr/share/nginx/html
+</code></pre></div>
+<h2 id="backend-fastapi">Backend (FastAPI)</h2>
+<div class="highlight"><pre><span></span><code><span class="k">FROM</span><span class="w"> </span><span class="s">python:3.11-slim</span>
+<span class="k">WORKDIR</span><span class="w"> </span><span class="s">/app</span>
+<span class="k">COPY</span><span class="w"> </span>requirements.txt<span class="w"> </span>.
+<span class="k">RUN</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+<span class="k">COPY</span><span class="w"> </span>.<span class="w"> </span>.
+<span class="k">CMD</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;uvicorn&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;app.main:app&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;--host&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;0.0.0.0&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;--port&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;8000&quot;</span><span class="p">]</span>
+</code></pre></div>
+<h2 id="running-the-application">Running the Application</h2>
+<div class="highlight"><pre><span></span><code>docker-compose<span class="w"> </span>up<span class="w"> </span>-d
+</code></pre></div>
+<hr />
+<h2 id="quiz_6">Quiz</h2>
+<p>[10 questions about fullstack workshop]
+<div class="highlight"><pre><span></span><code>- [ ] **Step 9: Commit all chapters**
+
+```bash
+git add docs/book/
+git commit -m &quot;feat: add all book chapters with content and quizzes&quot;
+</code></pre></div></p>
+<hr />
+<h3 id="task-5-create-all-presentations-02-09">Task 5: Create all presentations (02-09)</h3>
+<p><strong>Files:</strong>
+- Create: <code>docs/presents/02-installation.html</code>
+- Create: <code>docs/presents/03-basic-operations.html</code>
+- Create: <code>docs/presents/04-dockerfile.html</code>
+- Create: <code>docs/presents/05-docker-compose.html</code>
+- Create: <code>docs/presents/06-advanced.html</code>
+- Create: <code>docs/presents/07-workshop-basic.html</code>
+- Create: <code>docs/presents/08-workshop-webserver.html</code>
+- Create: <code>docs/presents/09-workshop-fullstack.html</code></p>
+<p><strong>Interfaces:</strong>
+- Consumes: Template from Task 3
+- Produces: All 9 reveal.js presentations</p>
+<ul>
+<li>[ ] <strong>Step 1: Create 02-installation.html</strong></li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;!doctype html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span> <span class="na">lang</span><span class="o">=</span><span class="s">&quot;en&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;utf-8&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;viewport&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;width=device-width, initial-scale=1.0&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>Docker Installation<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/reveal.css&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/theme/white.css&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;reveal&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;slides&quot;</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">section</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>Docker Installation<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>CentOS 9 Stream Setup<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+            <span class="p">&lt;/</span><span class="nt">section</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">section</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span>Prerequisites<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
+                    <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>CentOS 9 Stream<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+                    <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>Root/sudo access<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+                    <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>Internet connection<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+                <span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+            <span class="p">&lt;/</span><span class="nt">section</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">section</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span>Install Docker CE<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">pre</span><span class="p">&gt;&lt;</span><span class="nt">code</span><span class="p">&gt;</span>sudo dnf install -y docker-ce<span class="p">&lt;/</span><span class="nt">code</span><span class="p">&gt;&lt;/</span><span class="nt">pre</span><span class="p">&gt;</span>
+            <span class="p">&lt;/</span><span class="nt">section</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">section</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>Thank You<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;../book/02-installation.html&quot;</span><span class="p">&gt;</span>Back to Book<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+            <span class="p">&lt;/</span><span class="nt">section</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/reveal.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="w">        </span><span class="nx">Reveal</span><span class="p">.</span><span class="nx">initialize</span><span class="p">({</span>
+<span class="w">            </span><span class="nx">hash</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">            </span><span class="nx">slideNumber</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">        </span><span class="p">});</span>
+<span class="w">    </span><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</code></pre></div>
+<ul>
+<li>[ ] <strong>Step 2: Create remaining presentations (03-09)</strong></li>
+</ul>
+<p>Repeat similar structure for each presentation, adapting content to match book chapters.</p>
+<ul>
+<li>[ ] <strong>Step 3: Commit all presentations</strong></li>
+</ul>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>add<span class="w"> </span>docs/presents/
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;feat: add all reveal.js presentations&quot;</span>
+</code></pre></div>
+<hr />
+<h3 id="task-6-update-mkdocsyml-for-navigation">Task 6: Update mkdocs.yml for navigation</h3>
+<p><strong>Files:</strong>
+- Modify: <code>mkdocs.yml</code></p>
+<p><strong>Interfaces:</strong>
+- Consumes: All created files
+- Produces: Updated MkDocs configuration</p>
+<ul>
+<li>[ ] <strong>Step 1: Update mkdocs.yml</strong></li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nt">site_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Kmutnb modern infrastructure</span>
+<span class="nt">theme</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">logo</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">assets/logo.png</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">material</span>
+<span class="w">  </span><span class="nt">font</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">text</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">IBM Plex Sans Thai Looped</span>
+<span class="w">  </span><span class="nt">features</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">navigation.top</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">navigation.footer</span>
+
+<span class="nt">nav</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Home</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">index.md</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Book</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">1. Fundamentals</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">book/01-fundamentals.md</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">2. Installation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">book/02-installation.md</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">3. Basic Operations</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">book/03-basic-operations.md</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">4. Dockerfile</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">book/04-dockerfile.md</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">5. Docker Compose</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">book/05-docker-compose.md</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">6. Advanced</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">book/06-advanced.md</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">7. Workshop Basic</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">book/07-workshop-basic.md</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">8. Workshop Webserver</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">book/08-workshop-webserver.md</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">9. Workshop Fullstack</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">book/09-workshop-fullstack.md</span>
+
+<span class="nt">markdown_extensions</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">admonition</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pymdownx.details</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pymdownx.superfences</span>
+
+<span class="nt">copyright</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Copyright &amp;copy; 2025 sawangpong muadphet</span>
+</code></pre></div>
+<ul>
+<li>[ ] <strong>Step 2: Verify navigation works</strong></li>
+</ul>
+<p>Run: <code>mkdocs serve</code> and check sidebar navigation</p>
+<ul>
+<li>[ ] <strong>Step 3: Commit</strong></li>
+</ul>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>add<span class="w"> </span>mkdocs.yml
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;feat: update mkdocs.yml with navigation and extensions&quot;</span>
+</code></pre></div>
+<hr />
+<h3 id="task-7-final-verification">Task 7: Final verification</h3>
+<p><strong>Files:</strong>
+- None (verification only)</p>
+<p><strong>Interfaces:</strong>
+- Consumes: All created files
+- Produces: Verified working documentation site</p>
+<ul>
+<li>[ ] <strong>Step 1: Build site</strong></li>
+</ul>
+<p>Run: <code>mkdocs build</code></p>
+<ul>
+<li>[ ] <strong>Step 2: Serve and test all links</strong></li>
+</ul>
+<p>Run: <code>mkdocs serve</code></p>
+<ul>
+<li>[ ] <strong>Step 3: Verify all wiki-links work</strong></li>
+</ul>
+<p>Click each link in index.md</p>
+<ul>
+<li>[ ] <strong>Step 4: Verify all presentation links work</strong></li>
+</ul>
+<p>Click each "View Presentation" callout in book chapters</p>
+<ul>
+<li>[ ] <strong>Step 5: Verify quizzes render</strong></li>
+</ul>
+<p>Check collapsible quiz sections in each chapter</p>
+<ul>
+<li>[ ] <strong>Step 6: Final commit</strong></li>
+</ul>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>add<span class="w"> </span>-A
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;docs: complete Docker Container Technology documentation&quot;</span>
+</code></pre></div>
+<hr />
+<h2 id="implementation-order">Implementation Order</h2>
+<ol>
+<li>Task 1: index.md</li>
+<li>Task 2: Chapter template</li>
+<li>Task 3: Presentation template</li>
+<li>Task 4: All book chapters</li>
+<li>Task 5: All presentations</li>
+<li>Task 6: mkdocs.yml</li>
+<li>Task 7: Final verification</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2025 sawangpong muadphet
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.top", "navigation.footer"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

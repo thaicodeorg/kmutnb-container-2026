@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Docker Compose</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/reveal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/theme/white.css">
+    <style>
+        .reveal h1 { color: #2c3e50; }
+        .reveal h2 { color: #34495e; }
+        .reveal .slides section { text-align: left; }
+        .reveal ul { margin-left: 20px; }
+        .reveal pre { font-size: 0.6em; }
+        .reveal code { background-color: #f4f4f4; padding: 2px 6px; border-radius: 3px; }
+        .reveal pre code { background-color: #282c34; color: #abb2bf; padding: 10px; }
+        .reveal .mermaid { text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <section>
+                <h1>Docker Compose</h1>
+                <p>Multi-Container Applications</p>
+                <p><small>KTU - Computer Science</small></p>
+            </section>
+
+            <section>
+                <h2>Multi-Container Architecture</h2>
+                <div class="mermaid">
+                    graph TB
+                        subgraph docker-compose.yml
+                            S1[Service: frontend]
+                            S2[Service: backend]
+                            S3[Service: database]
+                        end
+                        subgraph Networks
+                            N1[frontend-net]
+                            N2[backend-net]
+                        end
+                        subgraph Volumes
+                            V1[db-data]
+                        end
+                        S1 --> N1
+                        S2 --> N1
+                        S2 --> N2
+                        S3 --> N2
+                        S3 --> V1
+                </div>
+            </section>
+
+            <section>
+                <h2>YAML Syntax</h2>
+                <pre><code># Indentation matters (2 spaces)
+services:
+  web:
+    image: nginx:latest
+    ports:
+      - "8080:80"
+
+# Lists use dashes
+environment:
+  - APP_ENV=production
+  - DEBUG=false
+
+# Strings with special characters need quotes
+command: "echo 'hello world'"</code></pre>
+            </section>
+
+            <section>
+                <h2>Services Definition</h2>
+                <pre><code>services:
+  web:
+    image: nginx:latest
+    container_name: webserver
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    environment:
+      - NGINX_HOST=localhost
+    volumes:
+      - ./html:/usr/share/nginx/html
+    depends_on:
+      - api
+    networks:
+      - frontend</code></pre>
+            </section>
+
+            <section>
+                <h2>Networks and Volumes</h2>
+                <pre><code>services:
+  db:
+    image: postgres:15
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - backend
+
+volumes:
+  pgdata:
+
+networks:
+  frontend:
+  backend:</code></pre>
+            </section>
+
+            <section>
+                <h2>Environment Variables</h2>
+                <pre><code>services:
+  app:
+    image: myapp
+    env_file:
+      - .env
+    environment:
+      - DB_HOST=db
+      - DB_PORT=5432
+    secrets:
+      - db_password
+
+secrets:
+  db_password:
+    file: ./secrets/db_password.txt</code></pre>
+            </section>
+
+            <section>
+                <h2>Common Commands</h2>
+                <pre><code># Start all services
+docker compose up -d
+
+# Stop all services
+docker compose down
+
+# View running services
+docker compose ps
+
+# View logs
+docker compose logs -f
+
+# Build images
+docker compose build
+
+# Scale service
+docker compose up -d --scale api=3</code></pre>
+            </section>
+
+            <section>
+                <h1>Thank You</h1>
+                <p><a href="../book/05-docker-compose/">Back to Book</a></p>
+            </section>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            slideNumber: true,
+            transition: 'slide'
+        });
+        mermaid.initialize({ 
+            startOnLoad: false, 
+            theme: 'default',
+            flowchart: { useMaxWidth: true, htmlLabels: true }
+        });
+        Reveal.on('slidechanged', (event) => {
+            const mermaidDivs = event.currentSlide.querySelectorAll('.mermaid');
+            if (mermaidDivs.length > 0) {
+                mermaid.init(undefined, mermaidDivs);
+            }
+        });
+    </script>
+</body>
+</html>

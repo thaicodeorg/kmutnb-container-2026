@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 350">
+  <defs>
+    <linearGradient id="vmGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#e74c3c;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#c0392b;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="containerGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#3498db;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2980b9;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="800" height="350" fill="#f8f9fa"/>
+  
+  <!-- Title -->
+  <text x="400" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="#2c3e50">Virtual Machines vs Containers</text>
+  
+  <!-- VM Section -->
+  <rect x="30" y="50" width="350" height="280" rx="10" fill="white" stroke="#e74c3c" stroke-width="2"/>
+  <text x="205" y="75" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#e74c3c">Virtual Machines</text>
+  
+  <!-- VM Hardware -->
+  <rect x="50" y="270" width="310" height="40" rx="5" fill="#95a5a6" stroke="#7f8c8d" stroke-width="1"/>
+  <text x="205" y="295" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">Hardware</text>
+  
+  <!-- VM Host OS -->
+  <rect x="50" y="220" width="310" height="40" rx="5" fill="#34495e" stroke="#2c3e50" stroke-width="1"/>
+  <text x="205" y="245" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">Host OS</text>
+  
+  <!-- VM Hypervisor -->
+  <rect x="50" y="170" width="310" height="40" rx="5" fill="#9b59b6" stroke="#8e44ad" stroke-width="1"/>
+  <text x="205" y="195" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">Hypervisor</text>
+  
+  <!-- VM 1 -->
+  <rect x="50" y="90" width="95" height="70" rx="5" fill="url(#vmGrad)" stroke="#c0392b" stroke-width="1"/>
+  <text x="97" y="115" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">App A</text>
+  <text x="97" y="130" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#e0e0e0">Bins/Libs</text>
+  <text x="97" y="145" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#e0e0e0">Guest OS</text>
+  
+  <!-- VM 2 -->
+  <rect x="155" y="90" width="95" height="70" rx="5" fill="url(#vmGrad)" stroke="#c0392b" stroke-width="1"/>
+  <text x="202" y="115" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">App B</text>
+  <text x="202" y="130" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#e0e0e0">Bins/Libs</text>
+  <text x="202" y="145" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#e0e0e0">Guest OS</text>
+  
+  <!-- VM 3 -->
+  <rect x="260" y="90" width="95" height="70" rx="5" fill="url(#vmGrad)" stroke="#c0392b" stroke-width="1"/>
+  <text x="307" y="115" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">App C</text>
+  <text x="307" y="130" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#e0e0e0">Bins/Libs</text>
+  <text x="307" y="145" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#e0e0e0">Guest OS</text>
+  
+  <!-- Container Section -->
+  <rect x="420" y="50" width="350" height="280" rx="10" fill="white" stroke="#3498db" stroke-width="2"/>
+  <text x="595" y="75" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#3498db">Containers</text>
+  
+  <!-- Container Hardware -->
+  <rect x="440" y="270" width="310" height="40" rx="5" fill="#95a5a6" stroke="#7f8c8d" stroke-width="1"/>
+  <text x="595" y="295" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">Hardware</text>
+  
+  <!-- Container Host OS -->
+  <rect x="440" y="220" width="310" height="40" rx="5" fill="#34495e" stroke="#2c3e50" stroke-width="1"/>
+  <text x="595" y="245" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">Host OS</text>
+  
+  <!-- Container Docker Engine -->
+  <rect x="440" y="170" width="310" height="40" rx="5" fill="#2496ED" stroke="#1a7bc4" stroke-width="1"/>
+  <text x="595" y="195" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white">Docker Engine</text>
+  
+  <!-- Container 1 -->
+  <rect x="440" y="90" width="95" height="70" rx="5" fill="url(#containerGrad)" stroke="#2980b9" stroke-width="1"/>
+  <text x="487" y="115" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">App A</text>
+  <text x="487" y="130" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#e0e0e0">Bins/Libs</text>
+  <text x="487" y="145" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#e0e0e0">Shared Kernel</text>
+  
+  <!-- Container 2 -->
+  <rect x="545" y="90" width="95" height="70" rx="5" fill="url(#containerGrad)" stroke="#2980b9" stroke-width="1"/>
+  <text x="592" y="115" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">App B</text>
+  <text x="592" y="130" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#e0e0e0">Bins/Libs</text>
+  <text x="592" y="145" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#e0e0e0">Shared Kernel</text>
+  
+  <!-- Container 3 -->
+  <rect x="650" y="90" width="95" height="70" rx="5" fill="url(#containerGrad)" stroke="#2980b9" stroke-width="1"/>
+  <text x="697" y="115" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">App C</text>
+  <text x="697" y="130" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#e0e0e0">Bins/Libs</text>
+  <text x="697" y="145" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#e0e0e0">Shared Kernel</text>
+  
+  <!-- Comparison labels -->
+  <text x="205" y="330" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#e74c3c">Heavyweight • Full OS per app • Slow startup</text>
+  <text x="595" y="330" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#3498db">Lightweight • Shared kernel • Fast startup</text>
+</svg>

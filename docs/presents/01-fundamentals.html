@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Docker Fundamentals</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/reveal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/theme/white.css">
+    <style>
+        .reveal h1 { color: #2c3e50; }
+        .reveal h2 { color: #34495e; }
+        .reveal .slides section { text-align: left; }
+        .reveal ul { margin-left: 20px; }
+        .reveal table { margin: 20px auto; border-collapse: collapse; font-size: 0.8em; }
+        .reveal table th, .reveal table td { border: 1px solid #ddd; padding: 8px 12px; }
+        .reveal table th { background-color: #3498db; color: white; }
+        .reveal .mermaid { text-align: center; }
+        .reveal blockquote { border-left: 4px solid #3498db; padding-left: 20px; margin: 20px 0; font-style: italic; }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <!-- Slide 1: Title -->
+            <section>
+                <h1>Docker Fundamentals</h1>
+                <p>Container Technology for Computer Science</p>
+                <p><small>KTU - Computer Science</small></p>
+            </section>
+
+            <!-- Slide 2: What are Containers -->
+            <section>
+                <h2>What are Containers?</h2>
+                <ul>
+                    <li>Lightweight, standalone packages</li>
+                    <li>Include everything needed to run software</li>
+                    <li>Isolated from each other</li>
+                    <li>Share host OS kernel</li>
+                    <li>Portable across environments</li>
+                </ul>
+                <blockquote>"A container is a standard unit of software that packages up code and all its dependencies so the application runs quickly and reliably from one computing environment to another."</blockquote>
+                <p><small>- Docker Documentation</small></p>
+            </section>
+
+            <!-- Slide 3: VMs vs Containers -->
+            <section>
+                <h2>VMs vs Containers</h2>
+                <img src="../assets/images/vm-vs-container.svg" alt="Virtual Machines vs Containers Comparison" style="max-width: 100%; height: auto;">
+            </section>
+
+            <!-- Slide 4: Benefits of Containers -->
+            <section>
+                <h2>Benefits of Containers</h2>
+                <table>
+                    <tr>
+                        <th>Benefit</th>
+                        <th>Description</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Speed</strong></td>
+                        <td>Start in seconds, no OS boot required</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Size</strong></td>
+                        <td>MBs vs GBs for VMs</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Portability</strong></td>
+                        <td>Run anywhere: laptop, server, cloud</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Consistency</strong></td>
+                        <td>Same environment in dev, test, prod</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Isolation</strong></td>
+                        <td>Apps don't interfere with each other</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Efficiency</strong></td>
+                        <td>Higher density: more apps per server</td>
+                    </tr>
+                </table>
+            </section>
+
+            <!-- Slide 5: Docker Architecture -->
+            <section>
+                <h2>Docker Architecture</h2>
+                <img src="../assets/images/docker-architecture.svg" alt="Docker Architecture Diagram" style="max-width: 100%; height: auto;">
+            </section>
+
+            <!-- Slide 6: Docker Components -->
+            <section>
+                <h2>Docker Components</h2>
+                <table>
+                    <tr>
+                        <th>Component</th>
+                        <th>Description</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Docker Client</strong></td>
+                        <td>CLI tool that sends commands to daemon</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Docker Daemon</strong></td>
+                        <td>Background service managing Docker objects</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Docker Registry</strong></td>
+                        <td>Storage for Docker images (Docker Hub)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Image</strong></td>
+                        <td>Read-only template for creating containers</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Container</strong></td>
+                        <td>Runnable instance of an image</td>
+                    </tr>
+                </table>
+            </section>
+
+            <!-- Slide 7: Container Lifecycle -->
+            <section>
+                <h2>Container Lifecycle</h2>
+                <img src="../assets/images/container-lifecycle.svg" alt="Docker Container Lifecycle" style="max-width: 100%; height: auto;">
+            </section>
+
+            <!-- Slide 8: Docker Use Cases -->
+            <section>
+                <h2>Docker Use Cases</h2>
+                <ul>
+                    <li><strong>Microservices:</strong> Deploy independent services</li>
+                    <li><strong>CI/CD Pipelines:</strong> Consistent build environments</li>
+                    <li><strong>Development Environments:</strong> "Works on my machine" solved</li>
+                    <li><strong>Testing:</strong> Isolated test environments</li>
+                    <li><strong>Cloud Migration:</strong> Portable applications</li>
+                    <li><strong>Legacy App Modernization:</strong> Containerize old apps</li>
+                </ul>
+            </section>
+
+            <!-- Slide 9: Docker Ecosystem -->
+            <section>
+                <h2>Docker Ecosystem</h2>
+                <table>
+                    <tr>
+                        <th>Tool</th>
+                        <th>Purpose</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Docker Desktop</strong></td>
+                        <td>GUI for managing containers on Mac/Windows</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Docker Hub</strong></td>
+                        <td>Cloud registry for sharing images</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Docker Compose</strong></td>
+                        <td>Multi-container app definition</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Docker Swarm</strong></td>
+                        <td>Container orchestration (built-in)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Docker BuildKit</strong></td>
+                        <td>Enhanced build engine</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Docker Scout</strong></td>
+                        <td>Security vulnerability scanning</td>
+                    </tr>
+                </table>
+            </section>
+
+            <!-- Slide 10: Real-World Examples -->
+            <section>
+                <h2>Real-World Examples</h2>
+                <ul>
+                    <li><strong>Netflix:</strong> Uses containers for streaming services</li>
+                    <li><strong>Spotify:</strong> Deploy thousands of microservices</li>
+                    <li><strong>Twitter:</strong> Runs containerized applications</li>
+                    <li><strong>PayPal:</strong> Migrated to containers for scalability</li>
+                    <li><strong>IBM:</strong> Cloud services built on Docker</li>
+                </ul>
+                <p>Companies using Docker report:</p>
+                <ul>
+                    <li>20% faster deployment</li>
+                    <li>50% reduction in infrastructure costs</li>
+                    <li>Improved developer productivity</li>
+                </ul>
+            </section>
+
+            <!-- Slide 11: Key Concepts Summary -->
+            <section>
+                <h2>Key Concepts Summary</h2>
+                <table>
+                    <tr>
+                        <th>Concept</th>
+                        <th>Command Example</th>
+                    </tr>
+                    <tr>
+                        <td>Run container</td>
+                        <td><code>docker run -d nginx</code></td>
+                    </tr>
+                    <tr>
+                        <td>List containers</td>
+                        <td><code>docker ps</code></td>
+                    </tr>
+                    <tr>
+                        <td>Stop container</td>
+                        <td><code>docker stop &lt;id&gt;</code></td>
+                    </tr>
+                    <tr>
+                        <td>Remove container</td>
+                        <td><code>docker rm &lt;id&gt;</code></td>
+                    </tr>
+                    <tr>
+                        <td>Pull image</td>
+                        <td><code>docker pull ubuntu</code></td>
+                    </tr>
+                    <tr>
+                        <td>List images</td>
+                        <td><code>docker images</code></td>
+                    </tr>
+                </table>
+            </section>
+
+            <!-- Slide 12: Thank You -->
+            <section>
+                <h1>Thank You</h1>
+                <p><a href="../book/01-fundamentals/">Back to Book</a></p>
+                <p><small>Next: Docker Installation on CentOS 9 Stream</small></p>
+            </section>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({ 
+            startOnLoad: false, 
+            theme: 'default',
+            flowchart: { useMaxWidth: true, htmlLabels: true }
+        });
+        
+        Reveal.initialize({
+            hash: true,
+            slideNumber: true,
+            transition: 'slide'
+        });
+        
+        Reveal.on('slidechanged', (event) => {
+            const mermaidDivs = event.currentSlide.querySelectorAll('.mermaid');
+            if (mermaidDivs.length > 0) {
+                mermaid.init(undefined, mermaidDivs);
+            }
+        });
+    </script>
+</body>
+</html>
+

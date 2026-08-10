@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dockerfile</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/reveal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/theme/white.css">
+    <style>
+        .reveal h1 { color: #2c3e50; }
+        .reveal h2 { color: #34495e; }
+        .reveal .slides section { text-align: left; }
+        .reveal ul { margin-left: 20px; }
+        .reveal pre { font-size: 0.6em; }
+        .reveal code { background-color: #f4f4f4; padding: 2px 6px; border-radius: 3px; }
+        .reveal pre code { background-color: #282c34; color: #abb2bf; padding: 10px; }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <section>
+                <h1>Dockerfile</h1>
+                <p>Building Docker Images</p>
+                <p><small>KTU - Computer Science</small></p>
+            </section>
+
+            <section>
+                <h2>Essential Instructions</h2>
+                <pre><code># Set base image
+FROM centos:stream9
+
+# Set working directory
+WORKDIR /app
+
+# Copy files to image
+COPY requirements.txt .
+COPY . .
+
+# Execute commands
+RUN dnf install -y python3
+RUN pip install -r requirements.txt
+
+# Set environment variables
+ENV APP_ENV=production
+
+# Expose port
+EXPOSE 8080
+
+# Start command
+CMD ["python", "app.py"]</code></pre>
+            </section>
+
+            <section>
+                <h2>More Instructions</h2>
+                <pre><code># Run as non-root user
+RUN useradd -r appuser
+USER appuser
+
+# Set argument
+ARG NGINX_VERSION=1.24
+
+# Add label
+LABEL maintainer="admin@example.com"
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s \
+  CMD curl -f http://localhost/ || exit 1
+
+# Entrypoint (cannot be overridden)
+ENTRYPOINT ["python"]</code></pre>
+            </section>
+
+            <section>
+                <h2>Multi-Stage Builds</h2>
+                <pre><code># Stage 1: Build
+FROM node:18 AS builder
+WORKDIR /app
+COPY package*.json .
+RUN npm ci
+COPY . .
+RUN npm run build
+
+# Stage 2: Production
+FROM nginx:alpine
+COPY --from=builder /app/dist /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]</code></pre>
+            </section>
+
+            <section>
+                <h2>.dockerignore</h2>
+                <pre><code># .dockerignore
+node_modules
+npm-debug.log
+.git
+.gitignore
+.env
+Dockerfile
+docker-compose.yml
+*.md</code></pre>
+                <ul>
+                    <li>Excludes files from build context</li>
+                    <li>Reduces build time and image size</li>
+                    <li>Prevents sensitive files from being copied</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>Best Practices</h2>
+                <ul>
+                    <li>Use specific base image tags (not <code>latest</code>)</li>
+                    <li>Minimize layers by combining RUN commands</li>
+                    <li>Order instructions from least to most frequently changed</li>
+                    <li>Use multi-stage builds for smaller images</li>
+                    <li>Run as non-root user</li>
+                    <li>Use .dockerignore</li>
+                    <li>Add HEALTHCHECK instruction</li>
+                </ul>
+            </section>
+
+            <section>
+                <h1>Thank You</h1>
+                <p><a href="../book/04-dockerfile.html">Back to Book</a></p>
+            </section>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/reveal.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            slideNumber: true,
+            transition: 'slide'
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workshop - Basic Operations</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/reveal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/theme/white.css">
+    <style>
+        .reveal h1 { color: #2c3e50; }
+        .reveal h2 { color: #34495e; }
+        .reveal .slides section { text-align: left; }
+        .reveal ul { margin-left: 20px; }
+        .reveal pre { font-size: 0.6em; }
+        .reveal code { background-color: #f4f4f4; padding: 2px 6px; border-radius: 3px; }
+        .reveal pre code { background-color: #282c34; color: #abb2bf; padding: 10px; }
+        .reveal .mermaid { text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <section>
+                <h1>Workshop: Basic Operations</h1>
+                <p>Hands-on Lab</p>
+                <p><small>KTU - Computer Science</small></p>
+            </section>
+
+            <section>
+                <h2>Workshop Flow</h2>
+                <div class="mermaid">
+                    graph TD
+                        A[docker run -it centos:stream9] --> B[Enter Container]
+                        B --> C[Run Commands]
+                        C --> D[Exit Container]
+                        D --> E[docker ps -a]
+                        E --> F[docker stop container]
+                        F --> G[docker rm container]
+                </div>
+            </section>
+
+            <section>
+                <h2>Lab Objectives</h2>
+                <ul>
+                    <li>Run CentOS 9 Stream containers</li>
+                    <li>Execute commands inside containers</li>
+                    <li>Manage container lifecycle</li>
+                    <li>Work with volumes and networks</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>Lab 1: Interactive Container</h2>
+                <pre><code># Pull CentOS image
+docker pull quay.io/centos/centos:stream9
+
+# Run interactive container
+docker run -it --name mycentos \
+    quay.io/centos/centos:stream9 /bin/bash
+
+# Inside container, run:
+cat /etc/os-release
+uname -a
+hostname
+whoami
+id</code></pre>
+            </section>
+
+            <section>
+                <h2>Lab 2: Container Lifecycle</h2>
+                <pre><code># Exit container (type 'exit')
+exit
+
+# List all containers
+docker ps -a
+
+# Restart container
+docker start mycentos
+
+# Execute command in running container
+docker exec mycentos cat /etc/os-release
+
+# Stop and remove
+docker stop mycentos
+docker rm mycentos</code></pre>
+            </section>
+
+            <section>
+                <h2>Lab 3: Working with Volumes</h2>
+                <pre><code># Create volume
+docker volume create mydata
+
+# Run container with volume
+docker run -d --name data-container \
+    -v mydata:/data \
+    quay.io/centos/centos:stream9 \
+    sleep 3600
+
+# Create file in volume
+docker exec data-container touch /data/test.txt
+
+# Verify file exists
+docker exec data-container ls -la /data/</code></pre>
+            </section>
+
+            <section>
+                <h2>Lab 4: Port Mapping</h2>
+                <pre><code># Run Nginx with port mapping
+docker run -d --name webserver \
+    -p 8080:80 \
+    nginx:latest
+
+# Test in browser
+# http://localhost:8080
+
+# View port mappings
+docker port webserver
+
+# Stop and remove
+docker stop webserver
+docker rm webserver</code></pre>
+            </section>
+
+            <section>
+                <h2>Expected Output</h2>
+                <ul>
+                    <li>CentOS container runs and exits</li>
+                    <li>Container appears in <code>docker ps -a</code></li>
+                    <li>Volume persists data</li>
+                    <li>Nginx serves page on port 8080</li>
+                </ul>
+            </section>
+
+            <section>
+                <h1>Thank You</h1>
+                <p><a href="../book/07-workshop-basic/">Back to Book</a></p>
+            </section>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            slideNumber: true,
+            transition: 'slide'
+        });
+        mermaid.initialize({ 
+            startOnLoad: false, 
+            theme: 'default',
+            flowchart: { useMaxWidth: true, htmlLabels: true }
+        });
+        Reveal.on('slidechanged', (event) => {
+            const mermaidDivs = event.currentSlide.querySelectorAll('.mermaid');
+            if (mermaidDivs.length > 0) {
+                mermaid.init(undefined, mermaidDivs);
+            }
+        });
+    </script>
+</body>
+</html>

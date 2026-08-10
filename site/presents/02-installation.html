@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Docker CE Installation on CentOS 9 Stream</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/reveal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/theme/white.css">
+    <style>
+        .reveal h1 { color: #2c3e50; }
+        .reveal h2 { color: #34495e; }
+        .reveal .slides section { text-align: left; }
+        .reveal ul { margin-left: 20px; }
+        .reveal pre { font-size: 0.6em; }
+        .reveal code { background-color: #f4f4f4; padding: 2px 6px; border-radius: 3px; }
+        .reveal pre code { background-color: #282c34; color: #abb2bf; padding: 10px; }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <section>
+                <h1>Docker CE Installation</h1>
+                <p>CentOS 9 Stream</p>
+                <p><small>KTU - Computer Science</small></p>
+            </section>
+
+            <section>
+                <h2>Prerequisites</h2>
+                <ul>
+                    <li>CentOS 9 Stream running</li>
+                    <li>Root or sudo access</li>
+                    <li>Internet connection</li>
+                    <li>Remove old Docker versions first</li>
+                </ul>
+                <pre><code>sudo dnf remove -y docker \
+    docker-client docker-client-latest \
+    docker-common docker-latest \
+    docker-latest-logrotate docker-logrotate \
+    docker-engine</code></pre>
+            </section>
+
+            <section>
+                <h2>Add Docker CE Repository</h2>
+                <pre><code># Install yum-utils
+sudo dnf install -y yum-utils
+
+# Add Docker CE repo
+sudo yum-config-manager --add-repo \
+    https://download.docker.com/linux/centos/docker-ce.repo
+
+# Verify
+dnf repolist | grep docker-ce</code></pre>
+            </section>
+
+            <section>
+                <h2>Install Docker CE</h2>
+                <pre><code># Install latest Docker CE
+sudo dnf install -y docker-ce \
+    docker-ce-cli containerd.io \
+    docker-buildx-plugin docker-compose-plugin
+
+# Or install specific version
+dnf list docker-ce --showduplicates
+sudo dnf install -y docker-ce-24.0.7</code></pre>
+            </section>
+
+            <section>
+                <h2>Start Docker Service</h2>
+                <pre><code># Start and enable Docker
+sudo systemctl start docker
+sudo systemctl enable docker
+
+# Check status
+sudo systemctl status docker</code></pre>
+            </section>
+
+            <section>
+                <h2>Verify Installation</h2>
+                <pre><code># Check Docker version
+docker --version
+
+# Run hello-world
+sudo docker run hello-world
+
+# Run interactive container
+sudo docker run -it centos:stream9 /bin/bash</code></pre>
+            </section>
+
+            <section>
+                <h2>Post-Installation Steps</h2>
+                <ul>
+                    <li>Add user to docker group: <code>sudo usermod -aG docker $USER</code></li>
+                    <li>Configure daemon options: <code>/etc/docker/daemon.json</code></li>
+                    <li>Set up rootless mode (optional)</li>
+                    <li>Log out and back in for group changes</li>
+                </ul>
+            </section>
+
+            <section>
+                <h1>Thank You</h1>
+                <p><a href="../book/02-installation.html">Back to Book</a></p>
+            </section>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/reveal.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            slideNumber: true,
+            transition: 'slide'
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Docker Basic Operations</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/reveal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/theme/white.css">
+    <style>
+        .reveal h1 { color: #2c3e50; }
+        .reveal h2 { color: #34495e; }
+        .reveal .slides section { text-align: left; }
+        .reveal ul { margin-left: 20px; }
+        .reveal pre { font-size: 0.6em; }
+        .reveal code { background-color: #f4f4f4; padding: 2px 6px; border-radius: 3px; }
+        .reveal pre code { background-color: #282c34; color: #abb2bf; padding: 10px; }
+        .reveal .mermaid { text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <section>
+                <h1>Docker Basic Operations</h1>
+                <p>Images, Containers, Networks, Volumes</p>
+                <p><small>KTU - Computer Science</small></p>
+            </section>
+
+            <section>
+                <h2>Docker Commands Overview</h2>
+                <div class="mermaid">
+                    graph LR
+                        subgraph Images
+                            I1[docker pull]
+                            I2[docker images]
+                            I3[docker rmi]
+                        end
+                        subgraph Containers
+                            C1[docker run]
+                            C2[docker ps]
+                            C3[docker stop]
+                            C4[docker rm]
+                        end
+                        subgraph Network
+                            N1[docker network create]
+                            N2[docker network ls]
+                        end
+                        subgraph Volumes
+                            V1[docker volume create]
+                            V2[docker volume ls]
+                        end
+                </div>
+            </section>
+
+            <section>
+                <h2>Docker Images</h2>
+                <pre><code># List images
+docker images
+
+# Pull an image
+docker pull centos:stream9
+docker pull nginx:latest
+
+# Search for images
+docker search centos
+
+# Build an image
+docker build -t myapp:1.0 .
+
+# Remove an image
+docker rmi &lt;image_id&gt;</code></pre>
+            </section>
+
+            <section>
+                <h2>Docker Containers</h2>
+                <pre><code># Run a container
+docker run -d --name web nginx
+
+# List running containers
+docker ps
+
+# List all containers
+docker ps -a
+
+# Stop/Start container
+docker stop &lt;container&gt;
+docker start &lt;container&gt;
+
+# Remove container
+docker rm &lt;container&gt;</code></pre>
+            </section>
+
+            <section>
+                <h2>Interactive Containers</h2>
+                <pre><code># Run interactive shell
+docker run -it centos:stream9 /bin/bash
+
+# Execute command in running container
+docker exec -it &lt;container&gt; /bin/bash
+
+# View logs
+docker logs &lt;container&gt;
+docker logs -f &lt;container&gt;
+
+# Inspect container
+docker inspect &lt;container&gt;</code></pre>
+            </section>
+
+            <section>
+                <h2>Port Mapping</h2>
+                <pre><code># Map host port 8080 to container port 80
+docker run -d -p 8080:80 nginx
+
+# Map to random host port
+docker run -d -P nginx
+
+# Map multiple ports
+docker run -d -p 8080:80 -p 8443:443 nginx
+
+# View port mappings
+docker port &lt;container&gt;</code></pre>
+            </section>
+
+            <section>
+                <h2>Docker Networks</h2>
+                <pre><code># List networks
+docker network ls
+
+# Create network
+docker network create mynet
+
+# Run container in network
+docker run -d --network mynet nginx
+
+# Connect container to network
+docker network connect mynet &lt;container&gt;
+
+# Inspect network
+docker network inspect mynet</code></pre>
+            </section>
+
+            <section>
+                <h2>Docker Volumes</h2>
+                <pre><code># Create volume
+docker volume create mydata
+
+# List volumes
+docker volume ls
+
+# Run with volume
+docker run -d -v mydata:/data nginx
+
+# Bind mount
+docker run -d -v $(pwd)/html:/usr/share/nginx/html nginx
+
+# Remove volume
+docker volume rm mydata</code></pre>
+            </section>
+
+            <section>
+                <h2>Container Lifecycle</h2>
+                <img src="../assets/images/container-lifecycle.svg" alt="Docker Container Lifecycle" style="max-width: 100%; height: auto;">
+            </section>
+
+            <section>
+                <h1>Thank You</h1>
+                <p><a href="../book/03-basic-operations/">Back to Book</a></p>
+            </section>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            slideNumber: true,
+            transition: 'slide'
+        });
+        mermaid.initialize({ 
+            startOnLoad: false, 
+            theme: 'default',
+            flowchart: { useMaxWidth: true, htmlLabels: true }
+        });
+        Reveal.on('slidechanged', (event) => {
+            const mermaidDivs = event.currentSlide.querySelectorAll('.mermaid');
+            if (mermaidDivs.length > 0) {
+                mermaid.init(undefined, mermaidDivs);
+            }
+        });
+    </script>
+</body>
+</html>

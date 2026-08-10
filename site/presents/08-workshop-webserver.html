@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workshop - Web Server with Nginx</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/reveal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/theme/white.css">
+    <style>
+        .reveal h1 { color: #2c3e50; }
+        .reveal h2 { color: #34495e; }
+        .reveal .slides section { text-align: left; }
+        .reveal ul { margin-left: 20px; }
+        .reveal pre { font-size: 0.6em; }
+        .reveal code { background-color: #f4f4f4; padding: 2px 6px; border-radius: 3px; }
+        .reveal pre code { background-color: #282c34; color: #abb2bf; padding: 10px; }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <section>
+                <h1>Workshop: Nginx Web Server</h1>
+                <p>Building a Custom Nginx Image</p>
+                <p><small>KTU - Computer Science</small></p>
+            </section>
+
+            <section>
+                <h2>Project Structure</h2>
+                <pre><code>nginx-centos/
+├── Dockerfile
+├── html/
+│   └── index.html
+├── conf/
+│   └── nginx.conf
+└── certs/
+    ├── server.crt
+    └── server.key</code></pre>
+            </section>
+
+            <section>
+                <h2>Lab 1: Create Dockerfile</h2>
+                <pre><code>FROM quay.io/centos/centos:stream9
+
+ARG NGINX_VERSION=1.24.0
+
+RUN dnf install -y nginx openssl openssl-devel \
+    && dnf clean all
+
+RUN useradd -r -s /bin/false nginx
+
+RUN mkdir -p /var/cache/nginx \
+    && chown -R nginx:nginx /var/cache/nginx
+
+COPY conf/nginx.conf /etc/nginx/nginx.conf
+COPY html/ /usr/share/nginx/html/
+
+EXPOSE 80 443
+
+CMD ["nginx", "-g", "daemon off;"]</code></pre>
+            </section>
+
+            <section>
+                <h2>Lab 2: Custom Nginx Config</h2>
+                <pre><code>worker_processes auto;
+error_log /var/log/nginx/error.log;
+pid /run/nginx.pid;
+
+events {
+    worker_connections 1024;
+}
+
+http {
+    server {
+        listen 80;
+        server_name localhost;
+        root /usr/share/nginx/html;
+        index index.html;
+    }
+}</code></pre>
+            </section>
+
+            <section>
+                <h2>Lab 3: Build and Run</h2>
+                <pre><code># Build the image
+docker build -t my-nginx:centos .
+
+# Run the container
+docker run -d --name nginx-web \
+    -p 8080:80 \
+    my-nginx:centos
+
+# Test
+curl http://localhost:8080
+
+# View logs
+docker logs nginx-web</code></pre>
+            </section>
+
+            <section>
+                <h2>Lab 4: SSL Setup</h2>
+                <pre><code># Generate self-signed certificate
+openssl req -x509 -nodes -days 365 \
+    -newkey rsa:2048 \
+    -keyout certs/server.key \
+    -out certs/server.crt \
+    -subj "/CN=localhost"
+
+# Update nginx.conf for HTTPS
+server {
+    listen 443 ssl;
+    ssl_certificate /etc/nginx/certs/server.crt;
+    ssl_certificate_key /etc/nginx/certs/server.key;
+}</code></pre>
+            </section>
+
+            <section>
+                <h2>Cleanup</h2>
+                <pre><code># Stop and remove container
+docker stop nginx-web
+docker rm nginx-web
+
+# Remove image
+docker rmi my-nginx:centos
+
+# Remove unused images
+docker image prune -a</code></pre>
+            </section>
+
+            <section>
+                <h1>Thank You</h1>
+                <p><a href="../book/08-workshop-webserver.html">Back to Book</a></p>
+            </section>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/reveal.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            slideNumber: true,
+            transition: 'slide'
+        });
+    </script>
+</body>
+</html>
