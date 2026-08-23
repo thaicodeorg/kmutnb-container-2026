@@ -1,0 +1,209 @@
+{
+  "main": {
+    "id": "0965a5c84227cf21",
+    "type": "split",
+    "children": [
+      {
+        "id": "42793df3b2f56cc0",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "37c293c4c36816be",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "book/02-installation.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "02-installation"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "e5f2edb2bf201e46",
+    "type": "split",
+    "children": [
+      {
+        "id": "9d1f120382952ab4",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "76c0e20537f594f4",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "3727aa4a558ef6e6",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "27ab980dd95039ff",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "cec7dc8d85afa322",
+    "type": "split",
+    "children": [
+      {
+        "id": "b7f36e46769c19a3",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "f938fe442d0f3583",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks"
+            }
+          },
+          {
+            "id": "8c756e3db90e730e",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links"
+            }
+          },
+          {
+            "id": "ec162bbc3cf046c8",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "79ee04091c50bcdf",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "All properties"
+            }
+          },
+          {
+            "id": "1b08a449ac65e22f",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "bases:Create new base": false
+    }
+  },
+  "active": "37c293c4c36816be",
+  "lastOpenFiles": [
+    "index.md",
+    "assets/images/install-docker26.png",
+    "assets/images/install-docker27.png",
+    "book/02-installation.md",
+    "assets/images/install-docker31.png",
+    "assets/images/install-docker28.png",
+    "assets/images/install-docker29.png",
+    "assets/images/install-docker30.png",
+    "book/01-fundamentals.md",
+    "book/03-basic-operations.md",
+    "assets/images/install-docker1.png",
+    "assets/images/install-docker25.png",
+    "assets/images/install-docker24.png",
+    "assets/images/install-docker23.png",
+    "book/00-Install-Centos-Stream-10.md",
+    "00-Install.md",
+    "00-Install Centos 10 Stream.md",
+    "book/00-hyperV Manager.md"
+  ]
+}

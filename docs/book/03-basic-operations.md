@@ -1,5 +1,3 @@
-!!! tip "Slides Available"
-    📊 **View Presentation** → [Open Slides](../presents/03-basic-operations.html)
 
 # Chapter 3: Docker Basic Operations
 
@@ -21,7 +19,7 @@ docker image ls
 ### Pull an Image
 
 ```bash
-docker pull centos:stream9
+docker pull centos:stream10
 docker pull nginx:latest
 docker pull python:3.11-slim
 ```

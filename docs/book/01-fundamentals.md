@@ -1,5 +1,3 @@
-!!! tip "Slides Available"
-    📊 **View Presentation** → [Open Slides](../presents/01-fundamentals.html)
 
 # Fundamentals
 
