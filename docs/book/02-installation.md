@@ -1,11 +1,15 @@
 
-# Chapter 2: Docker CE Installation on CentOS 9 Stream
+# Chapter 2: Docker CE Installation on CentOS Stream 10
 
 ## Overview
 
 This chapter covers the complete installation process of Docker Community Edition (CE) on CentOS 10 Stream, including rootless mode configuration.
 
 ---
+
+## Task Create Student Submition
+- Student will submit Screen of Docker installation process.
+- use Basic Template 
 
 ## 2.1 Remove Old Docker Versions
 
@@ -22,10 +26,10 @@ sudo dnf remove -y docker \
     docker-engine
 ```
 
-![[install-docker1.png]]
+![install-docker1.png](../assets/images/install-docker1.png)
 
 Result:  most of package in "No match" because we start clean installation
-![[install-docker2.png]]
+![install-docker2.png](../assets/images/install-docker2.png)
 
 tip  type ``clear`` , or ``Ctrl+l``  to clear screen
 
@@ -39,7 +43,7 @@ Install the `dnf-plugins-core` package which provides the `yum-config-manager` u
 sudo dnf -y install dnf-plugins-core
 ```
 
-![[install-docker4.png]]
+![install-docker4.png](../assets/images/install-docker4.png)
 The `dnf-plugins-core` package is the official collection of **essential plugins for the DNF package manager**. It extends DNF's basic functionality with a wide range of useful commands for advanced package management tasks.
 
 ### What it Adds
@@ -71,7 +75,7 @@ sudo dnf config-manager --add-repo https://download.docker.com/linux/centos/dock
 sudo dnf update -y
 ```
 
-![[install-docker3.png]]
+![install-docker3.png](../assets/images/install-docker3.png)
 
 Verify the repository was added:
 
@@ -79,7 +83,7 @@ Verify the repository was added:
 sudo dnf repolist | grep docker-ce
 ```
 
-![[install-docker5.png]]
+![install-docker5.png](../assets/images/install-docker5.png)
 
 **Short summary:**
 
@@ -97,11 +101,11 @@ Good time to Install Docker CE, CLI, containerd.io, Buildx, and Compose plugin:
 ```bash
 sudo dnf install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 ```
-![[install-docker6.png]]
+![install-docker6.png](../assets/images/install-docker6.png)
 - If prompted, verify the GPG key fingerprint matches _060A 61C5 1B55 8A7F 742B 77AA C52F EB6B 621E 9F35_ and accept it.
 ---
 Result
-![[install-docker7.png]]
+![install-docker7.png](../assets/images/install-docker7.png)
 
 **Package Summary:**
 Here is a summary table for the installed Docker-related packages you listed:
@@ -122,12 +126,12 @@ Run:
 sudo rpm -ql docker-ce
 ```
 
-![[install-docker8.png]]
+![install-docker8.png](../assets/images/install-docker8.png)
 
 - We focus on 2 file   ``docker.service and docker.socket`` this 2 file will work together 
 - We run command ``cat /usr/lib/systemd/system/docker.service``  to explore what service file will run when we start docker
 
-![[install-docker9.png]]
+![install-docker9.png](../assets/images/install-docker9.png)
 
 you can  step  [2.5 Start and Enable docker Service](#start-docker)
 
@@ -217,9 +221,9 @@ you can  step  [2.5 Start and Enable docker Service](#start-docker)
 > **Overall Summary:**  
 > You have a **complete Docker environment** installed, covering the runtime (`containerd`), the engine (`docker-ce`), the CLI, Compose, Buildx, and rootless support. Everything matches the `el10` (RHEL 10 / CentOS Stream 10) distribution
 
-![[install-docker10.png]]
+![install-docker10.png](../assets/images/install-docker10.png)
 
-
+### Video Explain 
 [Explaination from the notebook lm](https://notebook.google.com/notebook/b928fda3-b19d-4fc9-9b78-a1695c862178/artifact/a3cce97f-1f62-4642-94bf-18f3e9865ff7?utm_source=nlm_web_share&utm_medium=google_oo&utm_campaign=art_share_1&utm_content=&utm_smc=nlm_web_share_google_oo_art_share_1_)
 <a id="start-docker"></a>
 ## 2.5 Start and Enable Docker Service
@@ -231,21 +235,21 @@ sudo systemctl start docker
 sudo systemctl enable docker
 ```
 
-![[install-docker11.png]]
+![install-docker11.png](../assets/images/install-docker11.png)
 Verify the service is running:
 
 ```bash
 sudo systemctl status docker
 ```
 
-![[install-docker12.png]]
+![install-docker12.png](../assets/images/install-docker12.png)
 
 Run: command below check who connect to socker
 ```
 sudo lsof /var/run/docker.sock
 ```
 
-![[install-docker13.png]]
+![install-docker13.png](../assets/images/install-docker13.png)
 ---
 
 ## 2.6 Verify Installation
@@ -258,14 +262,14 @@ sudo docker compose version
 sudo docker ps
 ```
 
-![[install-docker15.png]]
+![install-docker15.png](../assets/images/install-docker15.png)
 Run the hello-world container to verify Docker is working correctly:
 
 ```bash
 sudo docker run hello-world
 ```
 
-![[install-docker14.png]]
+![install-docker14.png](../assets/images/install-docker14.png)
 There are 3 step:
 - Try to fine docker image locally
 - if can not fine. it will go to remote repository of docker hub and pull down image ***
@@ -297,7 +301,7 @@ newgrp docker
 cat /etc/group
 ```
 
-![[install-docker16.png]]
+![install-docker16.png](../assets/images/install-docker16.png)
 - restart server 
 - When Server is back to online Verify you can run Docker without sudo:
 - run docker command again but this time with out sudo
@@ -305,7 +309,7 @@ cat /etc/group
 docker run hello-world
 ```
 
-![[install-docker17.png]]
+![install-docker17.png](../assets/images/install-docker17.png)
 ---
 
 ## Check container status
@@ -314,8 +318,8 @@ Run:
 docker ps -a
 ```
 - **docker ps -a** will see all docker both running (active in background) and stop (exit) docker
-![[install-docker18.png]] 
-![[install-docker19.png]]
+![install-docker18.png](../assets/images/install-docker18.png) 
+![install-docker19.png](../assets/images/install-docker19.png)
 ## 2.8 Rootless Mode Setup (Optional)
 
 Docker can run in rootless mode for enhanced security. Here is very importance step to incress security of docker:
@@ -333,7 +337,7 @@ rpm -qa fuse-overlayfs
 rpm -qa slirp4netns
 ```
 
-![[install-docker20.png]]
+![install-docker20.png](../assets/images/install-docker20.png)
 ### Install Docker in Rootless Mode  
 docker provide script ``dockerd-rootless-setuptool.sh``  Out of the box
 
@@ -347,11 +351,11 @@ sudo systemctl disable --now docker.service
 dockerd-rootless-setuptool.sh install --force
 ```
 
-![[install-docker21.png]]
+![install-docker21.png](../assets/images/install-docker21.png)
 
 Scroll down to end of result command
 
-![[install-docker22.png]]
+![install-docker22.png](../assets/images/install-docker22.png)
 ### Set Environment Variables
 - from the [info] of script we need add 2 line to  ``~/.bashrc`` 
 ```bash
@@ -364,7 +368,7 @@ echo 'export PATH=/usr/bin:$PATH' >> ~/.bashrc
 echo 'export DOCKER_HOST=unix:///run/user/1000/docker.sock' >> ~/.bashrc
 ```
 
-![[install-docker23.png]]
+![install-docker23.png](../assets/images/install-docker23.png)
 
 ### Start Rootless Docker
 - Run 3 command below.  we don't use sudo start  docker because i run in user mode
@@ -375,14 +379,14 @@ systemctl --user enable docker
 systemctl --user status docker
 ```
 
-![[install-docker24.png]]
+![install-docker24.png](../assets/images/install-docker24.png)
 ### Verify Rootless Mode
 
 ```bash
 docker run hello-world
 ```
 
-![[install-docker25.png]]
+![install-docker25.png](../assets/images/install-docker25.png)
 
 - docker download image again because the previous image is difference name space
 
@@ -393,7 +397,7 @@ docker run hello-world
 # pull image
 docker pull quay.io/centos/centos:stream10
 ```
-![[install-docker26.png]]
+![install-docker26.png](../assets/images/install-docker26.png)
 
 ```bash
 # Run image or start container from image then run /bin/bash command in that container
@@ -401,7 +405,7 @@ docker pull quay.io/centos/centos:stream10
 docker run -it quay.io/centos/centos:stream10 /bin/bash
 ```
 
-![[install-docker27.png]]
+![install-docker27.png](../assets/images/install-docker27.png)
 
 -  docker container use container id as  hostname
 - we use exit command to exit from running container. it will totally exit and running container will exit.
@@ -416,9 +420,9 @@ docker run -it quay.io/centos/centos:stream10 /bin/bash
 Ctrl +p  then Ctrl+q
 ```
 
-![[install-docker28.png]]
+![install-docker28.png](../assets/images/install-docker28.png)
 
-![[install-docker29.png]]
+![install-docker29.png](../assets/images/install-docker29.png)
 
 ## Attach to running container
 - Now we can reuse process that running in background 
@@ -430,9 +434,9 @@ docker attach <containerid>
 Ctrl + p then Ctrl+q  
 ```
 
-![[install-docker30.png]]
+![install-docker30.png](../assets/images/install-docker30.png)
 
 ## Kill running Container and remove container
 
-![[install-docker31.png]]
+![install-docker31.png](../assets/images/install-docker31.png)
 

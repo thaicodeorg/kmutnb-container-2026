@@ -536,10 +536,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#install-docker13png" class="md-nav__link">
+  <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ![[install-docker13.png]]
+        
       
     </span>
   </a>
@@ -586,10 +586,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#install-docker17png" class="md-nav__link">
+  <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ![[install-docker17.png]]
+        
       
     </span>
   </a>
@@ -1168,10 +1168,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#install-docker13png" class="md-nav__link">
+  <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ![[install-docker13.png]]
+        
       
     </span>
   </a>
@@ -1218,10 +1218,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#install-docker17png" class="md-nav__link">
+  <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ![[install-docker17.png]]
+        
       
     </span>
   </a>
@@ -1387,16 +1387,16 @@
 <span class="w">    </span>docker-logrotate<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>docker-engine
 </code></pre></div>
-<p>![[install-docker1.png]]</p>
+<p><img alt="install-docker1.png" src="../../assets/images/install-docker1.png" /></p>
 <p>Result:  most of package in "No match" because we start clean installation
-![[install-docker2.png]]</p>
+<img alt="install-docker2.png" src="../../assets/images/install-docker2.png" /></p>
 <p>tip  type <code>clear</code> , or <code>Ctrl+l</code>  to clear screen</p>
 <hr />
 <h2 id="22-install-dnf-plugins-core">2.2 Install dnf-plugins-core</h2>
 <p>Install the <code>dnf-plugins-core</code> package which provides the <code>yum-config-manager</code> utility:</p>
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>dnf<span class="w"> </span>-y<span class="w"> </span>install<span class="w"> </span>dnf-plugins-core
 </code></pre></div>
-<p>![[install-docker4.png]]
+<p><img alt="install-docker4.png" src="../../assets/images/install-docker4.png" />
 The <code>dnf-plugins-core</code> package is the official collection of <strong>essential plugins for the DNF package manager</strong>. It extends DNF's basic functionality with a wide range of useful commands for advanced package management tasks.</p>
 <h3 id="what-it-adds">What it Adds</h3>
 <p>This package provides several new subcommands to DNF, turning it into a much more powerful tool. Here are some of the key plugins it includes, along with what they do:</p>
@@ -1419,11 +1419,11 @@ The <code>dnf-plugins-core</code> package is the official collection of <strong>
 
 sudo<span class="w"> </span>dnf<span class="w"> </span>update<span class="w"> </span>-y
 </code></pre></div>
-<p>![[install-docker3.png]]</p>
+<p><img alt="install-docker3.png" src="../../assets/images/install-docker3.png" /></p>
 <p>Verify the repository was added:</p>
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>dnf<span class="w"> </span>repolist<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>docker-ce
 </code></pre></div>
-<p>![[install-docker5.png]]</p>
+<p><img alt="install-docker5.png" src="../../assets/images/install-docker5.png" /></p>
 <p><strong>Short summary:</strong></p>
 <p><code>sudo dnf repolist</code> lists all <strong>enabled software repositories</strong> on your system. It shows their repository ID, name, and the number of packages available in each. </p>
 <ul>
@@ -1435,11 +1435,11 @@ sudo<span class="w"> </span>dnf<span class="w"> </span>update<span class="w"> </
 <p>Good time to Install Docker CE, CLI, containerd.io, Buildx, and Compose plugin:</p>
 <p><div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>docker-ce<span class="w"> </span>docker-ce-cli<span class="w"> </span>containerd.io<span class="w"> </span>docker-buildx-plugin<span class="w"> </span>docker-compose-plugin
 </code></pre></div>
-![[install-docker6.png]]
+<img alt="install-docker6.png" src="../../assets/images/install-docker6.png" />
 - If prompted, verify the GPG key fingerprint matches <em>060A 61C5 1B55 8A7F 742B 77AA C52F EB6B 621E 9F35</em> and accept it.</p>
 <hr />
 <p>Result
-![[install-docker7.png]]</p>
+<img alt="install-docker7.png" src="../../assets/images/install-docker7.png" /></p>
 <p><strong>Package Summary:</strong>
 Here is a summary table for the installed Docker-related packages you listed:</p>
 <table>
@@ -1494,12 +1494,12 @@ Here is a summary table for the installed Docker-related packages you listed:</p
 <p>Run:
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>rpm<span class="w"> </span>-ql<span class="w"> </span>docker-ce
 </code></pre></div></p>
-<p>![[install-docker8.png]]</p>
+<p><img alt="install-docker8.png" src="../../assets/images/install-docker8.png" /></p>
 <ul>
 <li>We focus on 2 file   <code>docker.service and docker.socket</code> this 2 file will work together </li>
 <li>We run command <code>cat /usr/lib/systemd/system/docker.service</code>  to explore what service file will run when we start docker</li>
 </ul>
-<p>![[install-docker9.png]]</p>
+<p><img alt="install-docker9.png" src="../../assets/images/install-docker9.png" /></p>
 <p>you can  step  <a href="#start-docker">2.5 Start and Enable docker Service</a></p>
 <blockquote>
 <p>[!INFO]
@@ -1601,7 +1601,7 @@ Here is a summary table for the installed Docker-related packages you listed:</p
 <p><strong>Overall Summary:</strong><br />
 You have a <strong>complete Docker environment</strong> installed, covering the runtime (<code>containerd</code>), the engine (<code>docker-ce</code>), the CLI, Compose, Buildx, and rootless support. Everything matches the <code>el10</code> (RHEL 10 / CentOS Stream 10) distribution</p>
 </blockquote>
-<p>![[install-docker10.png]]</p>
+<p><img alt="install-docker10.png" src="../../assets/images/install-docker10.png" /></p>
 <p><a href="https://notebook.google.com/notebook/b928fda3-b19d-4fc9-9b78-a1695c862178/artifact/a3cce97f-1f62-4642-94bf-18f3e9865ff7?utm_source=nlm_web_share&amp;utm_medium=google_oo&amp;utm_campaign=art_share_1&amp;utm_content=&amp;utm_smc=nlm_web_share_google_oo_art_share_1_">Explaination from the notebook lm</a>
 <a id="start-docker"></a></p>
 <h2 id="25-start-and-enable-docker-service">2.5 Start and Enable Docker Service</h2>
@@ -1609,26 +1609,26 @@ You have a <strong>complete Docker environment</strong> installed, covering the 
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>docker
 sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>docker
 </code></pre></div>
-<p>![[install-docker11.png]]
+<p><img alt="install-docker11.png" src="../../assets/images/install-docker11.png" />
 Verify the service is running:</p>
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>status<span class="w"> </span>docker
 </code></pre></div>
-<p>![[install-docker12.png]]</p>
+<p><img alt="install-docker12.png" src="../../assets/images/install-docker12.png" /></p>
 <p>Run: command below check who connect to socker
 <div class="highlight"><pre><span></span><code>sudo lsof /var/run/docker.sock
 </code></pre></div></p>
-<h2 id="install-docker13png">![[install-docker13.png]]</h2>
+<h2 id="_1"><img alt="install-docker13.png" src="../../assets/images/install-docker13.png" /></h2>
 <h2 id="26-verify-installation">2.6 Verify Installation</h2>
 <p>Check the Docker version:</p>
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>docker<span class="w"> </span>--version
 sudo<span class="w"> </span>docker<span class="w"> </span>compose<span class="w"> </span>version
 sudo<span class="w"> </span>docker<span class="w"> </span>ps
 </code></pre></div>
-<p>![[install-docker15.png]]
+<p><img alt="install-docker15.png" src="../../assets/images/install-docker15.png" />
 Run the hello-world container to verify Docker is working correctly:</p>
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>docker<span class="w"> </span>run<span class="w"> </span>hello-world
 </code></pre></div>
-<p>![[install-docker14.png]]
+<p><img alt="install-docker14.png" src="../../assets/images/install-docker14.png" />
 There are 3 step:
 - Try to fine docker image locally
 - if can not fine. it will go to remote repository of docker hub and pull down image ***
@@ -1680,20 +1680,20 @@ newgrp<span class="w"> </span>docker
 
 cat<span class="w"> </span>/etc/group
 </code></pre></div>
-<p>![[install-docker16.png]]
+<p><img alt="install-docker16.png" src="../../assets/images/install-docker16.png" />
 - restart server 
 - When Server is back to online Verify you can run Docker without sudo:
 - run docker command again but this time with out sudo
 <div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>hello-world
 </code></pre></div></p>
-<h2 id="install-docker17png">![[install-docker17.png]]</h2>
+<h2 id="_2"><img alt="install-docker17.png" src="../../assets/images/install-docker17.png" /></h2>
 <h2 id="check-container-status">Check container status</h2>
 <p>Run:
 <div class="highlight"><pre><span></span><code>docker ps -a
 </code></pre></div>
 - <strong>docker ps -a</strong> will see all docker both running (active in background) and stop (exit) docker
-![[install-docker18.png]] 
-![[install-docker19.png]]</p>
+<img alt="install-docker18.png" src="../../assets/images/install-docker18.png" /> 
+<img alt="install-docker19.png" src="../../assets/images/install-docker19.png" /></p>
 <h2 id="28-rootless-mode-setup-optional">2.8 Rootless Mode Setup (Optional)</h2>
 <p>Docker can run in rootless mode for enhanced security. Here is very importance step to incress security of docker:</p>
 <h3 id="prerequisites">Prerequisites</h3>
@@ -1705,7 +1705,7 @@ check:
 rpm -qa fuse-overlayfs
 rpm -qa slirp4netns
 </code></pre></div></p>
-<p>![[install-docker20.png]]</p>
+<p><img alt="install-docker20.png" src="../../assets/images/install-docker20.png" /></p>
 <h3 id="install-docker-in-rootless-mode">Install Docker in Rootless Mode</h3>
 <p>docker provide script <code>dockerd-rootless-setuptool.sh</code>  Out of the box</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Stop docker service</span>
@@ -1716,9 +1716,9 @@ sudo<span class="w"> </span>systemctl<span class="w"> </span>disable<span class=
 <span class="c1"># Install rootless Docker</span>
 dockerd-rootless-setuptool.sh<span class="w"> </span>install<span class="w"> </span>--force
 </code></pre></div>
-<p>![[install-docker21.png]]</p>
+<p><img alt="install-docker21.png" src="../../assets/images/install-docker21.png" /></p>
 <p>Scroll down to end of result command</p>
-<p>![[install-docker22.png]]</p>
+<p><img alt="install-docker22.png" src="../../assets/images/install-docker22.png" /></p>
 <h3 id="set-environment-variables">Set Environment Variables</h3>
 <ul>
 <li>from the [info] of script we need add 2 line to  <code>~/.bashrc</code> 
@@ -1730,7 +1730,7 @@ dockerd-rootless-setuptool.sh<span class="w"> </span>install<span class="w"> </s
 echo &#39;export DOCKER_HOST=unix:///run/user/1000/docker.sock&#39; &gt;&gt; ~/.bashrc
 </code></pre></div></li>
 </ul>
-<p>![[install-docker23.png]]</p>
+<p><img alt="install-docker23.png" src="../../assets/images/install-docker23.png" /></p>
 <h3 id="start-rootless-docker">Start Rootless Docker</h3>
 <ul>
 <li>Run 3 command below.  we don't use sudo start  docker because i run in user mode</li>
@@ -1739,11 +1739,11 @@ echo &#39;export DOCKER_HOST=unix:///run/user/1000/docker.sock&#39; &gt;&gt; ~/.
 systemctl<span class="w"> </span>--user<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>docker
 systemctl<span class="w"> </span>--user<span class="w"> </span>status<span class="w"> </span>docker
 </code></pre></div>
-<p>![[install-docker24.png]]</p>
+<p><img alt="install-docker24.png" src="../../assets/images/install-docker24.png" /></p>
 <h3 id="verify-rootless-mode">Verify Rootless Mode</h3>
 <div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>hello-world
 </code></pre></div>
-<p>![[install-docker25.png]]</p>
+<p><img alt="install-docker25.png" src="../../assets/images/install-docker25.png" /></p>
 <ul>
 <li>docker download image again because the previous image is difference name space</li>
 </ul>
@@ -1754,12 +1754,12 @@ systemctl<span class="w"> </span>--user<span class="w"> </span>status<span class
 <p><div class="highlight"><pre><span></span><code><span class="c1"># pull image</span>
 docker<span class="w"> </span>pull<span class="w"> </span>quay.io/centos/centos:stream10
 </code></pre></div>
-![[install-docker26.png]]</p>
+<img alt="install-docker26.png" src="../../assets/images/install-docker26.png" /></p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Run image or start container from image then run /bin/bash command in that container</span>
 <span class="c1"># -it simply get terminal from container</span>
 docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>quay.io/centos/centos:stream10<span class="w"> </span>/bin/bash
 </code></pre></div>
-<p>![[install-docker27.png]]</p>
+<p><img alt="install-docker27.png" src="../../assets/images/install-docker27.png" /></p>
 <ul>
 <li>docker container use container id as  hostname</li>
 <li>we use exit command to exit from running container. it will totally exit and running container will exit.</li>
@@ -1772,8 +1772,8 @@ docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </s
 <div class="highlight"><pre><span></span><code>docker run -it quay.io/centos/centos:stream10 /bin/bash
 Ctrl +p  then Ctrl+q
 </code></pre></div>
-<p>![[install-docker28.png]]</p>
-<p>![[install-docker29.png]]</p>
+<p><img alt="install-docker28.png" src="../../assets/images/install-docker28.png" /></p>
+<p><img alt="install-docker29.png" src="../../assets/images/install-docker29.png" /></p>
 <h2 id="attach-to-running-container">Attach to running container</h2>
 <ul>
 <li>Now we can reuse process that running in background </li>
@@ -1783,9 +1783,9 @@ docker<span class="w"> </span>attach<span class="w"> </span>&lt;containerid&gt;
 
 Ctrl<span class="w"> </span>+<span class="w"> </span>p<span class="w"> </span><span class="k">then</span><span class="w"> </span>Ctrl+q<span class="w">  </span>
 </code></pre></div>
-<p>![[install-docker30.png]]</p>
+<p><img alt="install-docker30.png" src="../../assets/images/install-docker30.png" /></p>
 <h2 id="kill-running-container-and-remove-container">Kill running Container and remove container</h2>
-<p>![[install-docker31.png]]</p>
+<p><img alt="install-docker31.png" src="../../assets/images/install-docker31.png" /></p>
 
 
 
