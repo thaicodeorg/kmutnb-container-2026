@@ -14,6 +14,7 @@
         .reveal pre { font-size: 0.6em; }
         .reveal code { background-color: #f4f4f4; padding: 2px 6px; border-radius: 3px; }
         .reveal pre code { background-color: #282c34; color: #abb2bf; padding: 10px; }
+        .reveal .mermaid { text-align: center; }
     </style>
 </head>
 <body>
@@ -26,6 +27,29 @@
             </section>
 
             <section>
+                <h2>Fullstack Architecture</h2>
+                <div class="mermaid">
+                    graph TB
+                        subgraph Frontend
+                            React[React+TypeScript]
+                        end
+                        subgraph Backend
+                            FastAPI[FastAPI]
+                        end
+                        subgraph Database
+                            PG[PostgreSQL]
+                        end
+                        subgraph Proxy
+                            Nginx[Nginx]
+                        end
+                        Client[Client] -->|HTTP| Nginx
+                        Nginx -->|/api| FastAPI
+                        Nginx -->|/*| React
+                        FastAPI -->|SQL| PG
+                </div>
+            </section>
+
+            <section>
                 <h2>Architecture</h2>
                 <ul>
                     <li><strong>Frontend:</strong> React + TypeScript (Vite)</li>
@@ -33,10 +57,6 @@
                     <li><strong>Database:</strong> PostgreSQL 15</li>
                     <li><strong>Proxy:</strong> Nginx</li>
                 </ul>
-                <pre><code>┌─────────┐    ┌─────────┐    ┌──────────┐
-│ Frontend │───▶│ Backend │───▶│ Database │
-│ (React)  │    │(FastAPI)│    │(Postgres)│
-└─────────┘    └─────────┘    └──────────┘</code></pre>
             </section>
 
             <section>
@@ -133,16 +153,28 @@ docker compose down</code></pre>
 
             <section>
                 <h1>Thank You</h1>
-                <p><a href="../book/09-workshop-fullstack.html">Back to Book</a></p>
+                <p><a href="../book/09-workshop-fullstack/">Back to Book</a></p>
             </section>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
     <script>
         Reveal.initialize({
             hash: true,
             slideNumber: true,
             transition: 'slide'
+        });
+        mermaid.initialize({ 
+            startOnLoad: false, 
+            theme: 'default',
+            flowchart: { useMaxWidth: true, htmlLabels: true }
+        });
+        Reveal.on('slidechanged', (event) => {
+            const mermaidDivs = event.currentSlide.querySelectorAll('.mermaid');
+            if (mermaidDivs.length > 0) {
+                mermaid.init(undefined, mermaidDivs);
+            }
         });
     </script>
 </body>

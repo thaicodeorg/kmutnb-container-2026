@@ -1,8 +1,8 @@
 ## Docker Technology
 
 ### Prepare VM 
-- [1. Enable HyperV](00-hyperV%20Manager.md)
-- [2. Install Centos 10 Stream](00-Install-Centos-Stream-10.md)
+- [1. Enable HyperV](book/00-hyperV%20Manager.md)
+- [2. Install Centos 10 Stream](book/00-Install-Centos-Stream-10.md)
 
 ### Instruction Manual
 

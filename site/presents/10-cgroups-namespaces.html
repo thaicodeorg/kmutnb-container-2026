@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cgroups, Namespaces & Security</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/reveal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/theme/white.css">
+    <style>
+        .reveal h1 { color: #2c3e50; }
+        .reveal h2 { color: #34495e; }
+        .reveal .slides section { text-align: left; }
+        .reveal ul { margin-left: 20px; }
+        .reveal pre { font-size: 0.6em; }
+        .reveal code { background-color: #f4f4f4; padding: 2px 6px; border-radius: 3px; }
+        .reveal pre code { background-color: #282c34; color: #abb2bf; padding: 10px; }
+        .reveal .mermaid { text-align: center; }
+        .reveal table { margin: 20px auto; border-collapse: collapse; font-size: 0.75em; }
+        .reveal table th, .reveal table td { border: 1px solid #ddd; padding: 6px 10px; }
+        .reveal table th { background-color: #3498db; color: white; }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <!-- Slide 1: Title -->
+            <section>
+                <h1>Cgroups, Namespaces & Security</h1>
+                <p>Linux Kernel Features Behind Docker</p>
+                <p><small>KTU - Computer Science</small></p>
+            </section>
+
+            <!-- Slide 2: Overview -->
+            <section>
+                <h2>Docker = Linux Kernel Features</h2>
+                <div class="mermaid">
+graph LR
+    D[Docker] --> C[Control Groups<br/>Resource Limits]
+    D --> N[Namespaces<br/>Isolation]
+    D --> S[Security<br/>Policies]
+    
+    style D fill:#2496ED,color:#fff
+    style C fill:#e74c3c,color:#fff
+    style N fill:#2ecc71,color:#fff
+    style S fill:#f39c12,color:#fff
+                </div>
+            </section>
+
+            <!-- Slide 3: Cgroups -->
+            <section>
+                <h2>Control Groups (cgroups)</h2>
+                <ul>
+                    <li>Limit CPU usage</li>
+                    <li>Limit memory usage</li>
+                    <li>Control disk I/O</li>
+                    <li>Manage network bandwidth</li>
+                </ul>
+                <pre><code># Run with resource limits
+docker run -d \
+    --cpus="0.5" \
+    --memory="256m" \
+    --pids-limit=100 \
+    nginx</code></pre>
+            </section>
+
+            <!-- Slide 4: Cgroup Resources -->
+            <section>
+                <h2>Cgroup Resources</h2>
+                <table>
+                    <tr>
+                        <th>Resource</th>
+                        <th>Docker Flag</th>
+                        <th>Example</th>
+                    </tr>
+                    <tr>
+                        <td>CPU</td>
+                        <td>--cpus</td>
+                        <td>--cpus="0.5"</td>
+                    </tr>
+                    <tr>
+                        <td>Memory</td>
+                        <td>--memory</td>
+                        <td>--memory="512m"</td>
+                    </tr>
+                    <tr>
+                        <td>Disk I/O</td>
+                        <td>--device-read-bps</td>
+                        <td>--device-read-bps=/dev/sda:10mb</td>
+                    </tr>
+                    <tr>
+                        <td>Processes</td>
+                        <td>--pids-limit</td>
+                        <td>--pids-limit=100</td>
+                    </tr>
+                </table>
+            </section>
+
+            <!-- Slide 5: Namespaces -->
+            <section>
+                <h2>Namespaces</h2>
+                <p>Provide isolated views of system resources</p>
+                <table>
+                    <tr>
+                        <th>Namespace</th>
+                        <th>Isolates</th>
+                    </tr>
+                    <tr>
+                        <td><strong>PID</strong></td>
+                        <td>Process IDs</td>
+                    </tr>
+                    <tr>
+                        <td><strong>NET</strong></td>
+                        <td>Network interfaces, IPs</td>
+                    </tr>
+                    <tr>
+                        <td><strong>MNT</strong></td>
+                        <td>Filesystem mount points</td>
+                    </tr>
+                    <tr>
+                        <td><strong>UTS</strong></td>
+                        <td>Hostname</td>
+                    </tr>
+                    <tr>
+                        <td><strong>USER</strong></td>
+                        <td>User and group IDs</td>
+                    </tr>
+                    <tr>
+                        <td><strong>CGROUP</strong></td>
+                        <td>Cgroup root directory</td>
+                    </tr>
+                </table>
+            </section>
+
+            <!-- Slide 6: Namespace Demo -->
+            <section>
+                <h2>Namespace Demo</h2>
+                <pre><code># View namespaces
+lsns
+
+# Run container and see PID 1
+docker run --rm centos:stream9 ps aux
+
+# Compare with host
+ps aux | head -5
+
+# View container hostname
+docker run --rm centos:stream9 hostname</code></pre>
+            </section>
+
+            <!-- Slide 7: Security Layers -->
+            <section>
+                <h2>Security Layers</h2>
+                <div class="mermaid">
+graph TB
+    A[Application Security] --> B[Container Security]
+    B --> C[Image Security]
+    C --> D[Host Security]
+    D --> E[Kernel Security]
+    
+    style A fill:#2ecc71,color:#fff
+    style B fill:#3498db,color:#fff
+    style C fill:#9b59b6,color:#fff
+    style D fill:#e74c3c,color:#fff
+    style E fill:#34495e,color:#fff
+                </div>
+            </section>
+
+            <!-- Slide 8: Docker Security Flags -->
+            <section>
+                <h2>Docker Security Flags</h2>
+                <pre><code># Run as non-root user
+docker run --user 1000:1000 nginx
+
+# Read-only filesystem
+docker run --read-only nginx
+
+# Drop all capabilities
+docker run --cap-drop=ALL nginx
+
+# No new privileges
+docker run --security-opt=no-new-privileges nginx</code></pre>
+            </section>
+
+            <!-- Slide 9: Seccomp -->
+            <section>
+                <h2>Seccomp Profiles</h2>
+                <p>Filters system calls a container can make</p>
+                <pre><code># Run with default seccomp profile
+docker run --security-opt seccomp=default nginx
+
+# Run with custom profile
+docker run --security-opt seccomp=myprofile.json nginx
+
+# Disable seccomp (not recommended)
+docker run --security-opt seccomp=unconfined nginx</code></pre>
+            </section>
+
+            <!-- Slide 10: Image Security -->
+            <section>
+                <h2>Image Security Best Practices</h2>
+                <pre><code># Use specific version tags
+FROM python:3.11.5-slim
+
+# Run as non-root user
+RUN useradd -r -s /bin/false appuser
+USER appuser
+
+# Use COPY instead of ADD
+COPY --chown=appuser:appuser . .</code></pre>
+                <p>Always scan images for vulnerabilities:</p>
+                <pre><code>docker scout cves nginx:latest</code></pre>
+            </section>
+
+            <!-- Slide 11: Security Tools -->
+            <section>
+                <h2>Security Scanning Tools</h2>
+                <table>
+                    <tr>
+                        <th>Tool</th>
+                        <th>Type</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Docker Scout</strong></td>
+                        <td>Built-in vulnerability scanning</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Trivy</strong></td>
+                        <td>Open-source vulnerability scanner</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Grype</strong></td>
+                        <td>Vulnerability scanner for containers</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Snyk</strong></td>
+                        <td>Developer-first security</td>
+                    </tr>
+                </table>
+                <pre><code># Scan with Trivy
+trivy image nginx:latest</code></pre>
+            </section>
+
+            <!-- Slide 12: Summary -->
+            <section>
+                <h2>Security Best Practices</h2>
+                <table>
+                    <tr>
+                        <th>Area</th>
+                        <th>Practice</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Images</strong></td>
+                        <td>Use minimal base, scan for CVEs</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Runtime</strong></td>
+                        <td>Run as non-root, drop capabilities</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Network</strong></td>
+                        <td>Use bridge, expose only needed ports</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Storage</strong></td>
+                        <td>Use read-only where possible</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Secrets</strong></td>
+                        <td>Use Docker secrets or external vault</td>
+                    </tr>
+                </table>
+            </section>
+
+            <!-- Slide 13: Thank You -->
+            <section>
+                <h1>Thank You</h1>
+                <p><a href="../book/10-cgroups-namespaces-security/">Back to Book</a></p>
+                <p><small>Understanding these concepts is key to container security</small></p>
+            </section>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({ 
+            startOnLoad: false, 
+            theme: 'default',
+            flowchart: { useMaxWidth: true, htmlLabels: true }
+        });
+        
+        Reveal.initialize({
+            hash: true,
+            slideNumber: true,
+            transition: 'slide'
+        });
+        
+        Reveal.on('slidechanged', (event) => {
+            const mermaidDivs = event.currentSlide.querySelectorAll('.mermaid');
+            if (mermaidDivs.length > 0) {
+                mermaid.init(undefined, mermaidDivs);
+            }
+        });
+    </script>
+</body>
+</html>

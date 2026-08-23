@@ -14,6 +14,7 @@
         .reveal pre { font-size: 0.6em; }
         .reveal code { background-color: #f4f4f4; padding: 2px 6px; border-radius: 3px; }
         .reveal pre code { background-color: #282c34; color: #abb2bf; padding: 10px; }
+        .reveal .mermaid { text-align: center; }
     </style>
 </head>
 <body>
@@ -23,6 +24,29 @@
                 <h1>Advanced Docker Topics</h1>
                 <p>Security, Logging, Swarm, Kubernetes</p>
                 <p><small>KTU - Computer Science</small></p>
+            </section>
+
+            <section>
+                <h2>Docker Swarm Architecture</h2>
+                <div class="mermaid">
+                    graph TB
+                        subgraph "Docker Swarm"
+                            M[Manager Node]
+                            W1[Worker 1]
+                            W2[Worker 2]
+                            W3[Worker 3]
+                            M --> W1
+                            M --> W2
+                            M --> W3
+                        end
+                        subgraph Services
+                            S1[Service A]
+                            S2[Service B]
+                        end
+                        W1 --> S1
+                        W2 --> S1
+                        W3 --> S2
+                </div>
             </section>
 
             <section>
@@ -105,16 +129,28 @@ kubectl get deployments</code></pre>
 
             <section>
                 <h1>Thank You</h1>
-                <p><a href="../book/06-advanced.html">Back to Book</a></p>
+                <p><a href="../book/06-advanced/">Back to Book</a></p>
             </section>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
     <script>
         Reveal.initialize({
             hash: true,
             slideNumber: true,
             transition: 'slide'
+        });
+        mermaid.initialize({ 
+            startOnLoad: false, 
+            theme: 'default',
+            flowchart: { useMaxWidth: true, htmlLabels: true }
+        });
+        Reveal.on('slidechanged', (event) => {
+            const mermaidDivs = event.currentSlide.querySelectorAll('.mermaid');
+            if (mermaidDivs.length > 0) {
+                mermaid.init(undefined, mermaidDivs);
+            }
         });
     </script>
 </body>

@@ -14,6 +14,7 @@
         .reveal pre { font-size: 0.6em; }
         .reveal code { background-color: #f4f4f4; padding: 2px 6px; border-radius: 3px; }
         .reveal pre code { background-color: #282c34; color: #abb2bf; padding: 10px; }
+        .reveal .mermaid { text-align: center; }
     </style>
 </head>
 <body>
@@ -23,6 +24,32 @@
                 <h1>Docker Basic Operations</h1>
                 <p>Images, Containers, Networks, Volumes</p>
                 <p><small>KTU - Computer Science</small></p>
+            </section>
+
+            <section>
+                <h2>Docker Commands Overview</h2>
+                <div class="mermaid">
+                    graph LR
+                        subgraph Images
+                            I1[docker pull]
+                            I2[docker images]
+                            I3[docker rmi]
+                        end
+                        subgraph Containers
+                            C1[docker run]
+                            C2[docker ps]
+                            C3[docker stop]
+                            C4[docker rm]
+                        end
+                        subgraph Network
+                            N1[docker network create]
+                            N2[docker network ls]
+                        end
+                        subgraph Volumes
+                            V1[docker volume create]
+                            V2[docker volume ls]
+                        end
+                </div>
             </section>
 
             <section>
@@ -131,17 +158,34 @@ docker volume rm mydata</code></pre>
             </section>
 
             <section>
+                <h2>Container Lifecycle</h2>
+                <img src="../assets/images/container-lifecycle.svg" alt="Docker Container Lifecycle" style="max-width: 100%; height: auto;">
+            </section>
+
+            <section>
                 <h1>Thank You</h1>
-                <p><a href="../book/03-basic-operations.html">Back to Book</a></p>
+                <p><a href="../book/03-basic-operations/">Back to Book</a></p>
             </section>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
     <script>
         Reveal.initialize({
             hash: true,
             slideNumber: true,
             transition: 'slide'
+        });
+        mermaid.initialize({ 
+            startOnLoad: false, 
+            theme: 'default',
+            flowchart: { useMaxWidth: true, htmlLabels: true }
+        });
+        Reveal.on('slidechanged', (event) => {
+            const mermaidDivs = event.currentSlide.querySelectorAll('.mermaid');
+            if (mermaidDivs.length > 0) {
+                mermaid.init(undefined, mermaidDivs);
+            }
         });
     </script>
 </body>

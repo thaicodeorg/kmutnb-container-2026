@@ -1,0 +1,1800 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../09-workshop-fullstack/">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>10. Cgroups, Namespaces & Security - Kmutnb Docker container</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans+Thai+Looped:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"IBM Plex Sans Thai Looped";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#cgroups-namespaces-security" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Kmutnb Docker container" class="md-header__button md-logo" aria-label="Kmutnb Docker container" data-md-component="logo">
+      
+  <img src="../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Kmutnb Docker container
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              10. Cgroups, Namespaces & Security
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Kmutnb Docker container" class="md-nav__button md-logo" aria-label="Kmutnb Docker container" data-md-component="logo">
+      
+  <img src="../../assets/logo.png" alt="logo">
+
+    </a>
+    Kmutnb Docker container
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Book
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Book
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Fundamentals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-basic-operations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Basic Operations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-dockerfile/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Dockerfile
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-docker-compose/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Docker Compose
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-advanced/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Advanced
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-workshop-basic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Workshop Basic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-workshop-webserver/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Workshop Webserver
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-workshop-fullstack/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Workshop Fullstack
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Cgroups, Namespaces & Security
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Cgroups, Namespaces & Security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#linux-kernel-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Linux Kernel Features
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Linux Kernel Features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#control-groups-cgroups" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Control Groups (cgroups)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#namespaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Namespaces
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#control-groups-cgroups_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Control Groups (cgroups)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Control Groups (cgroups)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-are-cgroups" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What are Cgroups?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cgroup-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cgroup Resources
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#namespaces_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Namespaces
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Namespaces">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#types-of-namespaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Types of Namespaces
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#view-namespaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        View Namespaces
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pid-namespace-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PID Namespace Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#container-security" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Container Security
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Container Security">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#security-layers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Security Layers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docker-security-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Docker Security Features
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#advanced-security" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Advanced Security
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Advanced Security">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#seccomp-profiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Seccomp Profiles
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#apparmor-profiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AppArmor Profiles
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user-namespaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User Namespaces
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#image-security" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Image Security
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Image Security">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Best Practices
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docker-scout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Docker Scout
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#security-scanning-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Security Scanning Tools
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#runtime-security" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Runtime Security
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Runtime Security">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#docker-content-trust" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Docker Content Trust
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audit-logging" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Audit Logging
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resource-limits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resource Limits
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-practices-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Best Practices Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quiz" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quiz
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#linux-kernel-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Linux Kernel Features
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Linux Kernel Features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#control-groups-cgroups" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Control Groups (cgroups)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#namespaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Namespaces
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#control-groups-cgroups_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Control Groups (cgroups)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Control Groups (cgroups)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-are-cgroups" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What are Cgroups?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cgroup-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cgroup Resources
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#namespaces_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Namespaces
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Namespaces">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#types-of-namespaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Types of Namespaces
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#view-namespaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        View Namespaces
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pid-namespace-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PID Namespace Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#container-security" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Container Security
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Container Security">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#security-layers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Security Layers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docker-security-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Docker Security Features
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#advanced-security" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Advanced Security
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Advanced Security">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#seccomp-profiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Seccomp Profiles
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#apparmor-profiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AppArmor Profiles
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user-namespaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User Namespaces
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#image-security" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Image Security
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Image Security">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Best Practices
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docker-scout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Docker Scout
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#security-scanning-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Security Scanning Tools
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#runtime-security" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Runtime Security
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Runtime Security">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#docker-content-trust" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Docker Content Trust
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#audit-logging" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Audit Logging
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resource-limits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resource Limits
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-practices-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Best Practices Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quiz" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quiz
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<div class="admonition tip">
+<p class="admonition-title">Slides Available</p>
+<p>📊 <strong>View Presentation</strong> → <a href="../../presents/10-cgroups-namespaces.html">Open Slides</a></p>
+</div>
+<h1 id="cgroups-namespaces-security">Cgroups, Namespaces &amp; Security</h1>
+<h2 id="linux-kernel-features">Linux Kernel Features</h2>
+<p>Docker containers are built on two fundamental Linux kernel features:</p>
+<h3 id="control-groups-cgroups">Control Groups (cgroups)</h3>
+<p>Control groups limit and isolate resource usage (CPU, memory, disk I/O, network) of a collection of processes.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># View cgroup version</span>
+cat<span class="w"> </span>/proc/filesystems<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>cgroup
+
+<span class="c1"># View cgroup v2 mount</span>
+mount<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>cgroup
+</code></pre></div>
+<h3 id="namespaces">Namespaces</h3>
+<p>Namespaces provide isolated views of system resources (PID, network, mount, user, hostname).</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># View namespaces</span>
+ls<span class="w"> </span>-la<span class="w"> </span>/proc/self/ns/
+
+<span class="c1"># View process namespaces</span>
+lsns
+</code></pre></div>
+<hr />
+<h2 id="control-groups-cgroups_1">Control Groups (cgroups)</h2>
+<h3 id="what-are-cgroups">What are Cgroups?</h3>
+<p>Cgroups control how much CPU, memory, and I/O a container can use.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Create a cgroup</span>
+sudo<span class="w"> </span>mkdir<span class="w"> </span>/sys/fs/cgroup/mycontainer
+
+<span class="c1"># Limit CPU (10% = 10000/100000)</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;10000 100000&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>/sys/fs/cgroup/mycontainer/cpu.max
+
+<span class="c1"># Limit memory (100MB)</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;104857600&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>/sys/fs/cgroup/mycontainer/memory.max
+
+<span class="c1"># Run container with resource limits</span>
+docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>--cpus<span class="o">=</span><span class="s2">&quot;0.1&quot;</span><span class="w"> </span>--memory<span class="o">=</span><span class="s2">&quot;100m&quot;</span><span class="w"> </span>nginx
+</code></pre></div>
+<h3 id="cgroup-resources">Cgroup Resources</h3>
+<table>
+<thead>
+<tr>
+<th>Resource</th>
+<th>Control</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CPU</td>
+<td><code>--cpus</code></td>
+<td><code>--cpus="0.5"</code> (50% of one core)</td>
+</tr>
+<tr>
+<td>Memory</td>
+<td><code>--memory</code></td>
+<td><code>--memory="512m"</code></td>
+</tr>
+<tr>
+<td>Disk I/O</td>
+<td><code>--device-read-bps</code></td>
+<td><code>--device-read-bps=/dev/sda:10mb</code></td>
+</tr>
+<tr>
+<td>Network</td>
+<td><code>--net</code></td>
+<td><code>--net=host</code> or custom network</td>
+</tr>
+<tr>
+<td>PIDs</td>
+<td><code>--pids-limit</code></td>
+<td><code>--pids-limit=100</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="namespaces_1">Namespaces</h2>
+<h3 id="types-of-namespaces">Types of Namespaces</h3>
+<table>
+<thead>
+<tr>
+<th>Namespace</th>
+<th>Isolates</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>PID</strong></td>
+<td>Process IDs</td>
+</tr>
+<tr>
+<td><strong>NET</strong></td>
+<td>Network interfaces, IPs, routes</td>
+</tr>
+<tr>
+<td><strong>MNT</strong></td>
+<td>Filesystem mount points</td>
+</tr>
+<tr>
+<td><strong>UTS</strong></td>
+<td>Hostname and domain name</td>
+</tr>
+<tr>
+<td><strong>IPC</strong></td>
+<td>Inter-process communication</td>
+</tr>
+<tr>
+<td><strong>USER</strong></td>
+<td>User and group IDs</td>
+</tr>
+<tr>
+<td><strong>CGROUP</strong></td>
+<td>Cgroup root directory</td>
+</tr>
+</tbody>
+</table>
+<h3 id="view-namespaces">View Namespaces</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># List all namespaces</span>
+lsns
+
+<span class="c1"># List specific namespace type</span>
+lsns<span class="w"> </span>-t<span class="w"> </span>pid
+lsns<span class="w"> </span>-t<span class="w"> </span>net
+
+<span class="c1"># View process namespaces</span>
+cat<span class="w"> </span>/proc/self/status<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>NSpid
+</code></pre></div>
+<h3 id="pid-namespace-example">PID Namespace Example</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Run container and see PID 1 inside</span>
+docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-it<span class="w"> </span>centos:stream9<span class="w"> </span>ps<span class="w"> </span>aux
+
+<span class="c1"># Compare with host</span>
+ps<span class="w"> </span>aux<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-5
+</code></pre></div>
+<hr />
+<h2 id="container-security">Container Security</h2>
+<h3 id="security-layers">Security Layers</h3>
+<div class="highlight"><pre><span></span><code>┌─────────────────────────────┐
+│     Application Security    │
+├─────────────────────────────┤
+│     Container Security      │
+├─────────────────────────────┤
+│     Image Security          │
+├─────────────────────────────┤
+│     Host Security           │
+├─────────────────────────────┤
+│     Kernel Security         │
+└─────────────────────────────┘
+</code></pre></div>
+<h3 id="docker-security-features">Docker Security Features</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Run as non-root user</span>
+docker<span class="w"> </span>run<span class="w"> </span>--user<span class="w"> </span><span class="m">1000</span>:1000<span class="w"> </span>nginx
+
+<span class="c1"># Read-only filesystem</span>
+docker<span class="w"> </span>run<span class="w"> </span>--read-only<span class="w"> </span>nginx
+
+<span class="c1"># Drop all capabilities</span>
+docker<span class="w"> </span>run<span class="w"> </span>--cap-drop<span class="o">=</span>ALL<span class="w"> </span>nginx
+
+<span class="c1"># Add specific capability</span>
+docker<span class="w"> </span>run<span class="w"> </span>--cap-add<span class="o">=</span>NET_ADMIN<span class="w"> </span>nginx
+
+<span class="c1"># No new privileges</span>
+docker<span class="w"> </span>run<span class="w"> </span>--security-opt<span class="o">=</span>no-new-privileges<span class="w"> </span>nginx
+</code></pre></div>
+<hr />
+<h2 id="advanced-security">Advanced Security</h2>
+<h3 id="seccomp-profiles">Seccomp Profiles</h3>
+<p>Seccomp (Secure Computing Mode) filters system calls a container can make.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Run with default seccomp profile</span>
+docker<span class="w"> </span>run<span class="w"> </span>--security-opt<span class="w"> </span><span class="nv">seccomp</span><span class="o">=</span>default<span class="w"> </span>nginx
+
+<span class="c1"># Run with custom profile</span>
+docker<span class="w"> </span>run<span class="w"> </span>--security-opt<span class="w"> </span><span class="nv">seccomp</span><span class="o">=</span>myprofile.json<span class="w"> </span>nginx
+
+<span class="c1"># Disable seccomp (not recommended)</span>
+docker<span class="w"> </span>run<span class="w"> </span>--security-opt<span class="w"> </span><span class="nv">seccomp</span><span class="o">=</span>unconfined<span class="w"> </span>nginx
+</code></pre></div>
+<h3 id="apparmor-profiles">AppArmor Profiles</h3>
+<p>AppArmor restricts program capabilities with per-program profiles.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Run with AppArmor profile</span>
+docker<span class="w"> </span>run<span class="w"> </span>--security-opt<span class="w"> </span><span class="nv">apparmor</span><span class="o">=</span>myprofile<span class="w"> </span>nginx
+
+<span class="c1"># View container security options</span>
+docker<span class="w"> </span>inspect<span class="w"> </span>--format<span class="o">=</span><span class="s1">&#39;{{.HostConfig.SecurityOpt}}&#39;</span><span class="w"> </span>&lt;container&gt;
+</code></pre></div>
+<h3 id="user-namespaces">User Namespaces</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Enable user namespace remapping</span>
+<span class="c1"># Edit /etc/docker/daemon.json</span>
+<span class="o">{</span>
+<span class="w">    </span><span class="s2">&quot;userns-remap&quot;</span>:<span class="w"> </span><span class="s2">&quot;default&quot;</span>
+<span class="o">}</span>
+
+<span class="c1"># Restart Docker</span>
+sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>docker
+
+<span class="c1"># Verify</span>
+docker<span class="w"> </span>info<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span><span class="s2">&quot;user namespace&quot;</span>
+</code></pre></div>
+<hr />
+<h2 id="image-security">Image Security</h2>
+<h3 id="best-practices">Best Practices</h3>
+<div class="highlight"><pre><span></span><code><span class="c"># Use specific version tags</span>
+<span class="k">FROM</span><span class="w"> </span><span class="s">python:3.11.5-slim</span>
+
+<span class="c"># Run as non-root user</span>
+<span class="k">RUN</span><span class="w"> </span>useradd<span class="w"> </span>-r<span class="w"> </span>-s<span class="w"> </span>/bin/false<span class="w"> </span>appuser
+<span class="k">USER</span><span class="w"> </span><span class="s">appuser</span>
+
+<span class="c"># Use COPY instead of ADD</span>
+<span class="k">COPY</span><span class="w"> </span>--chown<span class="o">=</span>appuser:appuser<span class="w"> </span>.<span class="w"> </span>.
+
+<span class="c"># Scan for vulnerabilities</span>
+<span class="c"># docker scout cves &lt;image&gt;</span>
+</code></pre></div>
+<h3 id="docker-scout">Docker Scout</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Enable Docker Scout</span>
+docker<span class="w"> </span>scout<span class="w"> </span>quickview<span class="w"> </span>&lt;image&gt;
+
+<span class="c1"># View CVEs</span>
+docker<span class="w"> </span>scout<span class="w"> </span>cves<span class="w"> </span>&lt;image&gt;
+
+<span class="c1"># Compare images</span>
+docker<span class="w"> </span>scout<span class="w"> </span>compare<span class="w"> </span>&lt;image1&gt;<span class="w"> </span>&lt;image2&gt;
+</code></pre></div>
+<hr />
+<h2 id="security-scanning-tools">Security Scanning Tools</h2>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Docker Scout</strong></td>
+<td>Built-in vulnerability scanning</td>
+</tr>
+<tr>
+<td><strong>Trivy</strong></td>
+<td>Open-source vulnerability scanner</td>
+</tr>
+<tr>
+<td><strong>Grype</strong></td>
+<td>Vulnerability scanner for containers</td>
+</tr>
+<tr>
+<td><strong>Snyk</strong></td>
+<td>Developer-first security</td>
+</tr>
+<tr>
+<td><strong>Clair</strong></td>
+<td>Static vulnerability analysis</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><span class="c1"># Scan with Trivy</span>
+trivy<span class="w"> </span>image<span class="w"> </span>nginx:latest
+
+<span class="c1"># Scan with Grype</span>
+grype<span class="w"> </span>nginx:latest
+
+<span class="c1"># Scan with Docker Scout</span>
+docker<span class="w"> </span>scout<span class="w"> </span>cves<span class="w"> </span>nginx:latest
+</code></pre></div>
+<hr />
+<h2 id="runtime-security">Runtime Security</h2>
+<h3 id="docker-content-trust">Docker Content Trust</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Enable content trust</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">DOCKER_CONTENT_TRUST</span><span class="o">=</span><span class="m">1</span>
+
+<span class="c1"># Push signed image</span>
+docker<span class="w"> </span>push<span class="w"> </span>myregistry/myimage:latest
+
+<span class="c1"># Pull only signed images</span>
+docker<span class="w"> </span>pull<span class="w"> </span>myregistry/myimage:latest
+</code></pre></div>
+<h3 id="audit-logging">Audit Logging</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Enable audit logging</span>
+sudo<span class="w"> </span>auditctl<span class="w"> </span>-w<span class="w"> </span>/usr/bin/docker<span class="w"> </span>-p<span class="w"> </span>rwxa<span class="w"> </span>-k<span class="w"> </span>docker
+
+<span class="c1"># View audit logs</span>
+sudo<span class="w"> </span>ausearch<span class="w"> </span>-k<span class="w"> </span>docker
+</code></pre></div>
+<h3 id="resource-limits">Resource Limits</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Set memory limit</span>
+docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>--memory<span class="o">=</span>512m<span class="w"> </span>nginx
+
+<span class="c1"># Set CPU limit</span>
+docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>--cpus<span class="o">=</span><span class="m">1</span>.5<span class="w"> </span>nginx
+
+<span class="c1"># Set PID limit</span>
+docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>--pids-limit<span class="o">=</span><span class="m">100</span><span class="w"> </span>nginx
+
+<span class="c1"># Combine limits</span>
+docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--memory<span class="o">=</span>256m<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--cpus<span class="o">=</span><span class="m">0</span>.5<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--pids-limit<span class="o">=</span><span class="m">50</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>nginx
+</code></pre></div>
+<hr />
+<h2 id="best-practices-summary">Best Practices Summary</h2>
+<table>
+<thead>
+<tr>
+<th>Area</th>
+<th>Practice</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Images</strong></td>
+<td>Use minimal base images, scan for CVEs</td>
+</tr>
+<tr>
+<td><strong>Runtime</strong></td>
+<td>Run as non-root, drop capabilities</td>
+</tr>
+<tr>
+<td><strong>Network</strong></td>
+<td>Use bridge network, expose only needed ports</td>
+</tr>
+<tr>
+<td><strong>Storage</strong></td>
+<td>Use read-only where possible</td>
+</tr>
+<tr>
+<td><strong>Secrets</strong></td>
+<td>Use Docker secrets or external vault</td>
+</tr>
+<tr>
+<td><strong>Updates</strong></td>
+<td>Regularly rebuild images with latest patches</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="quiz">Quiz</h2>
+<details class="question">
+<summary>Question 1: What do cgroups control?</summary>
+<p><strong>Answer:</strong></p>
+<p>Cgroups control and limit resource usage including CPU, memory, disk I/O, and network bandwidth.</p>
+</details>
+<details class="question">
+<summary>Question 2: What is the purpose of PID namespace?</summary>
+<p><strong>Answer:</strong></p>
+<p>PID namespace isolates the process ID number space, so processes in different namespaces can have the same PID.</p>
+</details>
+<details class="question">
+<summary>Question 3: What is the difference between --cap-add and --security-opt?</summary>
+<p><strong>Answer:</strong></p>
+<p>--cap-add adds Linux capabilities to a container, while --security-opt configures security policies like AppArmor and seccomp.</p>
+</details>
+<details class="question">
+<summary>Question 4: Why should you run containers as non-root?</summary>
+<p><strong>Answer:</strong></p>
+<p>Running as non-root limits the container's ability to access host resources and reduces the attack surface if the container is compromised.</p>
+</details>
+<details class="question">
+<summary>Question 5: What is Docker Content Trust?</summary>
+<p><strong>Answer:</strong></p>
+<p>Docker Content Trust ensures image integrity by using digital signatures to verify the publisher and content of images.</p>
+</details>
+<details class="question">
+<summary>Question 6: What is seccomp in Docker?</summary>
+<p><strong>Answer:</strong></p>
+<p>Seccomp (Secure Computing Mode) filters the system calls a container can make to the host kernel, limiting potential attacks.</p>
+</details>
+<details class="question">
+<summary>Question 7: How do you enable user namespace remapping?</summary>
+<p><strong>Answer:</strong></p>
+<p>Add "userns-remap": "default" to /etc/docker/daemon.json and restart Docker.</p>
+</details>
+<details class="question">
+<summary>Question 8: What is the purpose of --read-only flag?</summary>
+<p><strong>Answer:</strong></p>
+<p>--read-only makes the container's filesystem read-only, preventing write operations except for explicitly mounted volumes.</p>
+</details>
+<details class="question">
+<summary>Question 9: Name three security scanning tools for Docker images.</summary>
+<p><strong>Answer:</strong></p>
+<p>Docker Scout, Trivy, Grype, Snyk, or Clair.</p>
+</details>
+<details class="question">
+<summary>Question 10: What does --pids-limit restrict?</summary>
+<p><strong>Answer:</strong></p>
+<p>--pids-limit restricts the number of processes that can be created inside a container, preventing fork bombs.</p>
+</details>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../09-workshop-fullstack/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 9. Workshop Fullstack">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                9. Workshop Fullstack
+              </div>
+            </div>
+          </a>
+        
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2025 sawangpong muadphet
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.top", "navigation.footer"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

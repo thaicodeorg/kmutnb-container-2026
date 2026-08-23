@@ -14,17 +14,29 @@
         .reveal pre { font-size: 0.6em; }
         .reveal code { background-color: #f4f4f4; padding: 2px 6px; border-radius: 3px; }
         .reveal pre code { background-color: #282c34; color: #abb2bf; padding: 10px; }
+        .reveal .mermaid { text-align: center; }
+        .reveal table { margin: 20px auto; border-collapse: collapse; font-size: 0.8em; }
+        .reveal table th, .reveal table td { border: 1px solid #ddd; padding: 8px 12px; }
+        .reveal table th { background-color: #3498db; color: white; }
     </style>
 </head>
 <body>
     <div class="reveal">
         <div class="slides">
+            <!-- Slide 1: Title -->
             <section>
                 <h1>Docker CE Installation</h1>
                 <p>CentOS 9 Stream</p>
                 <p><small>KTU - Computer Science</small></p>
             </section>
 
+            <!-- Slide 2: Installation Workflow -->
+            <section>
+                <h2>Installation Workflow</h2>
+                <img src="../assets/images/installation-workflow.svg" alt="Docker Installation Workflow" style="max-width: 100%; height: auto;">
+            </section>
+
+            <!-- Slide 3: Prerequisites -->
             <section>
                 <h2>Prerequisites</h2>
                 <ul>
@@ -40,6 +52,7 @@
     docker-engine</code></pre>
             </section>
 
+            <!-- Slide 4: Add Repository -->
             <section>
                 <h2>Add Docker CE Repository</h2>
                 <pre><code># Install yum-utils
@@ -53,6 +66,7 @@ sudo yum-config-manager --add-repo \
 dnf repolist | grep docker-ce</code></pre>
             </section>
 
+            <!-- Slide 5: Install Docker -->
             <section>
                 <h2>Install Docker CE</h2>
                 <pre><code># Install latest Docker CE
@@ -65,6 +79,7 @@ dnf list docker-ce --showduplicates
 sudo dnf install -y docker-ce-24.0.7</code></pre>
             </section>
 
+            <!-- Slide 6: Start Service -->
             <section>
                 <h2>Start Docker Service</h2>
                 <pre><code># Start and enable Docker
@@ -75,6 +90,7 @@ sudo systemctl enable docker
 sudo systemctl status docker</code></pre>
             </section>
 
+            <!-- Slide 7: Verify Installation -->
             <section>
                 <h2>Verify Installation</h2>
                 <pre><code># Check Docker version
@@ -87,6 +103,7 @@ sudo docker run hello-world
 sudo docker run -it centos:stream9 /bin/bash</code></pre>
             </section>
 
+            <!-- Slide 8: Post-Installation -->
             <section>
                 <h2>Post-Installation Steps</h2>
                 <ul>
@@ -97,19 +114,102 @@ sudo docker run -it centos:stream9 /bin/bash</code></pre>
                 </ul>
             </section>
 
+            <!-- Slide 9: Rootless Mode -->
+            <section>
+                <h2>Rootless Mode</h2>
+                <p>Run Docker without root privileges:</p>
+                <pre><code># Install dependencies
+sudo dnf install -y fuse-overlayfs slirp4netns
+
+# Create docker group
+sudo groupadd docker
+sudo usermod -aG docker $USER
+
+# Install rootless Docker
+dockerd-rootless-setuptool.sh install</code></pre>
+                <p><small>Benefits: Improved security, no root daemon</small></p>
+            </section>
+
+            <!-- Slide 10: Configure Daemon -->
+            <section>
+                <h2>Configure Docker Daemon</h2>
+                <pre><code># Edit daemon.json
+sudo vi /etc/docker/daemon.json
+
+# Example configuration
+{
+    "storage-driver": "overlay2",
+    "log-driver": "json-file",
+    "log-opts": {
+        "max-size": "10m",
+        "max-file": "3"
+    },
+    "dns": ["8.8.8.8", "8.8.4.4"]
+}
+
+# Restart Docker
+sudo systemctl restart docker</code></pre>
+            </section>
+
+            <!-- Slide 11: Troubleshooting -->
+            <section>
+                <h2>Common Issues & Solutions</h2>
+                <table>
+                    <tr>
+                        <th>Issue</th>
+                        <th>Solution</th>
+                    </tr>
+                    <tr>
+                        <td>Permission denied</td>
+                        <td>Add user to docker group</td>
+                    </tr>
+                    <tr>
+                        <td>Cannot connect to daemon</td>
+                        <td>Start Docker service</td>
+                    </tr>
+                    <tr>
+                        <td>Image pull fails</td>
+                        <td>Check internet connection</td>
+                    </tr>
+                    <tr>
+                        <td>Port already in use</td>
+                        <td>Stop conflicting service</td>
+                    </tr>
+                    <tr>
+                        <td>Disk space error</td>
+                        <td>Clean up: <code>docker system prune</code></td>
+                    </tr>
+                </table>
+            </section>
+
+            <!-- Slide 12: Thank You -->
             <section>
                 <h1>Thank You</h1>
-                <p><a href="../book/02-installation.html">Back to Book</a></p>
+                <p><a href="../book/02-installation/">Back to Book</a></p>
+                <p><small>Next: Docker Basic Operations</small></p>
             </section>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
     <script>
         Reveal.initialize({
             hash: true,
             slideNumber: true,
             transition: 'slide'
         });
+        mermaid.initialize({ 
+            startOnLoad: false, 
+            theme: 'default',
+            flowchart: { useMaxWidth: true, htmlLabels: true }
+        });
+        Reveal.on('slidechanged', (event) => {
+            const mermaidDivs = event.currentSlide.querySelectorAll('.mermaid');
+            if (mermaidDivs.length > 0) {
+                mermaid.init(undefined, mermaidDivs);
+            }
+        });
     </script>
 </body>
 </html>
+
