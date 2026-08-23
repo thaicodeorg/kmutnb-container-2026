@@ -7,9 +7,9 @@ This chapter covers the complete installation process of Docker Community Editio
 
 ---
 
-## Task Create Student Submition
-- Student will submit Screen of Docker installation process.
-- use Basic Template [Download](../assets/Template%20Docs%20Submition%20%20Docker%20installation%20proce.docx)
+## Assignment: Create Student's Submission along tutorial
+- Student will submit Screen of Docker installation process according to step-by-step from manual.
+- Student can use Basic Template [Download](../assets/docker-install-submission.docx)  or generate own version.
 
 ## 2.1 Remove Old Docker Versions
 
