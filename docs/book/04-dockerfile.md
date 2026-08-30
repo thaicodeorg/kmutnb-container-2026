@@ -1,327 +1,315 @@
-!!! tip "Slides Available"
-    📊 **View Presentation** → [Open Slides](../presents/04-dockerfile.html)
+# Chapter 4: Docker Basics && Dockerfile Workshop (Using CentOS Stream 10)
 
-# Chapter 4: Dockerfile
+## Reviews: 
+### What is Docker?
+Docker is a platform that uses OS-level virtualization to package applications into **containers**. Think of it as lightweight, portable units that include everything needed to run software—code, libraries, dependencies, and configuration.
 
-## Overview
+**Key concepts:**
+- **Image**: A read-only template or "blueprint" containing everything needed to run an application
+- **Container**: A runnable instance of an image—an isolated environment where the application actually runs
 
-This chapter covers Dockerfile instructions, multi-stage builds, and best practices for creating optimized Docker images.
+### Docker vs. Virtual Machines
+Unlike VMs that require a full operating system per instance, Docker containers share the host OS kernel. This makes containers:
+- **Lighter** (megabytes vs. gigabytes for VMs)
+- **Faster** to start (seconds vs. minutes)
+- **More efficient** with system resources
 
----
-
-## 4.1 Dockerfile Instructions
-
-### FROM
-
-Sets the base image:
-
-```dockerfile
-FROM centos:stream9
-FROM python:3.11-slim
-FROM scratch
-```
-
-### WORKDIR
-
-Sets the working directory inside the container:
-
-```dockerfile
-WORKDIR /app
-WORKDIR /usr/src/app
-```
-
-### COPY
-
-Copies files from build context to the image:
-
-```dockerfile
-COPY . .
-COPY requirements.txt .
-COPY src/ /app/src/
-COPY --chown=user:user file.txt /app/
-```
-
-### RUN
-
-Executes commands during the build:
-
-```dockerfile
-RUN dnf install -y nginx
-RUN pip install -r requirements.txt
-RUN apt-get update && apt-get install -y \
-    curl \
-    git \
-    && rm -rf /var/lib/apt/lists/*
-```
-
-### CMD
-
-Default command when the container starts (can be overridden):
-
-```dockerfile
-CMD ["nginx", "-g", "daemon off;"]
-CMD ["python", "app.py"]
-CMD echo "Hello"
-```
-
-### ENTRYPOINT
-
-Defines the main executable (not easily overridden):
-
-```dockerfile
-ENTRYPOINT ["python"]
-CMD ["app.py"]
-```
-
-### ENV
-
-Sets environment variables:
-
-```dockerfile
-ENV APP_HOME=/app
-ENV PYTHONUNBUFFERED=1
-ENV NODE_ENV=production
-```
-
-### EXPOSE
-
-Documents which ports the container listens on:
-
-```dockerfile
-EXPOSE 80
-EXPOSE 443
-EXPOSE 8080/tcp
-```
-
-### ARG
-
-Defines build-time variables:
-
-```dockerfile
-ARG PYTHON_VERSION=3.11
-FROM python:${PYTHON_VERSION}-slim
-ARG BUILD_DATE
-LABEL build-date="${BUILD_DATE}"
-```
+### Why Use Docker?
+- **Environment consistency**: Eliminates "it works on my machine" problems by providing identical environments everywhere
+- **Portability**: Run containers on any system with Docker installed—from laptops to cloud servers
+- **Isolation**: Containers run independently without interfering with each other
 
 ---
 
-## 4.2 Multi-Stage Builds
+## Assignment: Create Student's Submission along tutorial
+- Student will submit Screen of Docker installation process according to step-by-step from manual.
+- Student can use Basic Template [Download](../assets/dockerbasic-dockerfile-submission.docx)  or generate own version.
 
-Multi-stage builds reduce the final image size by separating build and runtime stages:
 
-### Python Example
+### Using CentOS Stream 10 with Docker
 
-```dockerfile
-# Stage 1: Build
-FROM python:3.11-slim AS builder
-WORKDIR /app
-COPY requirements.txt .
-RUN pip install --no-cache-dir --user -r requirements.txt
+If you want to use CentOS Stream 10 as your base image, here's how to find and use it:
 
-# Stage 2: Runtime
-FROM python:3.11-slim
-WORKDIR /app
-COPY --from=builder /root/.local /root/.local
-COPY . .
-ENV PATH=/root/.local/bin:$PATH
-CMD ["python", "app.py"]
+#### Pre-built Images on Quay.io
+
+visit [Ref https://quay.io/organization/sclorg ](https://quay.io/organization/sclorg) to review docker image. 
+
+![](../assets/images/basic-docker1.png)
+
+CentOS Stream 10 images are available on **Quay.io** (Red Hat's container registry). Examples include:
+
+| Image Type | Registry Address |
+|------------|------------------|
+| Apache HTTP Server | `quay.io/sclorg/httpd-24-c10s` |
+| PostgreSQL 16 | `quay.io/sclorg/postgresql-16-c10s` |
+| Node.js 22 | `quay.io/sclorg/nodejs-22-c10s` |
+| Node.js 22 Minimal | `quay.io/sclorg/nodejs-22-minimal-c10s` |
+| PostgreSQL 18 | `quay.io/sclorg/postgresql-18-c10s` |
+ 
+You can **pull** all of these images in table using:
+- use command format ``docker pull <repo name/owner/image name>``
+```bash
+docker pull quay.io/sclorg/postgresql-16-c10s
+```
+![](../assets/images/basic-docker2.png)
+
+> **Note**: *** pull all image with list in above tables and copy screen in templage.
+
+- run command ``docker image ls`` to verify successfully image from table
+
+![](../assets/images/basic-docker5.png)
+
+#### Next Learn building from a Dockerfile
+- create  basicdocker1 folder as project folder (Remeber there  is only one Dockerfile in each of project)
+- project structure:  create file Dockerfile, index.html, app.js
+    ```
+    your-project/
+    ├── Dockerfile
+    ├── index.html
+    └── app.js
+    ```
+
+```bash
+# Create project folder holding your project
+mkdir basicdocker1
+cd basicdocker1
+```
+- use structure to generate file (Linux Admin skill call heredoc)
+```
+cat > Dockerfile << 'EOF'
+
+## content will go here
+EOF
 ```
 
-### Node.js Example
+- 1 generate ``Dockerfile`` to create docker image
+```bash
+cat > Dockerfile  << 'EOF'
+FROM quay.io/sclorg/httpd-24-c10s
 
-```dockerfile
-# Stage 1: Build
-FROM node:18 AS builder
+# --- Switch to root to install packages ---
+USER root
+
+# Install additional packages
+RUN dnf install -y curl nginx
+
+# --- Create log directories and set permissions for the 'default' user ---
+# Added /var/log/nginx to the list of directories created and chowned
+RUN mkdir -p /app/logs /run/nginx /var/lib/nginx/tmp /var/log/nginx && \
+    chown -R default:root /app/logs /run/nginx /var/lib/nginx /var/log/nginx
+
+# --- Switch back to the default non-root user ---
+USER default
+
+# Set working directory
 WORKDIR /app
-COPY package*.json .
-RUN npm ci
-COPY . .
-RUN npm run build
 
-# Stage 2: Production
-FROM node:18-slim
-WORKDIR /app
-COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/node_modules ./node_modules
-EXPOSE 3000
-CMD ["node", "dist/index.js"]
-```
+# --- Copy Nginx configuration ---
+COPY nginx.conf /etc/nginx/nginx.conf
 
-### Go Example
+# --- Copy application files ---
+COPY index.html app.js /app/
 
-```dockerfile
-# Stage 1: Build
-FROM golang:1.21 AS builder
-WORKDIR /app
-COPY go.mod go.sum ./
-RUN go mod download
-COPY . .
-RUN CGO_ENABLED=0 go build -o server .
-
-# Stage 2: Runtime
-FROM scratch
-COPY --from=builder /app/server /server
+# Expose the unprivileged port
 EXPOSE 8080
-ENTRYPOINT ["/server"]
+
+CMD ["nginx", "-g", "daemon off;"]
+EOF
 ```
+output:
+![](../assets/images/basic-docker6.png)
 
----
-
-## 4.3 .dockerignore
-
-Create a `.dockerignore` file to exclude files from the build context:
-
+- 2 generate ``index.html``
+```bash
+cat > index.html << 'EOF'
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Web is Running</title>
+    <script src="app.js"></script>
+</head>
+<body>
+    <h1>🚀 Web is Running!</h1>
+    <p>Nginx is successfully serving files from <code>/app</code>.</p>
+    <p>Open your browser console (F12) to see the message from <code>app.js</code>.</p>
+</body>
+</html>
+EOF
 ```
-.git
-.gitignore
-.env
-node_modules
-__pycache__
-*.pyc
-.venv
-venv
-dist
-build
-*.md
-LICENSE
-Dockerfile
-.dockerignore
-docker-compose.yml
-.vscode
-.idea
+output:
+![](../assets/images/basic-docker7.png)
+
+- 3 generate ``app.js`` 
+```bash
+cat > app.js << 'EOF'
+console.log("✅ Web is running! App.js loaded successfully.");
+alert("Hello from app.js!");
+EOF
 ```
+output:
+![](../assets/images/basic-docker8.png)
 
----
+- 4 generate ``nginx.conf``
+```bash
+cat > nginx.conf << 'EOF'
+# --- Tell Nginx to write the PID file in the writable directory ---
+pid /run/nginx/nginx.pid;
+error_log /app/logs/error.log;
 
-## 4.4 Best Practices
+events {
+    worker_connections 1024;
+}
 
-### Layer Caching
+http {
+    include /etc/nginx/mime.types;
+    default_type application/octet-stream;
+    access_log /app/logs/access.log;
+    
+    server {
+        # Listen on an unprivileged port since we are running as a non-root user
+        listen 8080;
+        server_name localhost;
 
-Order instructions from least to most frequently changing:
+        root /app;
+        index index.html;
 
+        location / {
+            try_files $uri $uri/ =404;
+        }
+    }
+}
+EOF
+```
+output:  
+![](../assets/images/basic-docker9.png)
+
+### List output files in project folder 
+
+![](../assets/images/basic-docker10.png)
+
+
+## Explaination
 ```dockerfile
-# Good: Dependencies first, code last
-FROM node:18-slim
+cat > Dockerfile  << 'EOF'
+FROM quay.io/sclorg/httpd-24-c10s
+
+# --- Switch to root to install packages ---
+USER root
+
+# Install additional packages
+RUN dnf install -y curl nginx
+
+# --- Create log directories and set permissions for the 'default' user ---
+# Added /var/log/nginx to the list of directories created and chowned
+RUN mkdir -p /app/logs /run/nginx /var/lib/nginx/tmp /var/log/nginx && \
+    chown -R default:root /app/logs /run/nginx /var/lib/nginx /var/log/nginx
+
+# --- Switch back to the default non-root user ---
+USER default
+
+# Set working directory
 WORKDIR /app
-COPY package*.json ./          # Rarely changes
-RUN npm ci                     # Cached until package*.json changes
-COPY . .                       # Changes often
+
+# --- Copy Nginx configuration ---
+COPY nginx.conf /etc/nginx/nginx.conf
+
+# --- Copy application files ---
+COPY index.html app.js /app/
+
+# Expose the unprivileged port
+EXPOSE 8080
+
+CMD ["nginx", "-g", "daemon off;"]
+EOF
+
 ```
 
-### Use Minimal Base Images
-
-```dockerfile
-# Prefer slim or alpine variants
-FROM python:3.11-slim
-FROM node:18-alpine
-FROM golang:1.21-alpine
+#### Enable firewall 
+```bash
+sudo firewall-cmd --zone=public --add-port=8080/tcp --permanent
+sudo firewall-cmd --reload
 ```
 
-### Run as Non-Root User
 
-```dockerfile
-FROM centos:stream9
-RUN useradd -r -s /bin/false appuser
-USER appuser
-WORKDIR /app
-COPY --chown=appuser:appuser . .
-CMD ["./start.sh"]
+#### Build and Run
+```bash
+# Build the image (do not 'dot' end of command)
+docker build -t my-http-app .
+```
+output: 
+![](../assets/images/basic-docker11.png)
+
+#### list your image
+```
+docker image  ls
+```
+![](../assets/images/basic-docker12.png)
 ```
 
-### Combine RUN Commands
+mkdir -p ./host_logs
+sudo chmod 777 ./host_logs
+docker run  -p 8080:80 --name my-http-container  -v "$(pwd)/host_logs:/app/logs" my-http-app
 
-```dockerfile
-# Bad: Multiple layers
-RUN dnf install -y curl
-RUN dnf install -y git
-RUN dnf clean all
+# after run terminal will hold session - not return terminal to user
+```
+- open browser and view index.html
 
-# Good: Single layer
-RUN dnf install -y curl git && \
-    dnf clean all && \
-    rm -rf /var/cache/dnf
+![](../assets/images/basic-docker13.png)
+
+#### Open open new terminal
+```bash
+# Run a container from the image
+docker exec -it my-http-container /bin/bash
 ```
 
-### Use Specific Tags
+![](../assets/images/basic-docker14.png)
 
-```dockerfile
-# Bad: Mutable tag
-FROM python:latest
 
-# Good: Specific version
-FROM python:3.11.5-slim
 
-# Best: Digest pinning
-FROM python:3.11.5-slim@sha256:abc123...
-```
+## Try to understand most core basic of Docker Technology
+When the **Docker daemon (service)** processes a `Dockerfile` during `docker build`, it reads the instructions **top-down**, executing each statement sequentially. Each instruction (except `CMD`) creates a new **read-only layer** in the image filesystem, which is cached for future builds.
+
+Here is a comprehensive summary in **table format**, covering when, how, and what each of your specified commands does:
+
+| Instruction | Execution Phase | Primary Purpose | Creates a Layer? | Key Behavior & Details |
+| :--- | :--- | :--- | :--- | :--- |
+| **`FROM`** | **Build Time** | Sets the base image for subsequent instructions. | **Yes** (pulls parent layers) | The service checks the local cache; if missing, it pulls the image from the registry. Every valid Dockerfile must start with this. |
+| **`RUN`** | **Build Time** | Executes commands (e.g., `dnf install`) in a new shell. | **Yes** | The daemon runs the command, commits the result to a new layer, and saves it. This is where you install system packages and modify files inside the image. |
+| **`WORKDIR`** | **Build Time**<br>*(affects Runtime)* | Sets the current working directory for **subsequent** `RUN`, `CMD`, `COPY`, and `ENTRYPOINT` instructions. | **No** (metadata only) | If the directory does not exist inside the temporary container, the daemon automatically creates it. It changes the filesystem path context for the next commands. |
+| **`COPY`** | **Build Time** | Copies new files/directories from the **build context** (your host machine) into the container's filesystem. | **Yes** | The daemon reads the source files from the host, streams them into the build container, and commits the new filesystem state as a layer. *Note: It does NOT support URL fetching (use `ADD` for that).* |
+| **`CMD`** | **Runtime**<br>(Container Start) | Provides default arguments/command for the running container. | **No** (config metadata) | The daemon **does not execute** this during `docker build`. Instead, it stores this command as metadata in the image config. When you run `docker run` (or the service starts a container), the daemon executes this. **Important:** If the container runs with a different command (e.g., `docker run <image> /bin/bash`), this `CMD` is entirely **overridden**. |
 
 ---
 
-## Summary
+###  Additional Context from the Daemon's Perspective
 
-| Instruction | Purpose | Overridable |
-|-------------|---------|-------------|
-| `FROM` | Base image | — |
-| `WORKDIR` | Set working directory | — |
-| `COPY` | Copy files to image | — |
-| `RUN` | Execute build commands | — |
-| `CMD` | Default start command | Yes |
-| `ENTRYPOINT` | Main executable | With `--entrypoint` |
-| `ENV` | Environment variables | Yes |
-| `EXPOSE` | Document port | — |
-| `ARG` | Build-time variable | — |
+1.  **Layer Caching**: The daemon uses a cache to speed up builds. If it finds an unchanged instruction (e.g., `COPY . .` with unchanged files) and a cached layer exists, it will reuse it instead of rebuilding.
+2.  **Build Context**: Before processing `COPY`, the daemon receives a compressed "build context" (the directory where you run `docker build`). `COPY` can only access files within this context for security reasons.
+3.  **Shell Form vs. Exec Form**: 
+    - `RUN dnf install -y curl` uses **shell form** (runs `/bin/sh -c`).
+    - `CMD ["nginx", "-g", "daemon off;"]` uses **exec form** (runs directly without a shell). The daemon prefers exec form because it handles signals (like `SIGTERM`) properly, allowing for graceful shutdowns.
+4.  **Docker Service (Swarm/Compose)**: If you deploy this image via **Docker Service** (`docker service create`), the service manager ignores the `CMD` if you specify a command in the service definition, exactly like `docker run`.
 
----
 
-## Quiz
 
-??? question "Question 1: What is the difference between CMD and ENTRYPOINT?"
-    **Answer:**
-    
-    `CMD` provides default arguments that can be overridden at runtime; `ENTRYPOINT` defines the main executable and is harder to override.
+### Basic Docker Commands Cheat Sheet
 
-??? question "Question 2: What does a multi-stage build accomplish?"
-    **Answer:**
-    
-    It separates build-time dependencies from the runtime image, resulting in a smaller final image.
+| Command | Purpose |
+|---------|---------|
+| `docker pull IMAGE` | Download an image from a registry |
+| `docker build -t NAME .` | Build an image from a Dockerfile |
+| `docker run IMAGE` | Create and start a container from an image |
+| `docker run -it IMAGE /bin/bash` | Run interactively with a shell |
+| `docker ps` | List running containers |
+| `docker ps -a` | List all containers (including stopped) |
+| `docker stop CONTAINER_ID` | Stop a running container |
+| `docker rm CONTAINER_ID` | Remove a stopped container |
+| `docker image ls` | List downloaded images |
 
-??? question "Question 3: What goes in a .dockerignore file?"
-    **Answer:**
-    
-    Files and directories that should not be sent to the Docker build context, like `.git`, `node_modules`, and `.env`
+### Important Notes
+- Docker commands typically require `sudo` permission
+- You can add your user to the `docker` group to avoid using `sudo`
+- CentOS Stream 10 images are available primarily through **Quay.io**, not Docker Hub
 
-??? question "Question 4: How do you set an environment variable in a Dockerfile?"
-    **Answer:**
-    
-    Using the `ENV` instruction, e.g., `ENV APP_ENV=production`
 
-??? question "Question 5: What is the correct way to combine RUN commands?"
-    **Answer:**
-    
-    Chain them with `&&` and clean up in the same layer: `RUN dnf install -y pkg && dnf clean all`
 
-??? question "Question 6: How do you copy files from a previous build stage?"
-    **Answer:**
-    
-    Using `COPY --from=builder <source> <destination>`
-
-??? question "Question 7: Why should you order COPY instructions from least to most frequently changing?"
-    **Answer:**
-    
-    To take advantage of Docker's layer caching mechanism — unchanged layers are cached
-
-??? question "Question 8: How do you run a container as a non-root user in a Dockerfile?"
-    **Answer:**
-    
-    Create a user with `RUN useradd` and then use the `USER` instruction
-
-??? question "Question 9: What is the purpose of the ARG instruction?"
-    **Answer:**
-    
-    To define build-time variables that can be passed during `docker build` with `--build-arg`
-
-??? question "Question 10: Why are slim/alpine base images preferred?"
-    **Answer:**
-    
-    They produce smaller final images with fewer vulnerabilities and faster pull times
