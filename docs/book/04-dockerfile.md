@@ -45,12 +45,19 @@ CentOS Stream 10 images are available on **Quay.io** (Red Hat's container regist
 | Node.js 22 | `quay.io/sclorg/nodejs-22-c10s` |
 | Node.js 22 Minimal | `quay.io/sclorg/nodejs-22-minimal-c10s` |
 | PostgreSQL 18 | `quay.io/sclorg/postgresql-18-c10s` |
+| Mariadb | `quay.io/sclorg/sclorgmariadb-118-c10s` |
  
 You can **pull** all of these images in table using:
 - use command format ``docker pull <repo name/owner/image name>``
 ```bash
 docker pull quay.io/sclorg/postgresql-16-c10s
+docker pull quay.io/sclorg/postgresql-16-c10s
+docker pull quay.io/sclorg/nodejs-22-c10s
+docker pull quay.io/sclorg/nodejs-22-minimal-c10s
+docker pull quay.io/sclorg/postgresql-18-c10s
+docker pull quay.io/sclorg/mariadb-118-c10s
 ```
+output:
 ![](../assets/images/basic-docker2.png)
 
 > **Note**: *** pull all image with list in above tables and copy screen in templage.
@@ -59,16 +66,149 @@ docker pull quay.io/sclorg/postgresql-16-c10s
 
 ![](../assets/images/basic-docker5.png)
 
-#### Next Learn building from a Dockerfile
+in Development, Container give developer high flexibility and Quick develop applicaion. you can have database without installation. 
+
+## Part 1 Create MaraiDB  (https://mariadb.org/)
+
+Prepare: create project folder
+```
+mkdir myMariadb
+cd myMariadb
+```
+
+1.1 create Dockerfile
+```
+cat >  Dockerfile << 'EOF'
+# Use the official SCLorg CentOS Stream 10 MariaDB 11.8 image
+FROM quay.io/sclorg/mariadb-118-c10s
+
+# Metadata labels (optional)
+LABEL maintainer="your-email@example.com" \
+      summary="Custom MariaDB 11.8 with baked-in environment variables"
+
+# Set environment variables for initialization
+ENV MYSQL_ROOT_PASSWORD=root_secret \
+    MYSQL_DATABASE=app_db \
+    MYSQL_USER=app_user \
+    MYSQL_PASSWORD=user_secret
+
+# Expose the default MariaDB port
+EXPOSE 3306
+EOF
+```
+
+```
+ls -ll
+```
+
+output:
+![](../assets/images/basic-docker15.png)
+
+1.2 Build Image
+- Build mariadb database from Dockerfile
+```
+docker build -t my-mariadb-118 .
+```
+
+![](../assets/images/basic-docker16.png)
+
+
+1.3. Open Firewall port 3306
+
+```
+# open firewall 3306
+sudo firewall-cmd --permanent --add-port=3306/tcp
+# reload
+sudo firewall-cmd --reload
+# firewall list
+sudo firewall-cmd --list-all
+```
+
+![](../assets/images/basic-docker17.png)
+
+1.4 Create volume
+```
+docker volume create mariadb_data
+docker volume ls
+```
+![](../assets/images/basic-docker18.png)
+
+1.5 Run Container
+```
+docker run -d \
+  --name mariadb-118-container \
+  -p 3306:3306 \
+  -v mariadb_data:/var/lib/mysql:Z \
+  my-mariadb-118
+```
+![](../assets/images/basic-docker19.png)
+
+(option: Test Connection data - Dbeaver)
+
+#### Config  with ip address (you may not have same ip address)
+![](../assets/images/basic-docker20.png)
+
+#### Success Connection
+![](../assets/images/basic-docker20.png)
+
+Congratuation you've database for your application
+
+1.6 Create databae
+```
+docker exec -it mariadb-118-container mariadb -u app_user -puser_secret
+CREATE DATABASE my_test_db;
+```
+
+![](../assets/images/basic-docker22.png)
+
+
+1.7 Give app_user access to the new database
+
+If you want your app_user account to also be able to read and write to this new my_test_db, you need to grant it permissions while you are still logged in as root.
+
+- Run these two commands at the root MariaDB prompt:
+- Run without ``-p``  
+```
+docker exec -it mariadb-118-container mariadb -u root 
+
+GRANT ALL PRIVILEGES ON my_test_db.* TO 'app_user'@'%';
+FLUSH PRIVILEGES;
+```
+![](../assets/images/basic-docker23.png)
+
+1.8 Re Run 1.6 after add privilage
+```
+# login database with app_user
+docker exec -it mariadb-118-container mariadb -u app_user -puser_secret
+
+# Create database
+CREATE DATABASE my_test_db;
+```
+![](../assets/images/basic-docker24.png)
+
+
+> !!note : By default, some MariaDB configurations allow the root user to connect locally (from inside the container) using a Unix socket without a password, regardless of the password variable you set for remote access.
+
+## Part 2 Next Learn building from a Dockerfile
+objective:
+- understand role of dockerfile and command to run.
+- understand project files structure set up.
 - create  basicdocker1 folder as project folder (Remeber there  is only one Dockerfile in each of project)
-- project structure:  create file Dockerfile, index.html, app.js
+- project structure:  in this workshop you will create 3 files. Dockerfile, index.html, app.js
     ```
     your-project/
     ├── Dockerfile
     ├── index.html
     └── app.js
     ```
+> [Note:] how to check user with run container
+> - from sclorg user who run container name 'default'
+> - here below how to check user after container has been created.
 
+show how to check:
+![](../assets/images/basic-docker26.png)
+
+2.1 create folder
 ```bash
 # Create project folder holding your project
 mkdir basicdocker1
@@ -82,7 +222,7 @@ cat > Dockerfile << 'EOF'
 EOF
 ```
 
-- 1 generate ``Dockerfile`` to create docker image
+2.2 generate ``Dockerfile`` to create docker image
 ```bash
 cat > Dockerfile  << 'EOF'
 FROM quay.io/sclorg/httpd-24-c10s
@@ -119,7 +259,7 @@ EOF
 output:
 ![](../assets/images/basic-docker6.png)
 
-- 2 generate ``index.html``
+2.3 generate ``index.html``
 ```bash
 cat > index.html << 'EOF'
 <!DOCTYPE html>
@@ -139,7 +279,7 @@ EOF
 output:
 ![](../assets/images/basic-docker7.png)
 
-- 3 generate ``app.js`` 
+2.4 generate ``app.js`` 
 ```bash
 cat > app.js << 'EOF'
 console.log("✅ Web is running! App.js loaded successfully.");
@@ -149,7 +289,7 @@ EOF
 output:
 ![](../assets/images/basic-docker8.png)
 
-- 4 generate ``nginx.conf``
+2.5 generate ``nginx.conf``
 ```bash
 cat > nginx.conf << 'EOF'
 # --- Tell Nginx to write the PID file in the writable directory ---
@@ -183,12 +323,12 @@ EOF
 output:  
 ![](../assets/images/basic-docker9.png)
 
-### List output files in project folder 
+2.6 List output files in project folder 
 
 ![](../assets/images/basic-docker10.png)
 
 
-## Explaination
+2.7 Explaination
 ```dockerfile
 cat > Dockerfile  << 'EOF'
 FROM quay.io/sclorg/httpd-24-c10s
@@ -223,15 +363,16 @@ CMD ["nginx", "-g", "daemon off;"]
 EOF
 
 ```
-
-#### Enable firewall 
+2.8 Enable firewall 
 ```bash
 sudo firewall-cmd --zone=public --add-port=8080/tcp --permanent
 sudo firewall-cmd --reload
 ```
 
 
-#### Build and Run
+2.9 Build and Run
+- docker will run command line by line
+- each time when it run will create readonly layer
 ```bash
 # Build the image (do not 'dot' end of command)
 docker build -t my-http-app .
@@ -239,11 +380,21 @@ docker build -t my-http-app .
 output: 
 ![](../assets/images/basic-docker11.png)
 
-#### list your image
+2.10 list your image
+- verify list ouf output image from command
 ```
 docker image  ls
 ```
 ![](../assets/images/basic-docker12.png)
+
+- Special note: 
+how we can check each layer
+```
+docker image history my-http-app
+```
+![](../assets/images/basic-docker25.png)
+
+2.11 Create host_logs folder to store log outsite container
 ```
 
 mkdir -p ./host_logs
@@ -256,7 +407,7 @@ docker run  -p 8080:80 --name my-http-container  -v "$(pwd)/host_logs:/app/logs"
 
 ![](../assets/images/basic-docker13.png)
 
-#### Open open new terminal
+2.12 Open open new terminal
 ```bash
 # Run a container from the image
 docker exec -it my-http-container /bin/bash
@@ -265,7 +416,17 @@ docker exec -it my-http-container /bin/bash
 ![](../assets/images/basic-docker14.png)
 
 
+> Quiz:  Create Postgresql Database from ``quay.io/sclorg/> > postgresql-18-c10s``  
+> - create project folder myPostgresql  
+> - Create Dockerfile inside folder  
+> - Show command which create docker image with name 'my-postgresql-db'
+> - Show command which create container name 'my-postgresql-container'
+> - enable Firewall rule for postgresql
+> - show screen of command, or any application with prove connecting successfully to container
 
+---
+
+# Reading Note on Docker Technology
 ## Try to understand most core basic of Docker Technology
 When the **Docker daemon (service)** processes a `Dockerfile` during `docker build`, it reads the instructions **top-down**, executing each statement sequentially. Each instruction (except `CMD`) creates a new **read-only layer** in the image filesystem, which is cached for future builds.
 
