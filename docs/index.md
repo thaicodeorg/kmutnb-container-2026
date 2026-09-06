@@ -9,6 +9,7 @@
 - [3. Installation](book/02-installation.md)   
 - [4. Basic Operations](book/03-basic-operations.md)
 - [5. Create container image & Dockerfile](book/04-dockerfile.md)
+- [6. Docker Compose](book/05-docker-compose.md)
 
 
 
