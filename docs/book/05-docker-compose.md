@@ -177,6 +177,29 @@ docker compose up
 
 ![](../assets/images/dockercompose6.png)
 
+
+## Docker volume
+
+Docker volumes are a feature of Docker that provide a way to persistently store and manage data in containers. A volume is a directory or a named storage location outside the container’s file system that is accessible to one or more containers. It allows data to be shared and retained even when containers are stopped, started, or removed.
+
+```
+$ docker volume ls
+$ docker volume inspect <volume_name>
+```
+
+![](../assets/images/dockercompose18.png)
+
+
+## Reuse docker volume
+
+```
+$ docker run -it --rm -v wordpress_wordpress_web:/mnt/volume quay.io/centos/centos:stream10 /bin/bash
+
+[root@cb85c783f4d3 /]# ls -l /mnt/volume/
+```
+
+![](../assets/images/dockercompose19.png)
+
 ## Workshop 5.2 Flash Web
 ### Step 1 Setup project
 ![](../assets/images/dockercompose8.png)
