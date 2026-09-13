@@ -13,13 +13,14 @@
 
 ## Assignment: Create Student's Submission along tutorial
 - Student will submit Screen of Docker installation process according to step-by-step from manual.
-- Student can use Basic Template [Download](../assets/dockerbasic-advanced-submission.docx) or generate own version.
+- Student can use Basic Template [Download checklist submission](../assets/Student%20Self-Verification%20Checklist.docx) or generate own version.
+- check checklist file [Check list help](./06_checklist.md) 
 
 ## Ref Reading
 - [docker officail reference](https://docs.docker.com/build/building/multi-stage/)
 ---
 
-## [[ ] Let review check list](./06-checklist.md)
+
 
 ![](../assets/images/Multi-Stage_Builds2.png)
 

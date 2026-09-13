@@ -13,7 +13,7 @@
 
 ## Assignment: Create Student's Submission along tutorial
 - Student will submit Screen of Docker installation process according to step-by-step from manual.
-- Student can use Basic Template [Download](../assets/dockerbasic-advanced-progressive-submission.docx) or generate own version.
+- Student can use Basic Template [Download](../assets/dockerbasic-advanced-submission.docx) or generate own version.
 
 ---
 
