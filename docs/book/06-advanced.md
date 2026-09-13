@@ -673,6 +673,7 @@ docker diff combined-limit
 ---
 
 # Workshop 3: Advanced Networking
+![](../assets/images/Multi-Stage_Builds44.png)
 
 # Lab 3.1: Docker Network Types
 
@@ -763,10 +764,11 @@ docker run -d --name port-bind-2 -p 127.0.0.1:9092:80 quay.io/sclorg/httpd-24-c1
 curl http://127.0.0.1:9092
 ```
 
-![](../assets/images/Multi-Stage_Builds44.png)
+
 
 # Lab 3.3: Upload Image to Docker Hub
 
+![](../assets/images/Multi-Stage_Builds66.png)
 ## Step 1: Create a Docker Hub account
 ```
 Go to https://hub.docker.com and sign up for a free account.
