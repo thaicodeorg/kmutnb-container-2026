@@ -57,6 +57,7 @@ cat > requirements.txt << 'EOF'
 flask==3.0.0
 gunicorn==21.2.0
 EOF
+
 ```
 
 #### Step 3: Create single-stage Dockerfile
@@ -75,6 +76,7 @@ EXPOSE 5000
 
 CMD ["python", "app.py"]
 EOF
+
 ```
 
 #### Step 4: Build and check image size
@@ -108,6 +110,7 @@ EXPOSE 5000
 
 CMD ["python", "app.py"]
 EOF
+
 ```
 
 #### Step 6: Build and compare sizes

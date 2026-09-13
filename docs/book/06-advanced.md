@@ -19,6 +19,7 @@
 - [docker officail reference](https://docs.docker.com/build/building/multi-stage/)
 ---
 
+## [[ ] Let review check list](./06-checklist.md)
 
 ![](../assets/images/Multi-Stage_Builds2.png)
 
@@ -36,19 +37,20 @@ The Overlay Filesystem is a modern union filesystem that combines multiple under
 - **Instant Layer Mounts:** Rather than extracting heavy tarballs or copying full directory trees for each Dockerfile line, Docker simply mounts existing layer directories on host storage (/var/lib/docker/overlay2/)
 
 
-## Workshop 1: Image Optimization
+# Workshop 1: Image Optimization
 
 ![](../assets/images/Multi-Stage_Builds1.png)
 
-### Lab 1.1: Multi-stage Build - Go Application
 
-#### Step 1: Create project directory
+# Lab 1.1: Multi-stage Build - Go Application
+
+## Step 1: Create project directory
 ```bash
 mkdir ~/go-multistage
 cd ~/go-multistage
 ```
 
-#### Step 2: Create main.go application
+## Step 2: Create main.go application
 ```bash
 cat > main.go << 'EOF'
 package main
@@ -78,9 +80,10 @@ func main() {
     http.ListenAndServe(":8080", nil)
 }
 EOF
+
 ```
 
-#### Step 3: Create single-stage Dockerfile (show problem)
+## Step 3: Create single-stage Dockerfile (show problem)
 ```bash
 cat > Dockerfile.single << 'EOF'
 FROM golang:1.21
@@ -95,18 +98,35 @@ EXPOSE 8080
 
 CMD ["./server"]
 EOF
+
 ```
 
-#### Step 4: Build and check image size
+![](../assets/images/Multi-Stage_Builds3.png)
+
+## Step 4: Build and check image size
 ```bash
-# Switch from lagacy build to Buildkit
-export DOCKER_BUILDKIT=1
 docker build -t go-single -f Dockerfile.single .
 docker images go-single
 ```
-> **Note:** Single-stage image is ~800MB because it includes Go compiler and all build tools
 
-#### Step 5: Create multi-stage Dockerfile
+![](../assets/images/Multi-Stage_Builds4.png)
+
+![](../assets/images/Multi-Stage_Builds5.png)
+## Image Sizes
+
+| Metric | Size | What it means |
+|--------|------|---------------|
+| **DISK USAGE** | **1.28 GB** | Total space the image occupies on disk (uncompressed layers + metadata) |
+| **CONTENT SIZE** | **316 MB** | Actual size of the image content (compressed/sum of layer content) |
+
+## Key Difference
+
+- **DISK USAGE (1.28 GB)** — The real amount of disk space consumed locally. This includes all layers unpacked on your filesystem.
+- **CONTENT SIZE (316 MB)** — The size of the image as it would be pushed/pulled from a registry (compressed layers). This is what you'd see on Docker Hub.
+
+> **Note:** Single-stage image is 1.2GB because it includes Go compiler and all build tools
+
+## Step 5: Create multi-stage Dockerfile
 ```bash
 cat > Dockerfile << 'EOF'
 # Build stage
@@ -131,16 +151,22 @@ EXPOSE 8080
 
 CMD ["./server"]
 EOF
+
 ```
 
-#### Step 6: Build and compare image sizes
+![](../assets/images/Multi-Stage_Builds6.png)
+
+## Step 6: Build and compare image sizes
 ```bash
 docker build -t go-multi .
 docker images | grep go-
 ```
-> **Note:** Multi-stage image is ~15MB - over 50x smaller!
 
-#### Step 7: Verify application works
+![](../assets/images/Multi-Stage_Builds7.png)
+
+> **Note:** Multi-stage image is 23MB - over 5x smaller!
+
+## Step 7: Verify application works
 ```bash
 docker run -d --name go-app -p 8080:8080 go-multi
 curl http://localhost:8080
@@ -148,17 +174,19 @@ docker stop go-app
 docker rm go-app
 ```
 
+![](../assets/images/Multi-Stage_Builds8.png)
 ---
 
-### Lab 1.2: BuildKit Features
 
-#### Step 1: Enable BuildKit
+# Lab 1.2: BuildKit Features
+
+## Step 1: Enable BuildKit
 ```bash
 export DOCKER_BUILDKIT=1
 docker build --version
 ```
 
-#### Step 2: Create Dockerfile with cache mounts
+## Step 2: Create Dockerfile with cache mounts
 ```bash
 cat > Dockerfile.buildkit << 'EOF'
 FROM golang:1.21 AS builder
@@ -180,19 +208,32 @@ EXPOSE 8080
 
 CMD ["/server"]
 EOF
+
 ```
 
-#### Step 3: Build with BuildKit caching
+![](../assets/images/Multi-Stage_Builds9.png)
+
+## Step 3: Build with BuildKit caching
 ```bash
 DOCKER_BUILDKIT=1 docker build -t go-buildkit -f Dockerfile.buildkit .
+
+```
+
+![](../assets/images/Multi-Stage_Builds10.png)
+```bash
 time docker build -t go-buildkit-cache -f Dockerfile.buildkit .
 ```
+
+![](../assets/images/Multi-Stage_Builds11.png)
+
 > **Note:** Second build is faster due to BuildKit cache mounts
 
-#### Step 4: Use build secrets with --mount=type=secret
+## Step 4: Use build secrets with --mount=type=secret
 ```bash
 echo "my-api-key-12345" > api-key.txt
+```
 
+```
 cat > Dockerfile.secret << 'EOF'
 FROM alpine:3.18
 
@@ -206,24 +247,65 @@ RUN rm /tmp/key.txt
 CMD ["echo", "Secret build completed"]
 EOF
 
+```
+
+![](../assets/images/Multi-Stage_Builds12.png)
+
+```bash
 DOCKER_BUILDKIT=1 docker build --secret id=apikey,src=api-key.txt -t go-secret .
 ```
 
-#### Step 5: Verify secret not in image
+## Step 5: Verify secret not in image
 ```bash
 docker history go-secret
 ```
+
+![](../assets/images/Multi-Stage_Builds13.png)
+
 > **Note:** Secret is not visible in image history
 
 ---
 
-### Lab 1.3: Image Analysis
 
-#### Step 1: Use docker history to inspect layers
+# Lab 1.3: Image Analysis
+
+## Step 1: Use docker history to inspect layers
 ```bash
 docker history go-multi
 docker history go-single
 ```
+
+![](../assets/images/Multi-Stage_Builds14.png)
+
+# 🧠 Try to answer Questions to Remember the Concept
+
+Here are three questions designed to make the concept stick by connecting it to the data you just saw:
+
+---
+
+### ❓ Question 1: The "Why the Gap?" Question
+**Your `go-single` image shows 1.28 GB disk usage but only 316 MB content size. Where did the other ~960 MB go?**
+
+> **Hint to remember:** Think about compression. Content Size = compressed (what travels over the network). Disk Usage = uncompressed (what sits on your filesystem after `docker pull` unpacks it).
+
+---
+
+### ❓ Question 2: The "Spot the Culprit" Question
+**Looking at `docker history go-single`, which layer is the biggest single contributor to the 1.28 GB, and why is that layer *completely absent* from `go-multi`?**
+
+> **Hint to remember:** The 251MB `COPY /target/` layer is the entire Go toolchain/SDK from the `golang` base image. In a multi-stage build, that whole stage is thrown away — only the compiled binary (`COPY /app/server .` = 6.72MB) gets carried forward.
+
+---
+
+### ❓ Question 3: The "Real-World Tradeoff" Question
+**If Content Size is what you download and Disk Usage is what you store, which one matters more when you're deploying to 1,000 servers vs. when you're building locally?**
+
+> **Hint to remember:**
+> - **Content Size** → matters for **network/CI/CD** (faster pulls across many machines, registry storage costs).
+> - **Disk Usage** → matters for **local dev machines and nodes** (limited disk, many images cached).
+> - Multi-stage wins on **both**: `go-multi` is 23 MB disk / 7.61 MB content vs. `go-single` at 1.28 GB / 316 MB — a **~55× disk** and **~40× content** reduction.
+
+---
 
 #### Step 2: Analyze image with dive tool (if installed)
 ```bash
@@ -231,11 +313,61 @@ docker history go-single
 # brew install dive  (macOS)
 # sudo apt-get install dive  (Ubuntu)
 
+DIVE_VERSION="0.13.1"
+sudo dnf install -y \
+  "https://github.com/wagoodman/dive/releases/download/v${DIVE_VERSION}/dive_${DIVE_VERSION}_linux_amd64.rpm"
+
+```
+
+![](../assets/images/Multi-Stage_Builds15.png)
+
+```bash
 # Analyze image
 dive go-multi
 ```
 
-#### Step 3: Optimize .dockerignore
+
+![](../assets/images/Multi-Stage_Builds16.png)
+
+# 🧠Try to Answer Questions on the `dive` Command
+
+Here are two questions designed to help you remember what `dive` does and why it's useful.
+
+---
+
+### ❓ Question 1: The "What Does It Show?" Question
+**When you run `dive go-single:latest`, you see two panes: layers on the left and a file tree on the right. What specific insight does `dive` give you that `docker history` and `docker images` cannot?**
+
+> **Hint to remember:**
+> - `docker images` → only shows **total** disk/content size.
+> - `docker history` → shows the **size of each layer** (the command that created it).
+> - `dive` → shows **what files are inside each layer**, so you can pinpoint *exactly* which files are bloating the image (e.g., the entire Go SDK, `apt` caches, `.git` folders, test files).
+>
+> **Memory hook:** *"`docker history` tells you *how big* each layer is. `dive` tells you *why* it's big."*
+
+---
+
+### ❓ Question 2: The "Efficiency Score" Question
+**`dive` gives your image an "Image Efficiency Score" (a percentage) and flags "wasted space." What do these two metrics actually measure, and what would a low score tell you to fix?**
+
+> **Hint to remember:**
+> - **Efficiency Score** = ratio of **useful files** (those present in the final layer) vs. **total files** ever added across all layers.
+> - **Wasted Space** = files added in an earlier layer, then **deleted or overwritten** in a later layer (they still bloat the image).
+> - **Low score → fix by:**
+>   1. Using **multi-stage builds** (throw away the builder).
+>   2. **Combining `RUN` commands** (e.g., `apt-get install && rm -rf /var/lib/apt/lists/*`).
+>   3. Adding **`.dockerignore`** to keep junk out of `COPY`.
+>
+> **Memory hook:** *"A 100% efficient image has zero wasted bytes — every file added survives to the final layer."*
+
+---
+
+### 🔑 Combined memory hook:
+> **"`dive` = X-ray for your image. It shows the *bones* (layers), the *organs* (files), and the *fat* (wasted space)."**
+
+Want me to walk through a real `dive` session on your `go-single` vs `go-multi` images to see this in action?
+
+## Step 3: Optimize .dockerignore
 ```bash
 cat > .dockerignore << 'EOF'
 .git
@@ -251,64 +383,190 @@ node_modules
 __pycache__
 *.pyc
 EOF
+
 ```
 
-#### Step 4: Rebuild with optimized .dockerignore
+## Step 4: Rebuild with optimized .dockerignore
 ```bash
 DOCKER_BUILDKIT=1 docker build -t go-optimized .
 docker images go-optimized
 ```
 
+![](../assets/images/Multi-Stage_Builds17.png)
+
+### without .dockerignore
+
+```
+Your folder (200 MB)  →  [pack everything]  →  BuildKit receives 200 MB
+                                                    ↓
+                                          Filters nothing, transfers everything
+```
+
+
+### with .dockerignore
+
+```
+Your folder (200 MB)  →  [filter patterns]  →  BuildKit receives 5 MB
+                                                    ↓
+                                          Only relevant files transferred
+```
+
 ---
 
-## Workshop 2: Container Internals
 
-### Lab 2.1: Understanding Overlay Filesystem
+# Workshop 2: Container Internals
 
-#### Step 1: Run container and examine filesystem
+# Lab 2.1: Understanding Overlay Filesystem
+
+## Step 1: Run container and examine filesystem
 ```bash
 docker run -it --name overlay-test quay.io/centos/centos:stream10 /bin/bash
 ```
 
-#### Step 2: View overlay mount points (inside container)
+## Step 2: View overlay mount points (inside container)
 ```bash
 mount | grep overlay
 cat /proc/mounts | grep overlay
 ```
 
-#### Step 3: Create files in container
+![](../assets/images/Multi-Stage_Builds18.png)
+
+let break down output
+```
+overlay on / type overlay (
+  rw,
+  relatime,
+  seclabel,
+  lowerdir=<lower1>:<lower2>,
+  upperdir=<upper>,
+  workdir=<work>,
+  userxattr
+)
+```
+
+## Step 3: Create files in container
 ```bash
 mkdir -p /test
 echo "container file" > /test/file.txt
 cat /test/file.txt
 ```
 
-#### Step 4: Exit and examine layers (on host)
+## Step 4: Exit and examine layers (on host)
 ```bash
 exit
-
-# Find container layer (on host)
-docker inspect overlay-test | grep -i "upperdir\|merged"
 ```
 
-#### Step 5: View layer contents
+![](../assets/images/Multi-Stage_Builds19.png)
+
 ```bash
-# Find the overlay directory
+# run on host. Start container again
+docker start overlay-test
+docker ps
+
+# Find container layer (on host)
+cat /proc/$(docker inspect -f '{{.State.Pid}}' overlay-test)/mountinfo | grep overlay
+```
+
+![](../assets/images/Multi-Stage_Builds20.png)
+
+- explain output 
+```
+827 399 0:62 / / rw,relatime - overlay overlay rw,seclabel,
+  lowerdir=
+    /home/student/.local/share/docker/containerd/daemon/io.containerd.snapshotter.v1.overlayfs/snapshots/346/fs
+    :
+    /home/student/.local/share/docker/containerd/daemon/io.containerd.snapshotter.v1.overlayfs/snapshots/5/fs,
+  upperdir=
+    /home/student/.local/share/docker/containerd/daemon/io.containerd.snapshotter.v1.overlayfs/snapshots/347/fs,
+  workdir=
+    /home/student/.local/share/docker/containerd/daemon/io.containerd.snapshotter.v1.overlayfs/snapshots/347/work,
+  userxattr
+```
+
+
+```
+Container sees:  /test/file.txt  ✅ (unified view)
+
+   ┌──────────────────────────────────────┐
+   │         merged (/) in container      │
+   └──────────────────────────────────────┘
+                    ▲
+        ┌───────────┼───────────┐
+        │           │           │
+   ┌────▼────┐ ┌────▼────┐ ┌────▼────┐
+   │ 347/fs  │ │ 346/fs  │ │  5/fs   │
+   │upperdir │ │lowerdir │ │lowerdir │
+   │  (RW)   │ │  (RO)   │ │  (RO)   │
+   │         │ │         │ │         │
+   │ /test/  │ │ (empty) │ │ (empty) │
+   │  file.txt│ │         │ │         │
+   └─────────┘ └─────────┘ └─────────┘
+       ▲
+   YOUR WRITES
+   go here
+```
+
+---
+
+## 🧠 Summary Lab Step 4 Now Complete
+
+| Lab Question | Answer |
+|---|---|
+| **Where is `upperdir`?** | `.../snapshots/347/fs` |
+| **Where are `lowerdir`s?** | `.../snapshots/346/fs` and `.../snapshots/5/fs` |
+| **Where is `workdir`?** | `.../snapshots/347/work` |
+| **Why doesn't `docker inspect` show these?** | Modern Docker uses the **containerd snapshotter**, which hides internal paths behind `Storage.RootFS.Snapshot.Name` |
+| **How to get them anyway?** | `cat /proc/$(docker inspect -f '{{.State.Pid}}' <name>)/mountinfo \| grep overlay` |
+
+---
+
+## 🎓 Bonus: Why `userxattr` Appears
+
+The `userxattr` mount option means your Docker is running in **rootless mode** (or with user-namespace remapping). Instead of storing overlay metadata in `trusted.*` xattrs (which requires root), it stores them in `user.*` xattrs — accessible to unprivileged users.
+
+That's why your paths live under `~/.local/share/docker/` instead of `/var/lib/docker/`. ✅
+
+---
+
+## Step 5: View layer contents (this will confuse if student run in rootmode, use ai to help)
+```bash
+# Find the overlay directory  root mode
 sudo ls -la /var/lib/docker/overlay2/
 ```
 
-#### Step 6: Compare container vs image layers
+```bash
+# Find the overlay directory  root less
+# The real Docker data root (rootless)
+ls -la ~/.local/share/docker/
+
+# Where layers actually are
+ls ~/.local/share/docker/containerd/daemon/io.containerd.snapshotter.v1.overlayfs/snapshots/
+
+# Your container's config + logs
+ls ~/.local/share/docker/containers/
+
+# Where to find images
+ls ~/.local/share/docker/containerd/daemon/io.containerd.content/
+```
+
+![](../assets/images/Multi-Stage_Builds21.png)
+
+## Step 6: Compare container vs image layers
 ```bash
 docker diff overlay-test
 docker commit overlay-test overlay-test-snapshot
 docker history overlay-test-snapshot
 ```
 
+![](../assets/images/Multi-Stage_Builds22.png)
+
 ---
 
-### Lab 2.2: Resource Limits
+[Reading Diff Explaination](./06-diff-explain.md)
 
-#### Step 1: Run container with memory limit
+# Lab 2.2: Resource Limits
+
+## Step 1: Run container with memory limit
 ```bash
 docker run -d --name memory-limit \
   --memory=256m \
@@ -318,7 +576,9 @@ docker run -d --name memory-limit \
 docker stats memory-limit --no-stream
 ```
 
-#### Step 2: Run container with CPU limit
+![](../assets/images/Multi-Stage_Builds23.png)
+
+## Step 2: Run container with CPU limit
 ```bash
 docker run -d --name cpu-limit \
   --cpus=0.5 \
@@ -328,7 +588,9 @@ docker run -d --name cpu-limit \
 docker stats cpu-limit --no-stream
 ```
 
-#### Step 3: Run container with PID limit
+![](../assets/images/Multi-Stage_Builds24.png)
+
+## Step 3: Run container with PID limit
 ```bash
 docker run -d --name pid-limit \
   --pids-limit=50 \
@@ -339,12 +601,16 @@ docker run -d --name pid-limit \
 docker exec pid-limit sh -c 'for i in $(seq 1 100); do sleep 100 & done'
 ```
 
-#### Step 4: Monitor resource usage
+![](../assets/images/Multi-Stage_Builds25.png)
+
+## Step 4: Monitor resource usage
 ```bash
 docker stats --no-stream
 ```
 
-#### Step 5: Combine resource limits
+![](../assets/images/Multi-Stage_Builds26.png)
+
+## Step 5: Combine resource limits
 ```bash
 docker run -d --name combined-limit \
   --memory=128m \
@@ -356,73 +622,100 @@ docker run -d --name combined-limit \
 docker stats combined-limit --no-stream
 ```
 
+![](../assets/images/Multi-Stage_Builds27.png)
+
+
 ---
 
-### Lab 2.3: Container Inspection
+# Lab 2.3: Container Inspection
 
-#### Step 1: Use docker inspect
+## Step 1: Use docker inspect
 ```bash
 docker inspect combined-limit
 docker inspect --format='{{.HostConfig.Memory}}' combined-limit
 docker inspect --format='{{.HostConfig.NanoCpus}}' combined-limit
 ```
 
-#### Step 2: View container logs
+![](../assets/images/Multi-Stage_Builds28.png)
+
+## Step 2: View container logs
 ```bash
-docker logs combined-limit
-docker logs -f combined-limit  # Follow logs
-docker logs --tail 10 combined-limit  # Last 10 lines
+docker logs overlay-test
+docker logs -f overlay-test  # Follow logs , keep listen, Ctrl+C to exit
+docker logs --tail 10 overlay-test  # Last 10 lines
 ```
 
-#### Step 3: Use docker stats
+![](../assets/images/Multi-Stage_Builds29.png)
+
+## Step 3: Use docker stats with
 ```bash
 docker stats --no-stream --format "table {{.Name}}\t{{.CPUPerc}}\t{{.MemUsage}}"
 ```
 
-#### Step 4: Use docker top
+![](../assets/images/Multi-Stage_Builds30.png)
+
+## Step 4: Use docker top
 ```bash
 docker top combined-limit
 docker top combined-limit -o pid,comm
 ```
 
-#### Step 5: Use docker diff
+![](../assets/images/Multi-Stage_Builds31.png)
+
+## Step 5: Use docker diff
 ```bash
 docker exec combined-limit touch /tmp/test-file
 docker diff combined-limit
 ```
+![](../assets/images/Multi-Stage_Builds32.png)
 
 ---
 
-## Workshop 3: Advanced Networking
+# Workshop 3: Advanced Networking
 
-### Lab 3.1: Docker Network Types
+# Lab 3.1: Docker Network Types
 
-#### Step 1: List default networks
+## Step 1: List default networks
 ```bash
 docker network ls
 docker network inspect bridge
 ```
+![](../assets/images/Multi-Stage_Builds33.png)
 
-#### Step 2: Create bridge network
+## Step 2: Create bridge network
 ```bash
 docker network create --driver bridge my-bridge
 docker network ls | grep my-bridge
 ```
 
-#### Step 3: Create host network
+![](../assets/images/Multi-Stage_Builds34.png)
+
+## Step 3: Create host network
 ```bash
 docker network create --driver host my-host
 docker network ls | grep my-host
 ```
 
-#### Step 4: Connect containers to custom network
+![](../assets/images/Multi-Stage_Builds35.png)
+
+## Step 4: Connect containers to custom network
 ```bash
-# Run containers on custom network
+# Run 2 containers on custom network
 docker run -d --name net-test-1 --network my-bridge quay.io/centos/centos:stream10 tail -f /dev/null
+
 docker run -d --name net-test-2 --network my-bridge quay.io/centos/centos:stream10 tail -f /dev/null
 ```
 
-#### Step 5: Test inter-container communication
+![](../assets/images/Multi-Stage_Builds36.png)
+
+no ping command: run
+```bash
+docker exec -it net-test-1 bash -c "dnf install -y iputils && ping -c 3 net-test-2"
+```
+
+![](../assets/images/Multi-Stage_Builds37.png)
+
+## Step 5: Test inter-container communication
 ```bash
 # Test DNS resolution
 docker exec net-test-1 ping net-test-2
@@ -431,69 +724,178 @@ docker exec net-test-1 ping net-test-2
 docker exec net-test-1 curl net-test-2
 ```
 
+![](../assets/images/Multi-Stage_Builds38.png)
+
 ---
 
-### Lab 3.2: Port Mapping and Exposing
+# Lab 3.2: Port Mapping and Exposing
 
-#### Step 1: Run container with -p flag
+## Step 1: Run container with -p flag
 ```bash
 docker run -d --name port-test -p 8080:80 quay.io/sclorg/httpd-24-c10s
 curl http://localhost:8080
 ```
 
-#### Step 2: Run container with -P flag
+![](../assets/images/Multi-Stage_Builds39.png)
+
+
+## Step 2: Run container with -P flag
 ```bash
 docker run -d --name port-random -P quay.io/sclorg/httpd-24-c10s
 docker port port-random
 ```
 
-#### Step 3: Use docker port command
+![](../assets/images/Multi-Stage_Builds40.png)
+
+## Step 3: Use docker port command
 ```bash
 docker port port-test
 docker port port-test 80
 ```
 
-#### Step 4: Configure port forwarding
+![](../assets/images/Multi-Stage_Builds41.png)
+
+## Step 4: Configure port forwarding
 ```bash
 # Bind to specific interface
-docker run -d --name port-bind -p 127.0.0.1:9090:80 quay.io/sclorg/httpd-24-c10s
-curl http://127.0.0.1:9090
+docker run -d --name port-bind-2 -p 127.0.0.1:9092:80 quay.io/sclorg/httpd-24-c10s
+curl http://127.0.0.1:9092
 ```
 
+![](../assets/images/Multi-Stage_Builds44.png)
+
+# Lab 3.3: Upload Image to Docker Hub
+
+## Step 1: Create a Docker Hub account
+```
+Go to https://hub.docker.com and sign up for a free account.
+Note your Docker Hub username (e.g., myuser).
+```
+![](../assets/images/Multi-Stage_Builds45.png)
+
+## Step 2: Login to Docker Hub from CLI
+```bash
+docker login
+# Enter your Docker Hub username
+# Enter your Docker Hub password or access token
+```
+![](../assets/images/Multi-Stage_Builds48.png)
+
+![](../assets/images/Multi-Stage_Builds49.png)
+
+![](../assets/images/Multi-Stage_Builds50.png)
+
+![](../assets/images/Multi-Stage_Builds51.png)
+
+> **Note:** A successful login shows `Login Succeeded`
+
+student also log in to website:
+
+![](../assets/images/Multi-Stage_Builds46.png)
+
+## Step 3: Tag your image for Docker Hub
+```bash
+# Tag the Go app image from previous lab
+docker tag go-multi <your-username>/go-app:latest
+docker tag go-multi <your-username>/go-app:v1.0
+
+# Verify tags
+docker images | grep <your-username>
+```
+
+![](../assets/images/Multi-Stage_Builds47.png)
+
+> **Note:** Replace `<your-username>` with your actual Docker Hub username.
+
+## Step 4: Push image to Docker Hub
+```bash
+# Push latest tag
+docker push <your-username>/go-app:latest
+
+# Push version tag
+docker push <your-username>/go-app:v1.0
+```
+
+![](../assets/images/Multi-Stage_Builds52.png)
+
+> **Note:** First push may take a few minutes depending on image size and network speed.
+
+## Step 5: Verify on Docker Hub
+```
+Go to https://hub.docker.com/repositories
+Your image should appear under your repositories.
+Check the Tags tab to see both latest and v1.0 tags.
+```
+
+![](../assets/images/Multi-Stage_Builds53.png)
+
+Click image name, will show each of version of image
+
+![](../assets/images/Multi-Stage_Builds54.png)
+
+
+## Step 6: Pull image from Docker Hub
+```bash
+# Remove local image
+docker rmi <your-username>/go-app:latest <your-username>/go-app:v1.0
+
+# Pull from Docker Hub
+docker pull <your-username>/go-app:latest
+
+```
+![](../assets/images/Multi-Stage_Builds55.png)
+
+```bash
+# Run the pulled image
+docker run -d --name hub-app -p 8080:8080 <your-username>/go-app:latest
+curl http://localhost:8080
+```
+
+![](../assets/images/Multi-Stage_Builds56.png)
+- image above show how to fix error too.
+
+```bash
+# Cleanup
+
+docker stop hub-app
+docker rm hub-app
+```
+![](../assets/images/Multi-Stage_Builds57.png)
+
+## Step 7: Push a private image
+
+create private repository
+![](../assets/images/Multi-Stage_Builds58.png)
+
+![](../assets/images/Multi-Stage_Builds59.png)
+- Dont forget to select private
+
+![](../assets/images/Multi-Stage_Builds60.png)
+
+
+![](../assets/images/Multi-Stage_Builds61.png)
+```bash
+# Create a private repository on Docker Hub (via web UI)
+# Then tag and push
+docker tag go-multi <your-username>/go-app-private:latest
+docker push <your-username>/go-app-private:latest
+```
+
+![](../assets/images/Multi-Stage_Builds62.png)
+
+> **Note:** Free accounts can have 1 private repository. Upgrade for more.
+
+![](../assets/images/Multi-Stage_Builds63.png)
+
+## Step 8: Logout from Docker Hub
+```bash
+docker logout
+```
+![](../assets/images/Multi-Stage_Builds64.png)
 ---
 
-### Lab 3.3: Private Registry Setup
-
-#### Step 1: Run local registry container
-```bash
-docker run -d --name registry -p 5000:5000 --restart always registry:2
-```
-
-#### Step 2: Tag image for local registry
-```bash
-docker tag go-multi localhost:5000/go-app:latest
-```
-
-#### Step 3: Push to local registry
-```bash
-docker push localhost:5000/go-app:latest
-```
-
-#### Step 4: Pull from local registry
-```bash
-docker rmi localhost:5000/go-app:latest
-docker pull localhost:5000/go-app:latest
-```
-
-#### Step 5: Verify registry contents
-```bash
-curl http://localhost:5000/v2/_catalog
-curl http://localhost:5000/v2/go-app/tags/list
-```
-
----
-
-## Reading Note: Docker Advanced Commands
+--- ## Lab end here ---
+## Reading Note: Docker Advanced Commands  (options)
 
 ### Advanced Docker Commands Cheat Sheet
 
@@ -518,52 +920,56 @@ curl http://localhost:5000/v2/go-app/tags/list
 
 ## Quiz
 
-??? question "Question 1: What is the benefit of multi-stage builds?"
+❓ question "Question 1: What is the benefit of multi-stage builds?"
     **Answer:**
     
     Multi-stage builds reduce final image size by separating build dependencies from runtime dependencies. The build stage contains compilers and tools, while the final stage contains only the application and minimal runtime.
 
-??? question "Question 2: How do you enable BuildKit?"
+❓ question "Question 2: How do you enable BuildKit?"
     **Answer:**
     
     Set the environment variable `DOCKER_BUILDKIT=1` or configure Docker daemon with BuildKit enabled.
 
-??? question "Question 3: What is the overlay filesystem in Docker?"
+❓ question "Question 3: What is the overlay filesystem in Docker?"
     **Answer:**
     
     Overlay filesystem (overlay2) is a union filesystem that combines multiple directories (layers) into a single unified view. Docker uses it to efficiently store container layers with Copy-on-Write (CoW).
 
-??? question "Question 4: How do you limit container memory?"
+❓ question "Question 4: How do you limit container memory?"
     **Answer:**
     
     Use the `--memory` flag: `docker run --memory=256m image_name`
 
-??? question "Question 5: What is the difference between -p and -P?"
+❓ question "Question 5: What is the difference between -p and -P?"
     **Answer:**
     
     `-p` maps specific host port to container port (e.g., `-p 8080:80`), while `-P` publishes all exposed ports to random host ports.
 
-??? question "Question 6: How do you create a custom Docker network?"
+❓ question "Question 6: How do you create a custom Docker network?"
     **Answer:**
     
     Use `docker network create --driver bridge network_name`
 
-??? question "Question 7: What is the purpose of .dockerignore?"
+❓ question "Question 7: What is the purpose of .dockerignore?"
     **Answer:**
     
     `.dockerignore` excludes files and directories from the build context, reducing build time and preventing sensitive files from being copied into the image.
 
-??? question "Question 8: How do you run a container with CPU limits?"
+❓ question "Question 8: How do you run a container with CPU limits?"
     **Answer:**
     
     Use the `--cpus` flag: `docker run --cpus=0.5 image_name` (limits to 50% of one CPU core)
 
-??? question "Question 9: What is a Docker private registry?"
+❓ question "Question 9: What is a Docker private registry?"
     **Answer:**
     
     A private registry is a self-hosted Docker image storage service that allows you to store and distribute Docker images privately within your organization.
 
-??? question "Question 10: How do you inspect container resource limits?"
+❓ question "Question 10: How do you inspect container resource limits?"
     **Answer:**
     
     Use `docker inspect --format='{{.HostConfig.Memory}}' container_name` or `docker stats` for real-time monitoring.
+
+
+![](../assets/images/Multi-Stage_Builds65.png)
+---
