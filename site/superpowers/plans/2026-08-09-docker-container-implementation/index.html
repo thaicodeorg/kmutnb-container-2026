@@ -432,14 +432,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../book/07-workshop-basic/" class="md-nav__link">
+      <a href="../../../book/07-workshop-1/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    7. Workshop Basic
+    7. Workshop 1
   
 
     
@@ -460,7 +460,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../book/08-workshop-webserver/" class="md-nav__link">
+      <a href="../../../book/08-workshop-webserver.md" class="md-nav__link">
         
   
   
@@ -488,7 +488,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../book/09-workshop-fullstack/" class="md-nav__link">
+      <a href="../../../book/09-workshop-fullstack.md" class="md-nav__link">
         
   
   
@@ -516,7 +516,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../book/10-cgroups-namespaces-security/" class="md-nav__link">
+      <a href="../../../book/10-cgroups-namespaces-security.md" class="md-nav__link">
         
   
   
@@ -983,7 +983,7 @@
 <li>[ ] <strong>Step 3: Commit</strong></li>
 </ul>
 <div class="highlight"><pre><span></span><code>git<span class="w"> </span>add<span class="w"> </span>docs/index.md
-git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;feat: add index.md with wiki-links to all chapters&quot;</span>
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">"feat: add index.md with wiki-links to all chapters"</span>
 </code></pre></div>
 <hr />
 <h3 id="task-2-create-book-chapter-template">Task 2: Create book chapter template</h3>
@@ -995,7 +995,7 @@ git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </sp
 <ul>
 <li>[ ] <strong>Step 1: Create chapter with callout and quiz structure</strong></li>
 </ul>
-<div class="highlight"><pre><span></span><code>!!! tip &quot;Slides Available&quot;
+<div class="highlight"><pre><span></span><code>!!! tip "Slides Available"
     📊 <span class="gs">**View Presentation**</span> → [<span class="nt">Open Slides</span>](<span class="na">../presents/01-fundamentals.html</span>)
 
 <span class="gh"># Fundamentals</span>
@@ -1016,12 +1016,12 @@ git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </sp
 
 <span class="gu">## Quiz</span>
 
-??? question &quot;Question 1: What is a container?&quot;
+??? question "Question 1: What is a container?"
     <span class="gs">**Answer:**</span>
 
     A lightweight, standalone, executable package that includes everything needed to run a piece of software.
 
-??? question &quot;Question 2: What is the difference between a VM and a container?&quot;
+??? question "Question 2: What is the difference between a VM and a container?"
     <span class="gs">**Answer:**</span>
 
     VMs virtualize hardware, containers virtualize the OS kernel.
@@ -1036,7 +1036,7 @@ git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </sp
 <li>[ ] <strong>Step 3: Commit</strong></li>
 </ul>
 <div class="highlight"><pre><span></span><code>git<span class="w"> </span>add<span class="w"> </span>docs/book/01-fundamentals.md
-git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;feat: add chapter template with callout and quiz structure&quot;</span>
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">"feat: add chapter template with callout and quiz structure"</span>
 </code></pre></div>
 <hr />
 <h3 id="task-3-create-revealjs-presentation-template">Task 3: Create reveal.js presentation template</h3>
@@ -1049,17 +1049,17 @@ git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </sp
 <li>[ ] <strong>Step 1: Create reveal.js HTML template</strong></li>
 </ul>
 <div class="highlight"><pre><span></span><code><span class="cp">&lt;!doctype html&gt;</span>
-<span class="p">&lt;</span><span class="nt">html</span> <span class="na">lang</span><span class="o">=</span><span class="s">&quot;en&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span> <span class="na">lang</span><span class="o">=</span><span class="s">"en"</span><span class="p">&gt;</span>
 <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;utf-8&quot;</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;viewport&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;width=device-width, initial-scale=1.0&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">"utf-8"</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">"viewport"</span> <span class="na">content</span><span class="o">=</span><span class="s">"width=device-width, initial-scale=1.0"</span><span class="p">&gt;</span>
     <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>Docker Fundamentals<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/reveal.css&quot;</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/theme/white.css&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">"stylesheet"</span> <span class="na">href</span><span class="o">=</span><span class="s">"https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/reveal.css"</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">"stylesheet"</span> <span class="na">href</span><span class="o">=</span><span class="s">"https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/theme/white.css"</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
 <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;reveal&quot;</span><span class="p">&gt;</span>
-        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;slides&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">"reveal"</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">"slides"</span><span class="p">&gt;</span>
             <span class="p">&lt;</span><span class="nt">section</span><span class="p">&gt;</span>
                 <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>Docker Fundamentals<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
                 <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Container Technology for Computer Science<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
@@ -1082,11 +1082,11 @@ git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </sp
             <span class="p">&lt;/</span><span class="nt">section</span><span class="p">&gt;</span>
             <span class="p">&lt;</span><span class="nt">section</span><span class="p">&gt;</span>
                 <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>Thank You<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
-                <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;../book/01-fundamentals.html&quot;</span><span class="p">&gt;</span>Back to Book<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">"../book/01-fundamentals.html"</span><span class="p">&gt;</span>Back to Book<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
             <span class="p">&lt;/</span><span class="nt">section</span><span class="p">&gt;</span>
         <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
     <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/reveal.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">"https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/reveal.js"</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
     <span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
 <span class="w">        </span><span class="nx">Reveal</span><span class="p">.</span><span class="nx">initialize</span><span class="p">({</span>
 <span class="w">            </span><span class="nx">hash</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
@@ -1104,7 +1104,7 @@ git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </sp
 <li>[ ] <strong>Step 3: Commit</strong></li>
 </ul>
 <div class="highlight"><pre><span></span><code>git<span class="w"> </span>add<span class="w"> </span>docs/presents/01-fundamentals.html
-git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;feat: add reveal.js presentation template&quot;</span>
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">"feat: add reveal.js presentation template"</span>
 </code></pre></div>
 <hr />
 <h3 id="task-4-create-all-book-chapters-02-09">Task 4: Create all book chapters (02-09)</h3>
@@ -1123,7 +1123,7 @@ git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </sp
 <ul>
 <li>[ ] <strong>Step 1: Create 02-installation.md</strong></li>
 </ul>
-<div class="highlight"><pre><span></span><code>!!! tip &quot;Slides Available&quot;
+<div class="highlight"><pre><span></span><code>!!! tip "Slides Available"
     📊 <span class="gs">**View Presentation**</span> → [<span class="nt">Open Slides</span>](<span class="na">../presents/02-installation.html</span>)
 
 <span class="gh"># Installation</span>
@@ -1167,7 +1167,7 @@ sudo systemctl enable docker
 <div class="highlight"><pre><span></span><code>- [ ] **Step 2: Create 03-basic-operations.md**
 
 ```markdown
-!!! tip &quot;Slides Available&quot;
+!!! tip "Slides Available"
     📊 **View Presentation** → [Open Slides](../presents/03-basic-operations.html)
 
 # Basic Operations
@@ -1207,7 +1207,7 @@ docker<span class="w"> </span>rm<span class="w"> </span>my-nginx
 <div class="highlight"><pre><span></span><code>- [ ] **Step 3: Create 04-dockerfile.md**
 
 ```markdown
-!!! tip &quot;Slides Available&quot;
+!!! tip "Slides Available"
     📊 **View Presentation** → [Open Slides](../presents/04-dockerfile.html)
 
 # Dockerfile
@@ -1219,7 +1219,7 @@ FROM centos:stream9
 WORKDIR /app
 COPY . .
 RUN dnf install -y python3
-CMD [&quot;python3&quot;, &quot;app.py&quot;]
+CMD ["python3", "app.py"]
 </code></pre></div></p>
 <h2 id="multi-stage-builds">Multi-stage Builds</h2>
 <div class="highlight"><pre><span></span><code><span class="c"># Build stage</span>
@@ -1242,7 +1242,7 @@ CMD [&quot;python3&quot;, &quot;app.py&quot;]
 <div class="highlight"><pre><span></span><code>- [ ] **Step 4: Create 05-docker-compose.md**
 
 ```markdown
-!!! tip &quot;Slides Available&quot;
+!!! tip "Slides Available"
     📊 **View Presentation** → [Open Slides](../presents/05-docker-compose.html)
 
 # Docker Compose
@@ -1250,12 +1250,12 @@ CMD [&quot;python3&quot;, &quot;app.py&quot;]
 ## YAML Syntax
 
 ```yaml
-version: &#39;3.8&#39;
+version: '3.8'
 services:
   web:
     image: nginx:alpine
     ports:
-      - &quot;80:80&quot;
+      - "80:80"
   db:
     image: postgres:15
     environment:
@@ -1269,7 +1269,7 @@ services:
 <div class="highlight"><pre><span></span><code>- [ ] **Step 5: Create 06-advanced.md**
 
 ```markdown
-!!! tip &quot;Slides Available&quot;
+!!! tip "Slides Available"
     📊 **View Presentation** → [Open Slides](../presents/06-advanced.html)
 
 # Advanced Topics
@@ -1299,7 +1299,7 @@ services:
 <ul>
 <li>[ ] <strong>Step 6: Create 07-workshop-basic.md</strong></li>
 </ul>
-<div class="highlight"><pre><span></span><code>!!! tip &quot;Slides Available&quot;
+<div class="highlight"><pre><span></span><code>!!! tip "Slides Available"
     📊 <span class="gs">**View Presentation**</span> → [<span class="nt">Open Slides</span>](<span class="na">../presents/07-workshop-basic.html</span>)
 
 <span class="gh"># Workshop: Basic Operations</span>
@@ -1337,7 +1337,7 @@ docker rm lab-centos
 <div class="highlight"><pre><span></span><code>- [ ] **Step 7: Create 08-workshop-webserver.md**
 
 ```markdown
-!!! tip &quot;Slides Available&quot;
+!!! tip "Slides Available"
     📊 **View Presentation** → [Open Slides](../presents/08-workshop-webserver.html)
 
 # Workshop: Web Server
@@ -1355,16 +1355,16 @@ docker rm lab-centos
 mkdir -p ~/nginx-docker &amp;&amp; cd ~/nginx-docker
 
 # Step 2: Create Dockerfile
-cat &gt; Dockerfile &lt;&lt; &#39;EOF&#39;
+cat &gt; Dockerfile &lt;&lt; 'EOF'
 FROM centos:stream9
 RUN dnf install -y nginx
 COPY nginx.conf /etc/nginx/nginx.conf
 EXPOSE 80
-CMD [&quot;nginx&quot;, &quot;-g&quot;, &quot;daemon off;&quot;]
+CMD ["nginx", "-g", "daemon off;"]
 EOF
 
 # Step 3: Create custom nginx.conf
-cat &gt; nginx.conf &lt;&lt; &#39;EOF&#39;
+cat &gt; nginx.conf &lt;&lt; 'EOF'
 events {}
 http {
     server {
@@ -1387,7 +1387,7 @@ docker run -d -p 8080:80 my-nginx
 <div class="highlight"><pre><span></span><code>- [ ] **Step 8: Create 09-workshop-fullstack.md**
 
 ```markdown
-!!! tip &quot;Slides Available&quot;
+!!! tip "Slides Available"
     📊 **View Presentation** → [Open Slides](../presents/09-workshop-fullstack.html)
 
 # Workshop: Fullstack Application
@@ -1418,7 +1418,7 @@ fullstack-app/
 <div class="highlight"><pre><span></span><code>## docker-compose.yml
 
 ```yaml
-version: &#39;3.8&#39;
+version: '3.8'
 services:
   db:
     image: postgres:15
@@ -1444,7 +1444,7 @@ services:
   nginx:
     image: nginx:alpine
     ports:
-      - &quot;80:80&quot;
+      - "80:80"
     depends_on:
       - frontend
       - backend
@@ -1468,7 +1468,7 @@ volumes:
 <span class="k">COPY</span><span class="w"> </span>requirements.txt<span class="w"> </span>.
 <span class="k">RUN</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
 <span class="k">COPY</span><span class="w"> </span>.<span class="w"> </span>.
-<span class="k">CMD</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;uvicorn&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;app.main:app&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;--host&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;0.0.0.0&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;--port&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;8000&quot;</span><span class="p">]</span>
+<span class="k">CMD</span><span class="w"> </span><span class="p">[</span><span class="s2">"uvicorn"</span><span class="p">,</span><span class="w"> </span><span class="s2">"app.main:app"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--host"</span><span class="p">,</span><span class="w"> </span><span class="s2">"0.0.0.0"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--port"</span><span class="p">,</span><span class="w"> </span><span class="s2">"8000"</span><span class="p">]</span>
 </code></pre></div>
 <h2 id="running-the-application">Running the Application</h2>
 <div class="highlight"><pre><span></span><code>docker-compose<span class="w"> </span>up<span class="w"> </span>-d
@@ -1480,7 +1480,7 @@ volumes:
 
 ```bash
 git add docs/book/
-git commit -m &quot;feat: add all book chapters with content and quizzes&quot;
+git commit -m "feat: add all book chapters with content and quizzes"
 </code></pre></div></p>
 <hr />
 <h3 id="task-5-create-all-presentations-02-09">Task 5: Create all presentations (02-09)</h3>
@@ -1500,17 +1500,17 @@ git commit -m &quot;feat: add all book chapters with content and quizzes&quot;
 <li>[ ] <strong>Step 1: Create 02-installation.html</strong></li>
 </ul>
 <div class="highlight"><pre><span></span><code><span class="cp">&lt;!doctype html&gt;</span>
-<span class="p">&lt;</span><span class="nt">html</span> <span class="na">lang</span><span class="o">=</span><span class="s">&quot;en&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span> <span class="na">lang</span><span class="o">=</span><span class="s">"en"</span><span class="p">&gt;</span>
 <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;utf-8&quot;</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;viewport&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;width=device-width, initial-scale=1.0&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">"utf-8"</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">"viewport"</span> <span class="na">content</span><span class="o">=</span><span class="s">"width=device-width, initial-scale=1.0"</span><span class="p">&gt;</span>
     <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>Docker Installation<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/reveal.css&quot;</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/theme/white.css&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">"stylesheet"</span> <span class="na">href</span><span class="o">=</span><span class="s">"https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/reveal.css"</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">"stylesheet"</span> <span class="na">href</span><span class="o">=</span><span class="s">"https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/theme/white.css"</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
 <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;reveal&quot;</span><span class="p">&gt;</span>
-        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;slides&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">"reveal"</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">"slides"</span><span class="p">&gt;</span>
             <span class="p">&lt;</span><span class="nt">section</span><span class="p">&gt;</span>
                 <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>Docker Installation<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
                 <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>CentOS 9 Stream Setup<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
@@ -1529,11 +1529,11 @@ git commit -m &quot;feat: add all book chapters with content and quizzes&quot;
             <span class="p">&lt;/</span><span class="nt">section</span><span class="p">&gt;</span>
             <span class="p">&lt;</span><span class="nt">section</span><span class="p">&gt;</span>
                 <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>Thank You<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
-                <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;../book/02-installation.html&quot;</span><span class="p">&gt;</span>Back to Book<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">"../book/02-installation.html"</span><span class="p">&gt;</span>Back to Book<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
             <span class="p">&lt;/</span><span class="nt">section</span><span class="p">&gt;</span>
         <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
     <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/reveal.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">"https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/reveal.js"</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
     <span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
 <span class="w">        </span><span class="nx">Reveal</span><span class="p">.</span><span class="nx">initialize</span><span class="p">({</span>
 <span class="w">            </span><span class="nx">hash</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
@@ -1551,7 +1551,7 @@ git commit -m &quot;feat: add all book chapters with content and quizzes&quot;
 <li>[ ] <strong>Step 3: Commit all presentations</strong></li>
 </ul>
 <div class="highlight"><pre><span></span><code>git<span class="w"> </span>add<span class="w"> </span>docs/presents/
-git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;feat: add all reveal.js presentations&quot;</span>
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">"feat: add all reveal.js presentations"</span>
 </code></pre></div>
 <hr />
 <h3 id="task-6-update-mkdocsyml-for-navigation">Task 6: Update mkdocs.yml for navigation</h3>
@@ -1601,7 +1601,7 @@ git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </sp
 <li>[ ] <strong>Step 3: Commit</strong></li>
 </ul>
 <div class="highlight"><pre><span></span><code>git<span class="w"> </span>add<span class="w"> </span>mkdocs.yml
-git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;feat: update mkdocs.yml with navigation and extensions&quot;</span>
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">"feat: update mkdocs.yml with navigation and extensions"</span>
 </code></pre></div>
 <hr />
 <h3 id="task-7-final-verification">Task 7: Final verification</h3>
@@ -1634,7 +1634,7 @@ git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </sp
 <li>[ ] <strong>Step 6: Final commit</strong></li>
 </ul>
 <div class="highlight"><pre><span></span><code>git<span class="w"> </span>add<span class="w"> </span>-A
-git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;docs: complete Docker Container Technology documentation&quot;</span>
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">"docs: complete Docker Container Technology documentation"</span>
 </code></pre></div>
 <hr />
 <h2 id="implementation-order">Implementation Order</h2>

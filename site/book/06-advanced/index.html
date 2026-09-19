@@ -12,7 +12,7 @@
         <link rel="prev" href="../05-docker-compose/">
       
       
-        <link rel="next" href="../07-workshop-basic/">
+        <link rel="next" href="../07-workshop-1/">
       
       
         
@@ -509,333 +509,33 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#workshop-1-image-optimization" class="md-nav__link">
+  <a href="#ref-reading" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Workshop 1: Image Optimization
+        Ref Reading
       
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Workshop 1: Image Optimization">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#lab-11-multi-stage-build-go-application" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Lab 1.1: Multi-stage Build - Go Application
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Lab 1.1: Multi-stage Build - Go Application">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#step-1-create-project-directory" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 1: Create project directory
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-2-create-maingo-application" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 2: Create main.go application
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-3-create-single-stage-dockerfile-show-problem" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 3: Create single-stage Dockerfile (show problem)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-4-build-and-check-image-size" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 4: Build and check image size
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-5-create-multi-stage-dockerfile" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 5: Create multi-stage Dockerfile
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-6-build-and-compare-image-sizes" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 6: Build and compare image sizes
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-7-verify-application-works" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 7: Verify application works
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#lab-12-buildkit-features" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Lab 1.2: BuildKit Features
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Lab 1.2: BuildKit Features">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#step-1-enable-buildkit" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 1: Enable BuildKit
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-2-create-dockerfile-with-cache-mounts" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 2: Create Dockerfile with cache mounts
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-3-build-with-buildkit-caching" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 3: Build with BuildKit caching
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-4-use-build-secrets-with-mounttypesecret" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 4: Use build secrets with --mount=type=secret
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-5-verify-secret-not-in-image" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 5: Verify secret not in image
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#lab-13-image-analysis" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Lab 1.3: Image Analysis
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Lab 1.3: Image Analysis">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#step-1-use-docker-history-to-inspect-layers" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 1: Use docker history to inspect layers
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-2-analyze-image-with-dive-tool-if-installed" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 2: Analyze image with dive tool (if installed)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-3-optimize-dockerignore" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 3: Optimize .dockerignore
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-4-rebuild-with-optimized-dockerignore" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 4: Rebuild with optimized .dockerignore
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#workshop-2-container-internals" class="md-nav__link">
+  <a href="#-docker-officail-reference" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Workshop 2: Container Internals
+        - docker officail reference
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Workshop 2: Container Internals">
+    <nav class="md-nav" aria-label="- docker officail reference">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#lab-21-understanding-overlay-filesystem" class="md-nav__link">
+  <a href="#1-key-advantages-of-the-overlay-filesystem-overlayfs-overlay2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Lab 2.1: Understanding Overlay Filesystem
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Lab 2.1: Understanding Overlay Filesystem">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#step-1-run-container-and-examine-filesystem" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 1: Run container and examine filesystem
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-2-view-overlay-mount-points-inside-container" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 2: View overlay mount points (inside container)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-3-create-files-in-container" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 3: Create files in container
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-4-exit-and-examine-layers-on-host" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 4: Exit and examine layers (on host)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-5-view-layer-contents" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 5: View layer contents
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-6-compare-container-vs-image-layers" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 6: Compare container vs image layers
+        1. Key Advantages of the Overlay Filesystem (OverlayFS / overlay2)
       
     </span>
   </a>
@@ -844,416 +544,6 @@
         
       </ul>
     </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#lab-22-resource-limits" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Lab 2.2: Resource Limits
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Lab 2.2: Resource Limits">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#step-1-run-container-with-memory-limit" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 1: Run container with memory limit
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-2-run-container-with-cpu-limit" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 2: Run container with CPU limit
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-3-run-container-with-pid-limit" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 3: Run container with PID limit
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-4-monitor-resource-usage" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 4: Monitor resource usage
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-5-combine-resource-limits" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 5: Combine resource limits
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#lab-23-container-inspection" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Lab 2.3: Container Inspection
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Lab 2.3: Container Inspection">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#step-1-use-docker-inspect" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 1: Use docker inspect
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-2-view-container-logs" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 2: View container logs
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-3-use-docker-stats" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 3: Use docker stats
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-4-use-docker-top" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 4: Use docker top
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-5-use-docker-diff" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 5: Use docker diff
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#workshop-3-advanced-networking" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Workshop 3: Advanced Networking
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Workshop 3: Advanced Networking">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#lab-31-docker-network-types" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Lab 3.1: Docker Network Types
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Lab 3.1: Docker Network Types">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#step-1-list-default-networks" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 1: List default networks
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-2-create-bridge-network" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 2: Create bridge network
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-3-create-host-network" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 3: Create host network
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-4-connect-containers-to-custom-network" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 4: Connect containers to custom network
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-5-test-inter-container-communication" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 5: Test inter-container communication
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#lab-32-port-mapping-and-exposing" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Lab 3.2: Port Mapping and Exposing
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Lab 3.2: Port Mapping and Exposing">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#step-1-run-container-with-p-flag" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 1: Run container with -p flag
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-2-run-container-with-p-flag" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 2: Run container with -P flag
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-3-use-docker-port-command" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 3: Use docker port command
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-4-configure-port-forwarding" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 4: Configure port forwarding
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#lab-33-private-registry-setup" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Lab 3.3: Private Registry Setup
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Lab 3.3: Private Registry Setup">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#step-1-run-local-registry-container" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 1: Run local registry container
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-2-tag-image-for-local-registry" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 2: Tag image for local registry
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-3-push-to-local-registry" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 3: Push to local registry
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-4-pull-from-local-registry" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 4: Pull from local registry
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-5-verify-registry-contents" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 5: Verify registry contents
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#reading-note-docker-advanced-commands" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Reading Note: Docker Advanced Commands
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Reading Note: Docker Advanced Commands">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#advanced-docker-commands-cheat-sheet" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Advanced Docker Commands Cheat Sheet
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#quiz" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Quiz
-      
-    </span>
-  </a>
   
 </li>
       
@@ -1273,14 +563,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../07-workshop-basic/" class="md-nav__link">
+      <a href="../07-workshop-1/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    7. Workshop Basic
+    7. Workshop 1
   
 
     
@@ -1301,7 +591,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../08-workshop-webserver/" class="md-nav__link">
+      <a href="../08-workshop-webserver.md" class="md-nav__link">
         
   
   
@@ -1329,7 +619,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../09-workshop-fullstack/" class="md-nav__link">
+      <a href="../09-workshop-fullstack.md" class="md-nav__link">
         
   
   
@@ -1357,7 +647,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../10-cgroups-namespaces-security/" class="md-nav__link">
+      <a href="../10-cgroups-namespaces-security.md" class="md-nav__link">
         
   
   
@@ -1451,333 +741,33 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#workshop-1-image-optimization" class="md-nav__link">
+  <a href="#ref-reading" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Workshop 1: Image Optimization
+        Ref Reading
       
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Workshop 1: Image Optimization">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#lab-11-multi-stage-build-go-application" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Lab 1.1: Multi-stage Build - Go Application
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Lab 1.1: Multi-stage Build - Go Application">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#step-1-create-project-directory" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 1: Create project directory
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-2-create-maingo-application" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 2: Create main.go application
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-3-create-single-stage-dockerfile-show-problem" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 3: Create single-stage Dockerfile (show problem)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-4-build-and-check-image-size" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 4: Build and check image size
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-5-create-multi-stage-dockerfile" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 5: Create multi-stage Dockerfile
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-6-build-and-compare-image-sizes" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 6: Build and compare image sizes
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-7-verify-application-works" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 7: Verify application works
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#lab-12-buildkit-features" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Lab 1.2: BuildKit Features
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Lab 1.2: BuildKit Features">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#step-1-enable-buildkit" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 1: Enable BuildKit
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-2-create-dockerfile-with-cache-mounts" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 2: Create Dockerfile with cache mounts
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-3-build-with-buildkit-caching" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 3: Build with BuildKit caching
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-4-use-build-secrets-with-mounttypesecret" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 4: Use build secrets with --mount=type=secret
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-5-verify-secret-not-in-image" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 5: Verify secret not in image
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#lab-13-image-analysis" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Lab 1.3: Image Analysis
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Lab 1.3: Image Analysis">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#step-1-use-docker-history-to-inspect-layers" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 1: Use docker history to inspect layers
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-2-analyze-image-with-dive-tool-if-installed" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 2: Analyze image with dive tool (if installed)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-3-optimize-dockerignore" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 3: Optimize .dockerignore
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-4-rebuild-with-optimized-dockerignore" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 4: Rebuild with optimized .dockerignore
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#workshop-2-container-internals" class="md-nav__link">
+  <a href="#-docker-officail-reference" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Workshop 2: Container Internals
+        - docker officail reference
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Workshop 2: Container Internals">
+    <nav class="md-nav" aria-label="- docker officail reference">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#lab-21-understanding-overlay-filesystem" class="md-nav__link">
+  <a href="#1-key-advantages-of-the-overlay-filesystem-overlayfs-overlay2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Lab 2.1: Understanding Overlay Filesystem
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Lab 2.1: Understanding Overlay Filesystem">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#step-1-run-container-and-examine-filesystem" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 1: Run container and examine filesystem
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-2-view-overlay-mount-points-inside-container" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 2: View overlay mount points (inside container)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-3-create-files-in-container" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 3: Create files in container
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-4-exit-and-examine-layers-on-host" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 4: Exit and examine layers (on host)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-5-view-layer-contents" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 5: View layer contents
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-6-compare-container-vs-image-layers" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 6: Compare container vs image layers
+        1. Key Advantages of the Overlay Filesystem (OverlayFS / overlay2)
       
     </span>
   </a>
@@ -1786,416 +776,6 @@
         
       </ul>
     </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#lab-22-resource-limits" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Lab 2.2: Resource Limits
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Lab 2.2: Resource Limits">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#step-1-run-container-with-memory-limit" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 1: Run container with memory limit
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-2-run-container-with-cpu-limit" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 2: Run container with CPU limit
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-3-run-container-with-pid-limit" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 3: Run container with PID limit
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-4-monitor-resource-usage" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 4: Monitor resource usage
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-5-combine-resource-limits" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 5: Combine resource limits
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#lab-23-container-inspection" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Lab 2.3: Container Inspection
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Lab 2.3: Container Inspection">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#step-1-use-docker-inspect" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 1: Use docker inspect
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-2-view-container-logs" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 2: View container logs
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-3-use-docker-stats" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 3: Use docker stats
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-4-use-docker-top" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 4: Use docker top
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-5-use-docker-diff" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 5: Use docker diff
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#workshop-3-advanced-networking" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Workshop 3: Advanced Networking
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Workshop 3: Advanced Networking">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#lab-31-docker-network-types" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Lab 3.1: Docker Network Types
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Lab 3.1: Docker Network Types">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#step-1-list-default-networks" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 1: List default networks
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-2-create-bridge-network" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 2: Create bridge network
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-3-create-host-network" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 3: Create host network
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-4-connect-containers-to-custom-network" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 4: Connect containers to custom network
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-5-test-inter-container-communication" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 5: Test inter-container communication
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#lab-32-port-mapping-and-exposing" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Lab 3.2: Port Mapping and Exposing
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Lab 3.2: Port Mapping and Exposing">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#step-1-run-container-with-p-flag" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 1: Run container with -p flag
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-2-run-container-with-p-flag" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 2: Run container with -P flag
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-3-use-docker-port-command" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 3: Use docker port command
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-4-configure-port-forwarding" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 4: Configure port forwarding
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#lab-33-private-registry-setup" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Lab 3.3: Private Registry Setup
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Lab 3.3: Private Registry Setup">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#step-1-run-local-registry-container" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 1: Run local registry container
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-2-tag-image-for-local-registry" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 2: Tag image for local registry
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-3-push-to-local-registry" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 3: Push to local registry
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-4-pull-from-local-registry" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 4: Pull from local registry
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-5-verify-registry-contents" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 5: Verify registry contents
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#reading-note-docker-advanced-commands" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Reading Note: Docker Advanced Commands
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Reading Note: Docker Advanced Commands">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#advanced-docker-commands-cheat-sheet" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Advanced Docker Commands Cheat Sheet
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#quiz" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Quiz
-      
-    </span>
-  </a>
   
 </li>
       
@@ -2231,47 +811,67 @@
 <h2 id="assignment-create-students-submission-along-tutorial">Assignment: Create Student's Submission along tutorial</h2>
 <ul>
 <li>Student will submit Screen of Docker installation process according to step-by-step from manual.</li>
-<li>Student can use Basic Template <a href="../assets/dockerbasic-advanced-submission.docx">Download</a> or generate own version.</li>
+<li>Student can use Basic Template <a href="../../assets/Student%20Self-Verification%20Checklist.docx">Download checklist submission</a> or generate own version.</li>
+<li>check checklist file <a href="./06_checklist.md">Check list help</a> </li>
 </ul>
-<hr />
-<h2 id="workshop-1-image-optimization">Workshop 1: Image Optimization</h2>
-<h3 id="lab-11-multi-stage-build-go-application">Lab 1.1: Multi-stage Build - Go Application</h3>
-<h4 id="step-1-create-project-directory">Step 1: Create project directory</h4>
+<h2 id="ref-reading">Ref Reading</h2>
+<h2 id="-docker-officail-reference">- <a href="https://docs.docker.com/build/building/multi-stage/">docker officail reference</a></h2>
+<p><img alt="" src="../../assets/images/Multi-Stage_Builds2.png" /></p>
+<h3 id="1-key-advantages-of-the-overlay-filesystem-overlayfs-overlay2">1. Key Advantages of the Overlay Filesystem (OverlayFS / overlay2)</h3>
+<p>The Overlay Filesystem is a modern union filesystem that combines multiple underlying directories into a single, unified filesystem view. It plays a crucial role in making Docker builds fast, storage-efficient, and lightweight:
+- <strong>Union Directory Layering (lowerdir, upperdir, merged):</strong>
+    - <strong>lowerdir:</strong>  Read-only base layers (such as OS images or pre-installed SDKs)</p>
+<pre><code>- **upperdir:** The read-write layer where new file changes from a build step are written
+
+- **merged:** The unified mount point where Docker presents the combined filesystem
+</code></pre>
+<ul>
+<li>
+<p><strong>Copy-on-Write (CoW) Efficiency:</strong> If a build instruction (RUN, COPY) modifies an existing file, OverlayFS copies the file from lowerdir to upperdir before editing. Unchanged files are never duplicated, drastically saving disk I/O and storage space</p>
+</li>
+<li>
+<p><strong>Instant Layer Mounts:</strong> Rather than extracting heavy tarballs or copying full directory trees for each Dockerfile line, Docker simply mounts existing layer directories on host storage (/var/lib/docker/overlay2/)</p>
+</li>
+</ul>
+<h1 id="workshop-1-image-optimization">Workshop 1: Image Optimization</h1>
+<p><img alt="" src="../../assets/images/Multi-Stage_Builds1.png" /></p>
+<h1 id="lab-11-multi-stage-build-go-application">Lab 1.1: Multi-stage Build - Go Application</h1>
+<h2 id="step-1-create-project-directory">Step 1: Create project directory</h2>
 <div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>~/go-multistage
 <span class="nb">cd</span><span class="w"> </span>~/go-multistage
 </code></pre></div>
-<h4 id="step-2-create-maingo-application">Step 2: Create main.go application</h4>
-<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>&gt;<span class="w"> </span>main.go<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39;</span>
+<h2 id="step-2-create-maingo-application">Step 2: Create main.go application</h2>
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>&gt;<span class="w"> </span>main.go<span class="w"> </span><span class="s">&lt;&lt; 'EOF'</span>
 <span class="s">package main</span>
 
 <span class="s">import (</span>
-<span class="s">    &quot;fmt&quot;</span>
-<span class="s">    &quot;net/http&quot;</span>
-<span class="s">    &quot;os&quot;</span>
-<span class="s">    &quot;runtime&quot;</span>
+<span class="s">    "fmt"</span>
+<span class="s">    "net/http"</span>
+<span class="s">    "os"</span>
+<span class="s">    "runtime"</span>
 <span class="s">)</span>
 
 <span class="s">func main() {</span>
-<span class="s">    http.HandleFunc(&quot;/&quot;, func(w http.ResponseWriter, r *http.Request) {</span>
+<span class="s">    http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {</span>
 <span class="s">        hostname, _ := os.Hostname()</span>
-<span class="s">        fmt.Fprintf(w, &quot;Hello from Go container!\n&quot;)</span>
-<span class="s">        fmt.Fprintf(w, &quot;Hostname: %s\n&quot;, hostname)</span>
-<span class="s">        fmt.Fprintf(w, &quot;Go Version: %s\n&quot;, runtime.Version())</span>
-<span class="s">        fmt.Fprintf(w, &quot;OS/Arch: %s/%s\n&quot;, runtime.GOOS, runtime.GOARCH)</span>
+<span class="s">        fmt.Fprintf(w, "Hello from Go container!\n")</span>
+<span class="s">        fmt.Fprintf(w, "Hostname: %s\n", hostname)</span>
+<span class="s">        fmt.Fprintf(w, "Go Version: %s\n", runtime.Version())</span>
+<span class="s">        fmt.Fprintf(w, "OS/Arch: %s/%s\n", runtime.GOOS, runtime.GOARCH)</span>
 <span class="s">    })</span>
 
-<span class="s">    http.HandleFunc(&quot;/health&quot;, func(w http.ResponseWriter, r *http.Request) {</span>
+<span class="s">    http.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {</span>
 <span class="s">        w.WriteHeader(http.StatusOK)</span>
-<span class="s">        fmt.Fprintf(w, &quot;OK&quot;)</span>
+<span class="s">        fmt.Fprintf(w, "OK")</span>
 <span class="s">    })</span>
 
-<span class="s">    fmt.Println(&quot;Server starting on :8080&quot;)</span>
-<span class="s">    http.ListenAndServe(&quot;:8080&quot;, nil)</span>
+<span class="s">    fmt.Println("Server starting on :8080")</span>
+<span class="s">    http.ListenAndServe(":8080", nil)</span>
 <span class="s">}</span>
 <span class="s">EOF</span>
 </code></pre></div>
-<h4 id="step-3-create-single-stage-dockerfile-show-problem">Step 3: Create single-stage Dockerfile (show problem)</h4>
-<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>&gt;<span class="w"> </span>Dockerfile.single<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39;</span>
+<h2 id="step-3-create-single-stage-dockerfile-show-problem">Step 3: Create single-stage Dockerfile (show problem)</h2>
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>&gt;<span class="w"> </span>Dockerfile.single<span class="w"> </span><span class="s">&lt;&lt; 'EOF'</span>
 <span class="s">FROM golang:1.21</span>
 
 <span class="s">WORKDIR /app</span>
@@ -2282,18 +882,48 @@
 
 <span class="s">EXPOSE 8080</span>
 
-<span class="s">CMD [&quot;./server&quot;]</span>
+<span class="s">CMD ["./server"]</span>
 <span class="s">EOF</span>
 </code></pre></div>
-<h4 id="step-4-build-and-check-image-size">Step 4: Build and check image size</h4>
+<p><img alt="" src="../../assets/images/Multi-Stage_Builds3.png" /></p>
+<h2 id="step-4-build-and-check-image-size">Step 4: Build and check image size</h2>
 <div class="highlight"><pre><span></span><code>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>go-single<span class="w"> </span>-f<span class="w"> </span>Dockerfile.single<span class="w"> </span>.
 docker<span class="w"> </span>images<span class="w"> </span>go-single
 </code></pre></div>
+<p><img alt="" src="../../assets/images/Multi-Stage_Builds4.png" /></p>
+<p><img alt="" src="../../assets/images/Multi-Stage_Builds5.png" /></p>
+<h2 id="image-sizes">Image Sizes</h2>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Size</th>
+<th>What it means</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>DISK USAGE</strong></td>
+<td><strong>1.28 GB</strong></td>
+<td>Total space the image occupies on disk (uncompressed layers + metadata)</td>
+</tr>
+<tr>
+<td><strong>CONTENT SIZE</strong></td>
+<td><strong>316 MB</strong></td>
+<td>Actual size of the image content (compressed/sum of layer content)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="key-difference">Key Difference</h2>
+<ul>
+<li><strong>DISK USAGE (1.28 GB)</strong> — The real amount of disk space consumed locally. This includes all layers unpacked on your filesystem.</li>
+<li><strong>CONTENT SIZE (316 MB)</strong> — The size of the image as it would be pushed/pulled from a registry (compressed layers). This is what you'd see on Docker Hub.</li>
+</ul>
 <blockquote>
-<p><strong>Note:</strong> Single-stage image is ~800MB because it includes Go compiler and all build tools</p>
+<p><strong>Note:</strong> Single-stage image is 1.2GB because it includes Go compiler and all build tools</p>
 </blockquote>
-<h4 id="step-5-create-multi-stage-dockerfile">Step 5: Create multi-stage Dockerfile</h4>
-<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>&gt;<span class="w"> </span>Dockerfile<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39;</span>
+<h2 id="step-5-create-multi-stage-dockerfile">Step 5: Create multi-stage Dockerfile</h2>
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>&gt;<span class="w"> </span>Dockerfile<span class="w"> </span><span class="s">&lt;&lt; 'EOF'</span>
 <span class="s"># Build stage</span>
 <span class="s">FROM golang:1.21 AS builder</span>
 
@@ -2314,30 +944,32 @@ docker<span class="w"> </span>images<span class="w"> </span>go-single
 
 <span class="s">EXPOSE 8080</span>
 
-<span class="s">CMD [&quot;./server&quot;]</span>
+<span class="s">CMD ["./server"]</span>
 <span class="s">EOF</span>
 </code></pre></div>
-<h4 id="step-6-build-and-compare-image-sizes">Step 6: Build and compare image sizes</h4>
+<p><img alt="" src="../../assets/images/Multi-Stage_Builds6.png" /></p>
+<h2 id="step-6-build-and-compare-image-sizes">Step 6: Build and compare image sizes</h2>
 <div class="highlight"><pre><span></span><code>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>go-multi<span class="w"> </span>.
 docker<span class="w"> </span>images<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>go-
 </code></pre></div>
+<p><img alt="" src="../../assets/images/Multi-Stage_Builds7.png" /></p>
 <blockquote>
-<p><strong>Note:</strong> Multi-stage image is ~15MB - over 50x smaller!</p>
+<p><strong>Note:</strong> Multi-stage image is 23MB - over 5x smaller!</p>
 </blockquote>
-<h4 id="step-7-verify-application-works">Step 7: Verify application works</h4>
+<h2 id="step-7-verify-application-works">Step 7: Verify application works</h2>
 <div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>--name<span class="w"> </span>go-app<span class="w"> </span>-p<span class="w"> </span><span class="m">8080</span>:8080<span class="w"> </span>go-multi
 curl<span class="w"> </span>http://localhost:8080
 docker<span class="w"> </span>stop<span class="w"> </span>go-app
 docker<span class="w"> </span>rm<span class="w"> </span>go-app
 </code></pre></div>
-<hr />
-<h3 id="lab-12-buildkit-features">Lab 1.2: BuildKit Features</h3>
-<h4 id="step-1-enable-buildkit">Step 1: Enable BuildKit</h4>
+<h2 id="_1"><img alt="" src="../../assets/images/Multi-Stage_Builds8.png" /></h2>
+<h1 id="lab-12-buildkit-features">Lab 1.2: BuildKit Features</h1>
+<h2 id="step-1-enable-buildkit">Step 1: Enable BuildKit</h2>
 <div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">DOCKER_BUILDKIT</span><span class="o">=</span><span class="m">1</span>
 docker<span class="w"> </span>build<span class="w"> </span>--version
 </code></pre></div>
-<h4 id="step-2-create-dockerfile-with-cache-mounts">Step 2: Create Dockerfile with cache mounts</h4>
-<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>&gt;<span class="w"> </span>Dockerfile.buildkit<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39;</span>
+<h2 id="step-2-create-dockerfile-with-cache-mounts">Step 2: Create Dockerfile with cache mounts</h2>
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>&gt;<span class="w"> </span>Dockerfile.buildkit<span class="w"> </span><span class="s">&lt;&lt; 'EOF'</span>
 <span class="s">FROM golang:1.21 AS builder</span>
 
 <span class="s">WORKDIR /app</span>
@@ -2355,56 +987,124 @@ docker<span class="w"> </span>build<span class="w"> </span>--version
 
 <span class="s">EXPOSE 8080</span>
 
-<span class="s">CMD [&quot;/server&quot;]</span>
+<span class="s">CMD ["/server"]</span>
 <span class="s">EOF</span>
 </code></pre></div>
-<h4 id="step-3-build-with-buildkit-caching">Step 3: Build with BuildKit caching</h4>
+<p><img alt="" src="../../assets/images/Multi-Stage_Builds9.png" /></p>
+<h2 id="step-3-build-with-buildkit-caching">Step 3: Build with BuildKit caching</h2>
 <div class="highlight"><pre><span></span><code><span class="nv">DOCKER_BUILDKIT</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>go-buildkit<span class="w"> </span>-f<span class="w"> </span>Dockerfile.buildkit<span class="w"> </span>.
-<span class="nb">time</span><span class="w"> </span>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>go-buildkit-cache<span class="w"> </span>-f<span class="w"> </span>Dockerfile.buildkit<span class="w"> </span>.
 </code></pre></div>
+<p><img alt="" src="../../assets/images/Multi-Stage_Builds10.png" />
+<div class="highlight"><pre><span></span><code><span class="nb">time</span><span class="w"> </span>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>go-buildkit-cache<span class="w"> </span>-f<span class="w"> </span>Dockerfile.buildkit<span class="w"> </span>.
+</code></pre></div></p>
+<p><img alt="" src="../../assets/images/Multi-Stage_Builds11.png" /></p>
 <blockquote>
 <p><strong>Note:</strong> Second build is faster due to BuildKit cache mounts</p>
 </blockquote>
-<h4 id="step-4-use-build-secrets-with-mounttypesecret">Step 4: Use build secrets with --mount=type=secret</h4>
-<div class="highlight"><pre><span></span><code><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;my-api-key-12345&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>api-key.txt
-
-cat<span class="w"> </span>&gt;<span class="w"> </span>Dockerfile.secret<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39;</span>
-<span class="s">FROM alpine:3.18</span>
-
-<span class="s"># Copy secret during build (not in final image)</span>
-<span class="s">RUN --mount=type=secret,id=apikey \</span>
-<span class="s">    cat /run/secrets/apikey &gt; /tmp/key.txt</span>
-
-<span class="s"># Verify secret is not in final layer</span>
-<span class="s">RUN rm /tmp/key.txt</span>
-
-<span class="s">CMD [&quot;echo&quot;, &quot;Secret build completed&quot;]</span>
-<span class="s">EOF</span>
-
-<span class="nv">DOCKER_BUILDKIT</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>docker<span class="w"> </span>build<span class="w"> </span>--secret<span class="w"> </span><span class="nv">id</span><span class="o">=</span>apikey,src<span class="o">=</span>api-key.txt<span class="w"> </span>-t<span class="w"> </span>go-secret<span class="w"> </span>.
+<h2 id="step-4-use-build-secrets-with-mounttypesecret">Step 4: Use build secrets with --mount=type=secret</h2>
+<div class="highlight"><pre><span></span><code><span class="nb">echo</span><span class="w"> </span><span class="s2">"my-api-key-12345"</span><span class="w"> </span>&gt;<span class="w"> </span>api-key.txt
 </code></pre></div>
-<h4 id="step-5-verify-secret-not-in-image">Step 5: Verify secret not in image</h4>
+<div class="highlight"><pre><span></span><code>cat &gt; Dockerfile.secret &lt;&lt; 'EOF'
+FROM alpine:3.18
+
+# Copy secret during build (not in final image)
+RUN --mount=type=secret,id=apikey \
+    cat /run/secrets/apikey &gt; /tmp/key.txt
+
+# Verify secret is not in final layer
+RUN rm /tmp/key.txt
+
+CMD ["echo", "Secret build completed"]
+EOF
+</code></pre></div>
+<p><img alt="" src="../../assets/images/Multi-Stage_Builds12.png" /></p>
+<div class="highlight"><pre><span></span><code><span class="nv">DOCKER_BUILDKIT</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>docker<span class="w"> </span>build<span class="w"> </span>--secret<span class="w"> </span><span class="nv">id</span><span class="o">=</span>apikey,src<span class="o">=</span>api-key.txt<span class="w"> </span>-t<span class="w"> </span>go-secret<span class="w"> </span>.
+</code></pre></div>
+<h2 id="step-5-verify-secret-not-in-image">Step 5: Verify secret not in image</h2>
 <div class="highlight"><pre><span></span><code>docker<span class="w"> </span><span class="nb">history</span><span class="w"> </span>go-secret
 </code></pre></div>
+<p><img alt="" src="../../assets/images/Multi-Stage_Builds13.png" /></p>
 <blockquote>
 <p><strong>Note:</strong> Secret is not visible in image history</p>
 </blockquote>
 <hr />
-<h3 id="lab-13-image-analysis">Lab 1.3: Image Analysis</h3>
-<h4 id="step-1-use-docker-history-to-inspect-layers">Step 1: Use docker history to inspect layers</h4>
+<h1 id="lab-13-image-analysis">Lab 1.3: Image Analysis</h1>
+<h2 id="step-1-use-docker-history-to-inspect-layers">Step 1: Use docker history to inspect layers</h2>
 <div class="highlight"><pre><span></span><code>docker<span class="w"> </span><span class="nb">history</span><span class="w"> </span>go-multi
 docker<span class="w"> </span><span class="nb">history</span><span class="w"> </span>go-single
 </code></pre></div>
+<p><img alt="" src="../../assets/images/Multi-Stage_Builds14.png" /></p>
+<h1 id="try-to-answer-questions-to-remember-the-concept">🧠 Try to answer Questions to Remember the Concept</h1>
+<p>Here are three questions designed to make the concept stick by connecting it to the data you just saw:</p>
+<hr />
+<h3 id="question-1-the-why-the-gap-question">❓ Question 1: The "Why the Gap?" Question</h3>
+<p><strong>Your <code>go-single</code> image shows 1.28 GB disk usage but only 316 MB content size. Where did the other ~960 MB go?</strong></p>
+<blockquote>
+<p><strong>Hint to remember:</strong> Think about compression. Content Size = compressed (what travels over the network). Disk Usage = uncompressed (what sits on your filesystem after <code>docker pull</code> unpacks it).</p>
+</blockquote>
+<hr />
+<h3 id="question-2-the-spot-the-culprit-question">❓ Question 2: The "Spot the Culprit" Question</h3>
+<p><strong>Looking at <code>docker history go-single</code>, which layer is the biggest single contributor to the 1.28 GB, and why is that layer <em>completely absent</em> from <code>go-multi</code>?</strong></p>
+<blockquote>
+<p><strong>Hint to remember:</strong> The 251MB <code>COPY /target/</code> layer is the entire Go toolchain/SDK from the <code>golang</code> base image. In a multi-stage build, that whole stage is thrown away — only the compiled binary (<code>COPY /app/server .</code> = 6.72MB) gets carried forward.</p>
+</blockquote>
+<hr />
+<h3 id="question-3-the-real-world-tradeoff-question">❓ Question 3: The "Real-World Tradeoff" Question</h3>
+<p><strong>If Content Size is what you download and Disk Usage is what you store, which one matters more when you're deploying to 1,000 servers vs. when you're building locally?</strong></p>
+<blockquote>
+<p><strong>Hint to remember:</strong>
+- <strong>Content Size</strong> → matters for <strong>network/CI/CD</strong> (faster pulls across many machines, registry storage costs).
+- <strong>Disk Usage</strong> → matters for <strong>local dev machines and nodes</strong> (limited disk, many images cached).
+- Multi-stage wins on <strong>both</strong>: <code>go-multi</code> is 23 MB disk / 7.61 MB content vs. <code>go-single</code> at 1.28 GB / 316 MB — a <strong>~55× disk</strong> and <strong>~40× content</strong> reduction.</p>
+</blockquote>
+<hr />
 <h4 id="step-2-analyze-image-with-dive-tool-if-installed">Step 2: Analyze image with dive tool (if installed)</h4>
 <div class="highlight"><pre><span></span><code><span class="c1"># Install dive (optional)</span>
 <span class="c1"># brew install dive  (macOS)</span>
 <span class="c1"># sudo apt-get install dive  (Ubuntu)</span>
 
-<span class="c1"># Analyze image</span>
+<span class="nv">DIVE_VERSION</span><span class="o">=</span><span class="s2">"0.13.1"</span>
+sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="s2">"https://github.com/wagoodman/dive/releases/download/v</span><span class="si">${</span><span class="nv">DIVE_VERSION</span><span class="si">}</span><span class="s2">/dive_</span><span class="si">${</span><span class="nv">DIVE_VERSION</span><span class="si">}</span><span class="s2">_linux_amd64.rpm"</span>
+</code></pre></div>
+<p><img alt="" src="../../assets/images/Multi-Stage_Builds15.png" /></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Analyze image</span>
 dive<span class="w"> </span>go-multi
 </code></pre></div>
-<h4 id="step-3-optimize-dockerignore">Step 3: Optimize .dockerignore</h4>
-<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>&gt;<span class="w"> </span>.dockerignore<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39;</span>
+<p><img alt="" src="../../assets/images/Multi-Stage_Builds16.png" /></p>
+<h1 id="try-to-answer-questions-on-the-dive-command">🧠Try to Answer Questions on the <code>dive</code> Command</h1>
+<p>Here are two questions designed to help you remember what <code>dive</code> does and why it's useful.</p>
+<hr />
+<h3 id="question-1-the-what-does-it-show-question">❓ Question 1: The "What Does It Show?" Question</h3>
+<p><strong>When you run <code>dive go-single:latest</code>, you see two panes: layers on the left and a file tree on the right. What specific insight does <code>dive</code> give you that <code>docker history</code> and <code>docker images</code> cannot?</strong></p>
+<blockquote>
+<p><strong>Hint to remember:</strong>
+- <code>docker images</code> → only shows <strong>total</strong> disk/content size.
+- <code>docker history</code> → shows the <strong>size of each layer</strong> (the command that created it).
+- <code>dive</code> → shows <strong>what files are inside each layer</strong>, so you can pinpoint <em>exactly</em> which files are bloating the image (e.g., the entire Go SDK, <code>apt</code> caches, <code>.git</code> folders, test files).</p>
+<p><strong>Memory hook:</strong> <em>"<code>docker history</code> tells you </em>how big<em> each layer is. <code>dive</code> tells you </em>why<em> it's big."</em></p>
+</blockquote>
+<hr />
+<h3 id="question-2-the-efficiency-score-question">❓ Question 2: The "Efficiency Score" Question</h3>
+<p><strong><code>dive</code> gives your image an "Image Efficiency Score" (a percentage) and flags "wasted space." What do these two metrics actually measure, and what would a low score tell you to fix?</strong></p>
+<blockquote>
+<p><strong>Hint to remember:</strong>
+- <strong>Efficiency Score</strong> = ratio of <strong>useful files</strong> (those present in the final layer) vs. <strong>total files</strong> ever added across all layers.
+- <strong>Wasted Space</strong> = files added in an earlier layer, then <strong>deleted or overwritten</strong> in a later layer (they still bloat the image).
+- <strong>Low score → fix by:</strong>
+  1. Using <strong>multi-stage builds</strong> (throw away the builder).
+  2. <strong>Combining <code>RUN</code> commands</strong> (e.g., <code>apt-get install &amp;&amp; rm -rf /var/lib/apt/lists/*</code>).
+  3. Adding <strong><code>.dockerignore</code></strong> to keep junk out of <code>COPY</code>.</p>
+<p><strong>Memory hook:</strong> <em>"A 100% efficient image has zero wasted bytes — every file added survives to the final layer."</em></p>
+</blockquote>
+<hr />
+<h3 id="combined-memory-hook">🔑 Combined memory hook:</h3>
+<blockquote>
+<p><strong>"<code>dive</code> = X-ray for your image. It shows the <em>bones</em> (layers), the <em>organs</em> (files), and the <em>fat</em> (wasted space)."</strong></p>
+</blockquote>
+<p>Want me to walk through a real <code>dive</code> session on your <code>go-single</code> vs <code>go-multi</code> images to see this in action?</p>
+<h2 id="step-3-optimize-dockerignore">Step 3: Optimize .dockerignore</h2>
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>&gt;<span class="w"> </span>.dockerignore<span class="w"> </span><span class="s">&lt;&lt; 'EOF'</span>
 <span class="s">.git</span>
 <span class="s">.gitignore</span>
 <span class="s">*.md</span>
@@ -2419,43 +1119,159 @@ dive<span class="w"> </span>go-multi
 <span class="s">*.pyc</span>
 <span class="s">EOF</span>
 </code></pre></div>
-<h4 id="step-4-rebuild-with-optimized-dockerignore">Step 4: Rebuild with optimized .dockerignore</h4>
+<h2 id="step-4-rebuild-with-optimized-dockerignore">Step 4: Rebuild with optimized .dockerignore</h2>
 <div class="highlight"><pre><span></span><code><span class="nv">DOCKER_BUILDKIT</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>go-optimized<span class="w"> </span>.
 docker<span class="w"> </span>images<span class="w"> </span>go-optimized
 </code></pre></div>
+<p><img alt="" src="../../assets/images/Multi-Stage_Builds17.png" /></p>
+<h3 id="without-dockerignore">without .dockerignore</h3>
+<div class="highlight"><pre><span></span><code>Your folder (200 MB)  →  [pack everything]  →  BuildKit receives 200 MB
+                                                    ↓
+                                          Filters nothing, transfers everything
+</code></pre></div>
+<h3 id="with-dockerignore">with .dockerignore</h3>
+<div class="highlight"><pre><span></span><code>Your folder (200 MB)  →  [filter patterns]  →  BuildKit receives 5 MB
+                                                    ↓
+                                          Only relevant files transferred
+</code></pre></div>
 <hr />
-<h2 id="workshop-2-container-internals">Workshop 2: Container Internals</h2>
-<h3 id="lab-21-understanding-overlay-filesystem">Lab 2.1: Understanding Overlay Filesystem</h3>
-<h4 id="step-1-run-container-and-examine-filesystem">Step 1: Run container and examine filesystem</h4>
+<h1 id="workshop-2-container-internals">Workshop 2: Container Internals</h1>
+<h1 id="lab-21-understanding-overlay-filesystem">Lab 2.1: Understanding Overlay Filesystem</h1>
+<h2 id="step-1-run-container-and-examine-filesystem">Step 1: Run container and examine filesystem</h2>
 <div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>--name<span class="w"> </span>overlay-test<span class="w"> </span>quay.io/centos/centos:stream10<span class="w"> </span>/bin/bash
 </code></pre></div>
-<h4 id="step-2-view-overlay-mount-points-inside-container">Step 2: View overlay mount points (inside container)</h4>
+<h2 id="step-2-view-overlay-mount-points-inside-container">Step 2: View overlay mount points (inside container)</h2>
 <div class="highlight"><pre><span></span><code>mount<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>overlay
 cat<span class="w"> </span>/proc/mounts<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>overlay
 </code></pre></div>
-<h4 id="step-3-create-files-in-container">Step 3: Create files in container</h4>
+<p><img alt="" src="../../assets/images/Multi-Stage_Builds18.png" /></p>
+<p>let break down output
+<div class="highlight"><pre><span></span><code>overlay on / type overlay (
+  rw,
+  relatime,
+  seclabel,
+  lowerdir=&lt;lower1&gt;:&lt;lower2&gt;,
+  upperdir=&lt;upper&gt;,
+  workdir=&lt;work&gt;,
+  userxattr
+)
+</code></pre></div></p>
+<h2 id="step-3-create-files-in-container">Step 3: Create files in container</h2>
 <div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>-p<span class="w"> </span>/test
-<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;container file&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>/test/file.txt
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"container file"</span><span class="w"> </span>&gt;<span class="w"> </span>/test/file.txt
 cat<span class="w"> </span>/test/file.txt
 </code></pre></div>
-<h4 id="step-4-exit-and-examine-layers-on-host">Step 4: Exit and examine layers (on host)</h4>
+<h2 id="step-4-exit-and-examine-layers-on-host">Step 4: Exit and examine layers (on host)</h2>
 <div class="highlight"><pre><span></span><code><span class="nb">exit</span>
+</code></pre></div>
+<p><img alt="" src="../../assets/images/Multi-Stage_Builds19.png" /></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># run on host. Start container again</span>
+docker<span class="w"> </span>start<span class="w"> </span>overlay-test
+docker<span class="w"> </span>ps
 
 <span class="c1"># Find container layer (on host)</span>
-docker<span class="w"> </span>inspect<span class="w"> </span>overlay-test<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span><span class="s2">&quot;upperdir\|merged&quot;</span>
+cat<span class="w"> </span>/proc/<span class="k">$(</span>docker<span class="w"> </span>inspect<span class="w"> </span>-f<span class="w"> </span><span class="s1">'{{.State.Pid}}'</span><span class="w"> </span>overlay-test<span class="k">)</span>/mountinfo<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>overlay
 </code></pre></div>
-<h4 id="step-5-view-layer-contents">Step 5: View layer contents</h4>
-<div class="highlight"><pre><span></span><code><span class="c1"># Find the overlay directory</span>
+<p><img alt="" src="../../assets/images/Multi-Stage_Builds20.png" /></p>
+<ul>
+<li>explain output 
+<div class="highlight"><pre><span></span><code>827 399 0:62 / / rw,relatime - overlay overlay rw,seclabel,
+  lowerdir=
+    /home/student/.local/share/docker/containerd/daemon/io.containerd.snapshotter.v1.overlayfs/snapshots/346/fs
+    :
+    /home/student/.local/share/docker/containerd/daemon/io.containerd.snapshotter.v1.overlayfs/snapshots/5/fs,
+  upperdir=
+    /home/student/.local/share/docker/containerd/daemon/io.containerd.snapshotter.v1.overlayfs/snapshots/347/fs,
+  workdir=
+    /home/student/.local/share/docker/containerd/daemon/io.containerd.snapshotter.v1.overlayfs/snapshots/347/work,
+  userxattr
+</code></pre></div></li>
+</ul>
+<div class="highlight"><pre><span></span><code>Container sees:  /test/file.txt  ✅ (unified view)
+
+   ┌──────────────────────────────────────┐
+   │         merged (/) in container      │
+   └──────────────────────────────────────┘
+                    ▲
+        ┌───────────┼───────────┐
+        │           │           │
+   ┌────▼────┐ ┌────▼────┐ ┌────▼────┐
+   │ 347/fs  │ │ 346/fs  │ │  5/fs   │
+   │upperdir │ │lowerdir │ │lowerdir │
+   │  (RW)   │ │  (RO)   │ │  (RO)   │
+   │         │ │         │ │         │
+   │ /test/  │ │ (empty) │ │ (empty) │
+   │  file.txt│ │         │ │         │
+   └─────────┘ └─────────┘ └─────────┘
+       ▲
+   YOUR WRITES
+   go here
+</code></pre></div>
+<hr />
+<h2 id="summary-lab-step-4-now-complete">🧠 Summary Lab Step 4 Now Complete</h2>
+<table>
+<thead>
+<tr>
+<th>Lab Question</th>
+<th>Answer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Where is <code>upperdir</code>?</strong></td>
+<td><code>.../snapshots/347/fs</code></td>
+</tr>
+<tr>
+<td><strong>Where are <code>lowerdir</code>s?</strong></td>
+<td><code>.../snapshots/346/fs</code> and <code>.../snapshots/5/fs</code></td>
+</tr>
+<tr>
+<td><strong>Where is <code>workdir</code>?</strong></td>
+<td><code>.../snapshots/347/work</code></td>
+</tr>
+<tr>
+<td><strong>Why doesn't <code>docker inspect</code> show these?</strong></td>
+<td>Modern Docker uses the <strong>containerd snapshotter</strong>, which hides internal paths behind <code>Storage.RootFS.Snapshot.Name</code></td>
+</tr>
+<tr>
+<td><strong>How to get them anyway?</strong></td>
+<td><code>cat /proc/$(docker inspect -f '{{.State.Pid}}' &lt;name&gt;)/mountinfo \| grep overlay</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="bonus-why-userxattr-appears">🎓 Bonus: Why <code>userxattr</code> Appears</h2>
+<p>The <code>userxattr</code> mount option means your Docker is running in <strong>rootless mode</strong> (or with user-namespace remapping). Instead of storing overlay metadata in <code>trusted.*</code> xattrs (which requires root), it stores them in <code>user.*</code> xattrs — accessible to unprivileged users.</p>
+<p>That's why your paths live under <code>~/.local/share/docker/</code> instead of <code>/var/lib/docker/</code>. ✅</p>
+<hr />
+<h2 id="step-5-view-layer-contents-this-will-confuse-if-student-run-in-rootmode-use-ai-to-help">Step 5: View layer contents (this will confuse if student run in rootmode, use ai to help)</h2>
+<div class="highlight"><pre><span></span><code><span class="c1"># Find the overlay directory  root mode</span>
 sudo<span class="w"> </span>ls<span class="w"> </span>-la<span class="w"> </span>/var/lib/docker/overlay2/
 </code></pre></div>
-<h4 id="step-6-compare-container-vs-image-layers">Step 6: Compare container vs image layers</h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># Find the overlay directory  root less</span>
+<span class="c1"># The real Docker data root (rootless)</span>
+ls<span class="w"> </span>-la<span class="w"> </span>~/.local/share/docker/
+
+<span class="c1"># Where layers actually are</span>
+ls<span class="w"> </span>~/.local/share/docker/containerd/daemon/io.containerd.snapshotter.v1.overlayfs/snapshots/
+
+<span class="c1"># Your container's config + logs</span>
+ls<span class="w"> </span>~/.local/share/docker/containers/
+
+<span class="c1"># Where to find images</span>
+ls<span class="w"> </span>~/.local/share/docker/containerd/daemon/io.containerd.content/
+</code></pre></div>
+<p><img alt="" src="../../assets/images/Multi-Stage_Builds21.png" /></p>
+<h2 id="step-6-compare-container-vs-image-layers">Step 6: Compare container vs image layers</h2>
 <div class="highlight"><pre><span></span><code>docker<span class="w"> </span>diff<span class="w"> </span>overlay-test
 docker<span class="w"> </span>commit<span class="w"> </span>overlay-test<span class="w"> </span>overlay-test-snapshot
 docker<span class="w"> </span><span class="nb">history</span><span class="w"> </span>overlay-test-snapshot
 </code></pre></div>
+<p><img alt="" src="../../assets/images/Multi-Stage_Builds22.png" /></p>
 <hr />
-<h3 id="lab-22-resource-limits">Lab 2.2: Resource Limits</h3>
-<h4 id="step-1-run-container-with-memory-limit">Step 1: Run container with memory limit</h4>
+<p><a href="./06-diff-explain.md">Reading Diff Explaination</a></p>
+<h1 id="lab-22-resource-limits">Lab 2.2: Resource Limits</h1>
+<h2 id="step-1-run-container-with-memory-limit">Step 1: Run container with memory limit</h2>
 <div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>--name<span class="w"> </span>memory-limit<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--memory<span class="o">=</span>256m<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>quay.io/centos/centos:stream10<span class="w"> </span><span class="se">\</span>
@@ -2463,7 +1279,8 @@ docker<span class="w"> </span><span class="nb">history</span><span class="w"> </
 
 docker<span class="w"> </span>stats<span class="w"> </span>memory-limit<span class="w"> </span>--no-stream
 </code></pre></div>
-<h4 id="step-2-run-container-with-cpu-limit">Step 2: Run container with CPU limit</h4>
+<p><img alt="" src="../../assets/images/Multi-Stage_Builds23.png" /></p>
+<h2 id="step-2-run-container-with-cpu-limit">Step 2: Run container with CPU limit</h2>
 <div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>--name<span class="w"> </span>cpu-limit<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--cpus<span class="o">=</span><span class="m">0</span>.5<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>quay.io/centos/centos:stream10<span class="w"> </span><span class="se">\</span>
@@ -2471,19 +1288,22 @@ docker<span class="w"> </span>stats<span class="w"> </span>memory-limit<span cla
 
 docker<span class="w"> </span>stats<span class="w"> </span>cpu-limit<span class="w"> </span>--no-stream
 </code></pre></div>
-<h4 id="step-3-run-container-with-pid-limit">Step 3: Run container with PID limit</h4>
+<p><img alt="" src="../../assets/images/Multi-Stage_Builds24.png" /></p>
+<h2 id="step-3-run-container-with-pid-limit">Step 3: Run container with PID limit</h2>
 <div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>--name<span class="w"> </span>pid-limit<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--pids-limit<span class="o">=</span><span class="m">50</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>quay.io/centos/centos:stream10<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>tail<span class="w"> </span>-f<span class="w"> </span>/dev/null
 
 <span class="c1"># Test PID limit (optional - may fail)</span>
-docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>pid-limit<span class="w"> </span>sh<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;for i in $(seq 1 100); do sleep 100 &amp; done&#39;</span>
+docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>pid-limit<span class="w"> </span>sh<span class="w"> </span>-c<span class="w"> </span><span class="s1">'for i in $(seq 1 100); do sleep 100 &amp; done'</span>
 </code></pre></div>
-<h4 id="step-4-monitor-resource-usage">Step 4: Monitor resource usage</h4>
+<p><img alt="" src="../../assets/images/Multi-Stage_Builds25.png" /></p>
+<h2 id="step-4-monitor-resource-usage">Step 4: Monitor resource usage</h2>
 <div class="highlight"><pre><span></span><code>docker<span class="w"> </span>stats<span class="w"> </span>--no-stream
 </code></pre></div>
-<h4 id="step-5-combine-resource-limits">Step 5: Combine resource limits</h4>
+<p><img alt="" src="../../assets/images/Multi-Stage_Builds26.png" /></p>
+<h2 id="step-5-combine-resource-limits">Step 5: Combine resource limits</h2>
 <div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>--name<span class="w"> </span>combined-limit<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--memory<span class="o">=</span>128m<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--cpus<span class="o">=</span><span class="m">0</span>.25<span class="w"> </span><span class="se">\</span>
@@ -2493,96 +1313,191 @@ docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </spa
 
 docker<span class="w"> </span>stats<span class="w"> </span>combined-limit<span class="w"> </span>--no-stream
 </code></pre></div>
+<p><img alt="" src="../../assets/images/Multi-Stage_Builds27.png" /></p>
 <hr />
-<h3 id="lab-23-container-inspection">Lab 2.3: Container Inspection</h3>
-<h4 id="step-1-use-docker-inspect">Step 1: Use docker inspect</h4>
+<h1 id="lab-23-container-inspection">Lab 2.3: Container Inspection</h1>
+<h2 id="step-1-use-docker-inspect">Step 1: Use docker inspect</h2>
 <div class="highlight"><pre><span></span><code>docker<span class="w"> </span>inspect<span class="w"> </span>combined-limit
-docker<span class="w"> </span>inspect<span class="w"> </span>--format<span class="o">=</span><span class="s1">&#39;{{.HostConfig.Memory}}&#39;</span><span class="w"> </span>combined-limit
-docker<span class="w"> </span>inspect<span class="w"> </span>--format<span class="o">=</span><span class="s1">&#39;{{.HostConfig.NanoCpus}}&#39;</span><span class="w"> </span>combined-limit
+docker<span class="w"> </span>inspect<span class="w"> </span>--format<span class="o">=</span><span class="s1">'{{.HostConfig.Memory}}'</span><span class="w"> </span>combined-limit
+docker<span class="w"> </span>inspect<span class="w"> </span>--format<span class="o">=</span><span class="s1">'{{.HostConfig.NanoCpus}}'</span><span class="w"> </span>combined-limit
 </code></pre></div>
-<h4 id="step-2-view-container-logs">Step 2: View container logs</h4>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>logs<span class="w"> </span>combined-limit
-docker<span class="w"> </span>logs<span class="w"> </span>-f<span class="w"> </span>combined-limit<span class="w">  </span><span class="c1"># Follow logs</span>
-docker<span class="w"> </span>logs<span class="w"> </span>--tail<span class="w"> </span><span class="m">10</span><span class="w"> </span>combined-limit<span class="w">  </span><span class="c1"># Last 10 lines</span>
+<p><img alt="" src="../../assets/images/Multi-Stage_Builds28.png" /></p>
+<h2 id="step-2-view-container-logs">Step 2: View container logs</h2>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>logs<span class="w"> </span>overlay-test
+docker<span class="w"> </span>logs<span class="w"> </span>-f<span class="w"> </span>overlay-test<span class="w">  </span><span class="c1"># Follow logs , keep listen, Ctrl+C to exit</span>
+docker<span class="w"> </span>logs<span class="w"> </span>--tail<span class="w"> </span><span class="m">10</span><span class="w"> </span>overlay-test<span class="w">  </span><span class="c1"># Last 10 lines</span>
 </code></pre></div>
-<h4 id="step-3-use-docker-stats">Step 3: Use docker stats</h4>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>stats<span class="w"> </span>--no-stream<span class="w"> </span>--format<span class="w"> </span><span class="s2">&quot;table {{.Name}}\t{{.CPUPerc}}\t{{.MemUsage}}&quot;</span>
+<p><img alt="" src="../../assets/images/Multi-Stage_Builds29.png" /></p>
+<h2 id="step-3-use-docker-stats-with">Step 3: Use docker stats with</h2>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>stats<span class="w"> </span>--no-stream<span class="w"> </span>--format<span class="w"> </span><span class="s2">"table {{.Name}}\t{{.CPUPerc}}\t{{.MemUsage}}"</span>
 </code></pre></div>
-<h4 id="step-4-use-docker-top">Step 4: Use docker top</h4>
+<p><img alt="" src="../../assets/images/Multi-Stage_Builds30.png" /></p>
+<h2 id="step-4-use-docker-top">Step 4: Use docker top</h2>
 <div class="highlight"><pre><span></span><code>docker<span class="w"> </span>top<span class="w"> </span>combined-limit
 docker<span class="w"> </span>top<span class="w"> </span>combined-limit<span class="w"> </span>-o<span class="w"> </span>pid,comm
 </code></pre></div>
-<h4 id="step-5-use-docker-diff">Step 5: Use docker diff</h4>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>combined-limit<span class="w"> </span>touch<span class="w"> </span>/tmp/test-file
+<p><img alt="" src="../../assets/images/Multi-Stage_Builds31.png" /></p>
+<h2 id="step-5-use-docker-diff">Step 5: Use docker diff</h2>
+<p><div class="highlight"><pre><span></span><code>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>combined-limit<span class="w"> </span>touch<span class="w"> </span>/tmp/test-file
 docker<span class="w"> </span>diff<span class="w"> </span>combined-limit
 </code></pre></div>
+<img alt="" src="../../assets/images/Multi-Stage_Builds32.png" /></p>
 <hr />
-<h2 id="workshop-3-advanced-networking">Workshop 3: Advanced Networking</h2>
-<h3 id="lab-31-docker-network-types">Lab 3.1: Docker Network Types</h3>
-<h4 id="step-1-list-default-networks">Step 1: List default networks</h4>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>network<span class="w"> </span>ls
+<h1 id="workshop-3-advanced-networking">Workshop 3: Advanced Networking</h1>
+<p><img alt="" src="../../assets/images/Multi-Stage_Builds44.png" /></p>
+<h1 id="lab-31-docker-network-types">Lab 3.1: Docker Network Types</h1>
+<h2 id="step-1-list-default-networks">Step 1: List default networks</h2>
+<p><div class="highlight"><pre><span></span><code>docker<span class="w"> </span>network<span class="w"> </span>ls
 docker<span class="w"> </span>network<span class="w"> </span>inspect<span class="w"> </span>bridge
 </code></pre></div>
-<h4 id="step-2-create-bridge-network">Step 2: Create bridge network</h4>
+<img alt="" src="../../assets/images/Multi-Stage_Builds33.png" /></p>
+<h2 id="step-2-create-bridge-network">Step 2: Create bridge network</h2>
 <div class="highlight"><pre><span></span><code>docker<span class="w"> </span>network<span class="w"> </span>create<span class="w"> </span>--driver<span class="w"> </span>bridge<span class="w"> </span>my-bridge
 docker<span class="w"> </span>network<span class="w"> </span>ls<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>my-bridge
 </code></pre></div>
-<h4 id="step-3-create-host-network">Step 3: Create host network</h4>
+<p><img alt="" src="../../assets/images/Multi-Stage_Builds34.png" /></p>
+<h2 id="step-3-create-host-network">Step 3: Create host network</h2>
 <div class="highlight"><pre><span></span><code>docker<span class="w"> </span>network<span class="w"> </span>create<span class="w"> </span>--driver<span class="w"> </span>host<span class="w"> </span>my-host
 docker<span class="w"> </span>network<span class="w"> </span>ls<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>my-host
 </code></pre></div>
-<h4 id="step-4-connect-containers-to-custom-network">Step 4: Connect containers to custom network</h4>
-<div class="highlight"><pre><span></span><code><span class="c1"># Run containers on custom network</span>
+<p><img alt="" src="../../assets/images/Multi-Stage_Builds35.png" /></p>
+<h2 id="step-4-connect-containers-to-custom-network">Step 4: Connect containers to custom network</h2>
+<div class="highlight"><pre><span></span><code><span class="c1"># Run 2 containers on custom network</span>
 docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>--name<span class="w"> </span>net-test-1<span class="w"> </span>--network<span class="w"> </span>my-bridge<span class="w"> </span>quay.io/centos/centos:stream10<span class="w"> </span>tail<span class="w"> </span>-f<span class="w"> </span>/dev/null
+
 docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>--name<span class="w"> </span>net-test-2<span class="w"> </span>--network<span class="w"> </span>my-bridge<span class="w"> </span>quay.io/centos/centos:stream10<span class="w"> </span>tail<span class="w"> </span>-f<span class="w"> </span>/dev/null
 </code></pre></div>
-<h4 id="step-5-test-inter-container-communication">Step 5: Test inter-container communication</h4>
+<p><img alt="" src="../../assets/images/Multi-Stage_Builds36.png" /></p>
+<p>no ping command: run
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>net-test-1<span class="w"> </span>bash<span class="w"> </span>-c<span class="w"> </span><span class="s2">"dnf install -y iputils &amp;&amp; ping -c 3 net-test-2"</span>
+</code></pre></div></p>
+<p><img alt="" src="../../assets/images/Multi-Stage_Builds37.png" /></p>
+<h2 id="step-5-test-inter-container-communication">Step 5: Test inter-container communication</h2>
 <div class="highlight"><pre><span></span><code><span class="c1"># Test DNS resolution</span>
 docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>net-test-1<span class="w"> </span>ping<span class="w"> </span>net-test-2
 
 <span class="c1"># Test connectivity</span>
 docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>net-test-1<span class="w"> </span>curl<span class="w"> </span>net-test-2
 </code></pre></div>
+<p><img alt="" src="../../assets/images/Multi-Stage_Builds38.png" /></p>
 <hr />
-<h3 id="lab-32-port-mapping-and-exposing">Lab 3.2: Port Mapping and Exposing</h3>
-<h4 id="step-1-run-container-with-p-flag">Step 1: Run container with -p flag</h4>
+<h1 id="lab-32-port-mapping-and-exposing">Lab 3.2: Port Mapping and Exposing</h1>
+<h2 id="step-1-run-container-with-p-flag">Step 1: Run container with -p flag</h2>
 <div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>--name<span class="w"> </span>port-test<span class="w"> </span>-p<span class="w"> </span><span class="m">8080</span>:80<span class="w"> </span>quay.io/sclorg/httpd-24-c10s
 curl<span class="w"> </span>http://localhost:8080
 </code></pre></div>
-<h4 id="step-2-run-container-with-p-flag">Step 2: Run container with -P flag</h4>
+<p><img alt="" src="../../assets/images/Multi-Stage_Builds39.png" /></p>
+<h2 id="step-2-run-container-with-p-flag">Step 2: Run container with -P flag</h2>
 <div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>--name<span class="w"> </span>port-random<span class="w"> </span>-P<span class="w"> </span>quay.io/sclorg/httpd-24-c10s
 docker<span class="w"> </span>port<span class="w"> </span>port-random
 </code></pre></div>
-<h4 id="step-3-use-docker-port-command">Step 3: Use docker port command</h4>
+<p><img alt="" src="../../assets/images/Multi-Stage_Builds40.png" /></p>
+<h2 id="step-3-use-docker-port-command">Step 3: Use docker port command</h2>
 <div class="highlight"><pre><span></span><code>docker<span class="w"> </span>port<span class="w"> </span>port-test
 docker<span class="w"> </span>port<span class="w"> </span>port-test<span class="w"> </span><span class="m">80</span>
 </code></pre></div>
-<h4 id="step-4-configure-port-forwarding">Step 4: Configure port forwarding</h4>
+<p><img alt="" src="../../assets/images/Multi-Stage_Builds41.png" /></p>
+<h2 id="step-4-configure-port-forwarding">Step 4: Configure port forwarding</h2>
 <div class="highlight"><pre><span></span><code><span class="c1"># Bind to specific interface</span>
-docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>--name<span class="w"> </span>port-bind<span class="w"> </span>-p<span class="w"> </span><span class="m">127</span>.0.0.1:9090:80<span class="w"> </span>quay.io/sclorg/httpd-24-c10s
-curl<span class="w"> </span>http://127.0.0.1:9090
+docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>--name<span class="w"> </span>port-bind-2<span class="w"> </span>-p<span class="w"> </span><span class="m">127</span>.0.0.1:9092:80<span class="w"> </span>quay.io/sclorg/httpd-24-c10s
+curl<span class="w"> </span>http://127.0.0.1:9092
 </code></pre></div>
+<h1 id="lab-33-upload-image-to-docker-hub">Lab 3.3: Upload Image to Docker Hub</h1>
+<p><img alt="" src="../../assets/images/Multi-Stage_Builds66.png" /></p>
+<h2 id="step-1-create-a-docker-hub-account">Step 1: Create a Docker Hub account</h2>
+<p><div class="highlight"><pre><span></span><code>Go to https://hub.docker.com and sign up for a free account.
+Note your Docker Hub username (e.g., myuser).
+</code></pre></div>
+<img alt="" src="../../assets/images/Multi-Stage_Builds45.png" /></p>
+<h2 id="step-2-login-to-docker-hub-from-cli">Step 2: Login to Docker Hub from CLI</h2>
+<p><div class="highlight"><pre><span></span><code>docker<span class="w"> </span>login
+<span class="c1"># Enter your Docker Hub username</span>
+<span class="c1"># Enter your Docker Hub password or access token</span>
+</code></pre></div>
+<img alt="" src="../../assets/images/Multi-Stage_Builds48.png" /></p>
+<p><img alt="" src="../../assets/images/Multi-Stage_Builds49.png" /></p>
+<p><img alt="" src="../../assets/images/Multi-Stage_Builds50.png" /></p>
+<p><img alt="" src="../../assets/images/Multi-Stage_Builds51.png" /></p>
+<blockquote>
+<p><strong>Note:</strong> A successful login shows <code>Login Succeeded</code></p>
+</blockquote>
+<p>student also log in to website:</p>
+<p><img alt="" src="../../assets/images/Multi-Stage_Builds46.png" /></p>
+<h2 id="step-3-tag-your-image-for-docker-hub">Step 3: Tag your image for Docker Hub</h2>
+<div class="highlight"><pre><span></span><code><span class="c1"># Tag the Go app image from previous lab</span>
+docker<span class="w"> </span>tag<span class="w"> </span>go-multi<span class="w"> </span>&lt;your-username&gt;/go-app:latest
+docker<span class="w"> </span>tag<span class="w"> </span>go-multi<span class="w"> </span>&lt;your-username&gt;/go-app:v1.0
+
+<span class="c1"># Verify tags</span>
+docker<span class="w"> </span>images<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>&lt;your-username&gt;
+</code></pre></div>
+<p><img alt="" src="../../assets/images/Multi-Stage_Builds47.png" /></p>
+<blockquote>
+<p><strong>Note:</strong> Replace <code>&lt;your-username&gt;</code> with your actual Docker Hub username.</p>
+</blockquote>
+<h2 id="step-4-push-image-to-docker-hub">Step 4: Push image to Docker Hub</h2>
+<div class="highlight"><pre><span></span><code><span class="c1"># Push latest tag</span>
+docker<span class="w"> </span>push<span class="w"> </span>&lt;your-username&gt;/go-app:latest
+
+<span class="c1"># Push version tag</span>
+docker<span class="w"> </span>push<span class="w"> </span>&lt;your-username&gt;/go-app:v1.0
+</code></pre></div>
+<p><img alt="" src="../../assets/images/Multi-Stage_Builds52.png" /></p>
+<blockquote>
+<p><strong>Note:</strong> First push may take a few minutes depending on image size and network speed.</p>
+</blockquote>
+<h2 id="step-5-verify-on-docker-hub">Step 5: Verify on Docker Hub</h2>
+<div class="highlight"><pre><span></span><code>Go to https://hub.docker.com/repositories
+Your image should appear under your repositories.
+Check the Tags tab to see both latest and v1.0 tags.
+</code></pre></div>
+<p><img alt="" src="../../assets/images/Multi-Stage_Builds53.png" /></p>
+<p>Click image name, will show each of version of image</p>
+<p><img alt="" src="../../assets/images/Multi-Stage_Builds54.png" /></p>
+<h2 id="step-6-pull-image-from-docker-hub">Step 6: Pull image from Docker Hub</h2>
+<p><div class="highlight"><pre><span></span><code><span class="c1"># Remove local image</span>
+docker<span class="w"> </span>rmi<span class="w"> </span>&lt;your-username&gt;/go-app:latest<span class="w"> </span>&lt;your-username&gt;/go-app:v1.0
+
+<span class="c1"># Pull from Docker Hub</span>
+docker<span class="w"> </span>pull<span class="w"> </span>&lt;your-username&gt;/go-app:latest
+</code></pre></div>
+<img alt="" src="../../assets/images/Multi-Stage_Builds55.png" /></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Run the pulled image</span>
+docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>--name<span class="w"> </span>hub-app<span class="w"> </span>-p<span class="w"> </span><span class="m">8080</span>:8080<span class="w"> </span>&lt;your-username&gt;/go-app:latest
+curl<span class="w"> </span>http://localhost:8080
+</code></pre></div>
+<p><img alt="" src="../../assets/images/Multi-Stage_Builds56.png" />
+- image above show how to fix error too.</p>
+<p><div class="highlight"><pre><span></span><code><span class="c1"># Cleanup</span>
+
+docker<span class="w"> </span>stop<span class="w"> </span>hub-app
+docker<span class="w"> </span>rm<span class="w"> </span>hub-app
+</code></pre></div>
+<img alt="" src="../../assets/images/Multi-Stage_Builds57.png" /></p>
+<h2 id="step-7-push-a-private-image">Step 7: Push a private image</h2>
+<p>create private repository
+<img alt="" src="../../assets/images/Multi-Stage_Builds58.png" /></p>
+<p><img alt="" src="../../assets/images/Multi-Stage_Builds59.png" />
+- Dont forget to select private</p>
+<p><img alt="" src="../../assets/images/Multi-Stage_Builds60.png" /></p>
+<p><img alt="" src="../../assets/images/Multi-Stage_Builds61.png" />
+<div class="highlight"><pre><span></span><code><span class="c1"># Create a private repository on Docker Hub (via web UI)</span>
+<span class="c1"># Then tag and push</span>
+docker<span class="w"> </span>tag<span class="w"> </span>go-multi<span class="w"> </span>&lt;your-username&gt;/go-app-private:latest
+docker<span class="w"> </span>push<span class="w"> </span>&lt;your-username&gt;/go-app-private:latest
+</code></pre></div></p>
+<p><img alt="" src="../../assets/images/Multi-Stage_Builds62.png" /></p>
+<blockquote>
+<p><strong>Note:</strong> Free accounts can have 1 private repository. Upgrade for more.</p>
+</blockquote>
+<p><img alt="" src="../../assets/images/Multi-Stage_Builds63.png" /></p>
+<h2 id="step-8-logout-from-docker-hub">Step 8: Logout from Docker Hub</h2>
+<p><div class="highlight"><pre><span></span><code>docker<span class="w"> </span><span class="nb">logout</span>
+</code></pre></div>
+<img alt="" src="../../assets/images/Multi-Stage_Builds64.png" /></p>
 <hr />
-<h3 id="lab-33-private-registry-setup">Lab 3.3: Private Registry Setup</h3>
-<h4 id="step-1-run-local-registry-container">Step 1: Run local registry container</h4>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>--name<span class="w"> </span>registry<span class="w"> </span>-p<span class="w"> </span><span class="m">5000</span>:5000<span class="w"> </span>--restart<span class="w"> </span>always<span class="w"> </span>registry:2
-</code></pre></div>
-<h4 id="step-2-tag-image-for-local-registry">Step 2: Tag image for local registry</h4>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>tag<span class="w"> </span>go-multi<span class="w"> </span>localhost:5000/go-app:latest
-</code></pre></div>
-<h4 id="step-3-push-to-local-registry">Step 3: Push to local registry</h4>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>push<span class="w"> </span>localhost:5000/go-app:latest
-</code></pre></div>
-<h4 id="step-4-pull-from-local-registry">Step 4: Pull from local registry</h4>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>rmi<span class="w"> </span>localhost:5000/go-app:latest
-docker<span class="w"> </span>pull<span class="w"> </span>localhost:5000/go-app:latest
-</code></pre></div>
-<h4 id="step-5-verify-registry-contents">Step 5: Verify registry contents</h4>
-<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>http://localhost:5000/v2/_catalog
-curl<span class="w"> </span>http://localhost:5000/v2/go-app/tags/list
-</code></pre></div>
-<hr />
-<h2 id="reading-note-docker-advanced-commands">Reading Note: Docker Advanced Commands</h2>
+<p>--- ## Lab end here ---</p>
+<h2 id="reading-note-docker-advanced-commands-options">Reading Note: Docker Advanced Commands  (options)</h2>
 <h3 id="advanced-docker-commands-cheat-sheet">Advanced Docker Commands Cheat Sheet</h3>
 <table>
 <thead>
@@ -2652,56 +1567,47 @@ curl<span class="w"> </span>http://localhost:5000/v2/go-app/tags/list
 </table>
 <hr />
 <h2 id="quiz">Quiz</h2>
-<details class="question">
-<summary>Question 1: What is the benefit of multi-stage builds?</summary>
-<p><strong>Answer:</strong></p>
-<p>Multi-stage builds reduce final image size by separating build dependencies from runtime dependencies. The build stage contains compilers and tools, while the final stage contains only the application and minimal runtime.</p>
-</details>
-<details class="question">
-<summary>Question 2: How do you enable BuildKit?</summary>
-<p><strong>Answer:</strong></p>
-<p>Set the environment variable <code>DOCKER_BUILDKIT=1</code> or configure Docker daemon with BuildKit enabled.</p>
-</details>
-<details class="question">
-<summary>Question 3: What is the overlay filesystem in Docker?</summary>
-<p><strong>Answer:</strong></p>
-<p>Overlay filesystem (overlay2) is a union filesystem that combines multiple directories (layers) into a single unified view. Docker uses it to efficiently store container layers with Copy-on-Write (CoW).</p>
-</details>
-<details class="question">
-<summary>Question 4: How do you limit container memory?</summary>
-<p><strong>Answer:</strong></p>
-<p>Use the <code>--memory</code> flag: <code>docker run --memory=256m image_name</code></p>
-</details>
-<details class="question">
-<summary>Question 5: What is the difference between -p and -P?</summary>
-<p><strong>Answer:</strong></p>
-<p><code>-p</code> maps specific host port to container port (e.g., <code>-p 8080:80</code>), while <code>-P</code> publishes all exposed ports to random host ports.</p>
-</details>
-<details class="question">
-<summary>Question 6: How do you create a custom Docker network?</summary>
-<p><strong>Answer:</strong></p>
-<p>Use <code>docker network create --driver bridge network_name</code></p>
-</details>
-<details class="question">
-<summary>Question 7: What is the purpose of .dockerignore?</summary>
-<p><strong>Answer:</strong></p>
-<p><code>.dockerignore</code> excludes files and directories from the build context, reducing build time and preventing sensitive files from being copied into the image.</p>
-</details>
-<details class="question">
-<summary>Question 8: How do you run a container with CPU limits?</summary>
-<p><strong>Answer:</strong></p>
-<p>Use the <code>--cpus</code> flag: <code>docker run --cpus=0.5 image_name</code> (limits to 50% of one CPU core)</p>
-</details>
-<details class="question">
-<summary>Question 9: What is a Docker private registry?</summary>
-<p><strong>Answer:</strong></p>
-<p>A private registry is a self-hosted Docker image storage service that allows you to store and distribute Docker images privately within your organization.</p>
-</details>
-<details class="question">
-<summary>Question 10: How do you inspect container resource limits?</summary>
-<p><strong>Answer:</strong></p>
-<p>Use <code>docker inspect --format='{{.HostConfig.Memory}}' container_name</code> or <code>docker stats</code> for real-time monitoring.</p>
-</details>
+<p>❓ question "Question 1: What is the benefit of multi-stage builds?"
+    <strong>Answer:</strong></p>
+<pre><code>Multi-stage builds reduce final image size by separating build dependencies from runtime dependencies. The build stage contains compilers and tools, while the final stage contains only the application and minimal runtime.
+</code></pre>
+<p>❓ question "Question 2: How do you enable BuildKit?"
+    <strong>Answer:</strong></p>
+<pre><code>Set the environment variable `DOCKER_BUILDKIT=1` or configure Docker daemon with BuildKit enabled.
+</code></pre>
+<p>❓ question "Question 3: What is the overlay filesystem in Docker?"
+    <strong>Answer:</strong></p>
+<pre><code>Overlay filesystem (overlay2) is a union filesystem that combines multiple directories (layers) into a single unified view. Docker uses it to efficiently store container layers with Copy-on-Write (CoW).
+</code></pre>
+<p>❓ question "Question 4: How do you limit container memory?"
+    <strong>Answer:</strong></p>
+<pre><code>Use the `--memory` flag: `docker run --memory=256m image_name`
+</code></pre>
+<p>❓ question "Question 5: What is the difference between -p and -P?"
+    <strong>Answer:</strong></p>
+<pre><code>`-p` maps specific host port to container port (e.g., `-p 8080:80`), while `-P` publishes all exposed ports to random host ports.
+</code></pre>
+<p>❓ question "Question 6: How do you create a custom Docker network?"
+    <strong>Answer:</strong></p>
+<pre><code>Use `docker network create --driver bridge network_name`
+</code></pre>
+<p>❓ question "Question 7: What is the purpose of .dockerignore?"
+    <strong>Answer:</strong></p>
+<pre><code>`.dockerignore` excludes files and directories from the build context, reducing build time and preventing sensitive files from being copied into the image.
+</code></pre>
+<p>❓ question "Question 8: How do you run a container with CPU limits?"
+    <strong>Answer:</strong></p>
+<pre><code>Use the `--cpus` flag: `docker run --cpus=0.5 image_name` (limits to 50% of one CPU core)
+</code></pre>
+<p>❓ question "Question 9: What is a Docker private registry?"
+    <strong>Answer:</strong></p>
+<pre><code>A private registry is a self-hosted Docker image storage service that allows you to store and distribute Docker images privately within your organization.
+</code></pre>
+<p>❓ question "Question 10: How do you inspect container resource limits?"
+    <strong>Answer:</strong></p>
+<pre><code>Use `docker inspect --format='{{.HostConfig.Memory}}' container_name` or `docker stats` for real-time monitoring.
+</code></pre>
+<h2 id="_2"><img alt="" src="../../assets/images/Multi-Stage_Builds65.png" /></h2>
 
 
 
@@ -2754,13 +1660,13 @@ curl<span class="w"> </span>http://localhost:5000/v2/go-app/tags/list
         
         
           
-          <a href="../07-workshop-basic/" class="md-footer__link md-footer__link--next" aria-label="Next: 7. Workshop Basic">
+          <a href="../07-workshop-1/" class="md-footer__link md-footer__link--next" aria-label="Next: 7. Workshop 1">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                7. Workshop Basic
+                7. Workshop 1
               </div>
             </div>
             <div class="md-footer__button md-icon">

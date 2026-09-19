@@ -673,14 +673,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../07-workshop-basic/" class="md-nav__link">
+      <a href="../07-workshop-1/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    7. Workshop Basic
+    7. Workshop 1
   
 
     
@@ -701,7 +701,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../08-workshop-webserver/" class="md-nav__link">
+      <a href="../08-workshop-webserver.md" class="md-nav__link">
         
   
   
@@ -729,7 +729,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../09-workshop-fullstack/" class="md-nav__link">
+      <a href="../09-workshop-fullstack.md" class="md-nav__link">
         
   
   
@@ -757,7 +757,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../10-cgroups-namespaces-security/" class="md-nav__link">
+      <a href="../10-cgroups-namespaces-security.md" class="md-nav__link">
         
   
   
@@ -1057,7 +1057,7 @@ food:
 <div class="highlight"><pre><span></span><code><span class="c1">#Comment: Student record</span>
 <span class="c1">#Describes some characteristics and preferences</span>
 <span class="nn">---</span>
-<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Martin D&#39;vloper</span><span class="w"> </span><span class="c1">#key-value</span>
+<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Martin D'vloper</span><span class="w"> </span><span class="c1">#key-value</span>
 <span class="nt">age</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">26</span>
 <span class="nt">hobbies</span><span class="p">:</span><span class="w"> </span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">painting</span><span class="w"> </span><span class="c1">#first list item</span>
@@ -1081,7 +1081,7 @@ food:
 mkdir<span class="w"> </span>wordpress
 <span class="nb">cd</span><span class="w"> </span>wordpress
 </code></pre></div></p>
-<p><div class="highlight"><pre><span></span><code>cat<span class="w"> </span>&gt;<span class="w"> </span>docker-compose.yaml<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39;</span>
+<p><div class="highlight"><pre><span></span><code>cat<span class="w"> </span>&gt;<span class="w"> </span>docker-compose.yaml<span class="w"> </span><span class="s">&lt;&lt; 'EOF'</span>
 
 <span class="s">services:</span>
 <span class="s">  wordpress_db:</span>
@@ -1103,7 +1103,7 @@ mkdir<span class="w"> </span>wordpress
 <span class="s">    image: wordpress:latest</span>
 <span class="s">    restart: always</span>
 <span class="s">    ports:</span>
-<span class="s">      - &quot;80:80&quot;</span>
+<span class="s">      - "80:80"</span>
 <span class="s">    environment:</span>
 <span class="s">      WORDPRESS_DB_HOST: wordpress_db:3306</span>
 <span class="s">      WORDPRESS_DB_USER: wordpress</span>
@@ -1154,7 +1154,7 @@ File docker compose structure</p>
 </blockquote>
 <h2 id="fix-permission">Fix permission</h2>
 <p><div class="highlight"><pre><span></span><code><span class="c1"># modify /etc/sysctl.conf</span>
-<span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;net.ipv4.ip_unprivileged_port_start=80&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>-a<span class="w"> </span>/etc/sysctl.conf
+<span class="nb">echo</span><span class="w"> </span><span class="s1">'net.ipv4.ip_unprivileged_port_start=80'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>-a<span class="w"> </span>/etc/sysctl.conf
 
 <span class="c1"># reload</span>
 sudo<span class="w"> </span>sysctl<span class="w"> </span>-p
@@ -1196,21 +1196,21 @@ $ cd flask-demo
 <p>create <code>app.py</code> in you project directory</p>
 </li>
 </ol>
-<p><div class="highlight"><pre><span></span><code>cat<span class="w"> </span>&gt;<span class="w"> </span>app.py<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39;</span>
+<p><div class="highlight"><pre><span></span><code>cat<span class="w"> </span>&gt;<span class="w"> </span>app.py<span class="w"> </span><span class="s">&lt;&lt; 'EOF'</span>
 <span class="s">import os</span>
 <span class="s">import redis</span>
 <span class="s">from flask import Flask</span>
 
 <span class="s">app = Flask(__name__)</span>
 <span class="s">cache = redis.Redis(</span>
-<span class="s">    host=os.getenv(&quot;REDIS_HOST&quot;, &quot;redis&quot;),</span>
-<span class="s">    port=int(os.getenv(&quot;REDIS_PORT&quot;, &quot;6379&quot;)),</span>
+<span class="s">    host=os.getenv("REDIS_HOST", "redis"),</span>
+<span class="s">    port=int(os.getenv("REDIS_PORT", "6379")),</span>
 <span class="s">)</span>
 
-<span class="s">@app.route(&quot;/&quot;)</span>
+<span class="s">@app.route("/")</span>
 <span class="s">def hello():</span>
-<span class="s">    count = cache.incr(&quot;hits&quot;)</span>
-<span class="s">    return f&quot;Hello from Docker! I have been seen {count} time(s).\n&quot;</span>
+<span class="s">    count = cache.incr("hits")</span>
+<span class="s">    return f"Hello from Docker! I have been seen {count} time(s).\n"</span>
 
 <span class="s">EOF</span>
 </code></pre></div>
@@ -1218,7 +1218,7 @@ The app reads its Redis connection details from environment variable  <code>hits
 <ol>
 <li>
 <p>Create <code>requirements.txt</code>
-<div class="highlight"><pre><span></span><code>cat &gt; requirements.txt &lt;&lt; &#39;EOF&#39;
+<div class="highlight"><pre><span></span><code>cat &gt; requirements.txt &lt;&lt; 'EOF'
 flask
 radis
 EOF
@@ -1226,7 +1226,7 @@ EOF
 </li>
 <li>
 <p>Create Dockerfile 
-<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>&gt;<span class="w"> </span>Dockerfile<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39;</span>
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>&gt;<span class="w"> </span>Dockerfile<span class="w"> </span><span class="s">&lt;&lt; 'EOF'</span>
 <span class="s">FROM python:3.12-slim</span>
 
 <span class="s">WORKDIR /code</span>
@@ -1243,14 +1243,14 @@ EOF
 <span class="s">COPY . .</span>
 
 <span class="s">EXPOSE 5000</span>
-<span class="s">CMD [&quot;flask&quot;, &quot;run&quot;, &quot;--debug&quot;]</span>
+<span class="s">CMD ["flask", "run", "--debug"]</span>
 
 <span class="s">EOF</span>
 </code></pre></div></p>
 </li>
 <li>
 <p>Create <code>.env</code>
-<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>&gt;<span class="w">  </span>.env<span class="w">  </span><span class="s">&lt;&lt; &#39;EOF&#39;</span>
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>&gt;<span class="w">  </span>.env<span class="w">  </span><span class="s">&lt;&lt; 'EOF'</span>
 <span class="s">APP_PORT=8000</span>
 <span class="s">REDIS_HOST=redis</span>
 <span class="s">REDIS_PORT=6379</span>
@@ -1260,7 +1260,7 @@ EOF
 </li>
 <li>
 <p>Create <code>.gitignore</code>
-<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>&gt;<span class="w"> </span>.gitignore<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39;</span>
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>&gt;<span class="w"> </span>.gitignore<span class="w"> </span><span class="s">&lt;&lt; 'EOF'</span>
 <span class="s">.env</span>
 <span class="s">*.pyc</span>
 <span class="s">__pycache__</span>
@@ -1275,12 +1275,12 @@ EOF
 <ol>
 <li>create docker-compose.yaml  (or just compose.yml)</li>
 </ol>
-<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>&gt;<span class="w"> </span>docker-compose.yaml<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39;</span>
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>&gt;<span class="w"> </span>docker-compose.yaml<span class="w"> </span><span class="s">&lt;&lt; 'EOF'</span>
 <span class="s">services:</span>
 <span class="s">  web:</span>
 <span class="s">    build: .</span>
 <span class="s">    ports:</span>
-<span class="s">      - &quot;${APP_PORT}:5000&quot;</span>
+<span class="s">      - "${APP_PORT}:5000"</span>
 <span class="s">    environment:</span>
 <span class="s">      - REDIS_HOST=${REDIS_HOST}</span>
 <span class="s">      - REDIS_PORT=${REDIS_PORT}</span>
@@ -1341,7 +1341,7 @@ mkdir<span class="w"> </span>notebooks
 </code></pre></div></li>
 </ol>
 <p>2 Create <code>docker-compose.yaml</code>
-<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>&gt;<span class="w">  </span>docker-compose.yaml<span class="w">  </span><span class="s">&lt;&lt;  &#39;EOF&#39;</span>
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>&gt;<span class="w">  </span>docker-compose.yaml<span class="w">  </span><span class="s">&lt;&lt;  'EOF'</span>
 
 <span class="s">services:</span>
 <span class="s">  jupyter:</span>
@@ -1349,7 +1349,7 @@ mkdir<span class="w"> </span>notebooks
 <span class="s">    container_name: jupyter-lab</span>
 <span class="s">    restart: unless-stopped                                 #  Autorestart policy</span>
 <span class="s">    ports:</span>
-<span class="s">      - &quot;8888:8888&quot;                                         #  Port mapping</span>
+<span class="s">      - "8888:8888"                                         #  Port mapping</span>
 <span class="s">    volumes:</span>
 <span class="s">      - ./notebooks:/home/jovyan/work                       #  Persistent storage</span>
 <span class="s">    environment:</span>

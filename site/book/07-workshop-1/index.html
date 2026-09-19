@@ -1,0 +1,2338 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../06-advanced/">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>7. Workshop 1 - Kmutnb Docker container</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans+Thai+Looped:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"IBM Plex Sans Thai Looped";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#chapter-7-workshop-1-campus-cafe-build-push-redeploy" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Kmutnb Docker container" class="md-header__button md-logo" aria-label="Kmutnb Docker container" data-md-component="logo">
+      
+  <img src="../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Kmutnb Docker container
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              7. Workshop 1
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Kmutnb Docker container" class="md-nav__button md-logo" aria-label="Kmutnb Docker container" data-md-component="logo">
+      
+  <img src="../../assets/logo.png" alt="logo">
+
+    </a>
+    Kmutnb Docker container
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Book
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Book
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Fundamentals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-basic-operations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Basic Operations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-dockerfile/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Dockerfile
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-docker-compose/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Docker Compose
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-advanced/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Advanced
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Workshop 1
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Workshop 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Objectives
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#assignment-create-students-submission-along-tutorial" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Assignment: Create Student's Submission along tutorial
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#71-application-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 Application Architecture
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#72-part-a-build-run-on-the-linux-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2 Part A - Build &amp; Run on the Linux Server
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7.2 Part A - Build &amp; Run on the Linux Server">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-create-the-project-folder-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Create the project folder structure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-create-the-api-your-own-dockerfile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Create the API (your own Dockerfile)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 2: Create the API (your own Dockerfile)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-requirementstxt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 requirements.txt
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-apppy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 app.py
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-dockerfile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 Dockerfile
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-dockerignore" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 .dockerignore
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-create-the-web-frontend-menu-page" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Create the Web frontend (menu page)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 3: Create the Web frontend (menu page)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-cafe-webdockerfile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 cafe-web/Dockerfile
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-cafe-webindexhtml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 cafe-web/index.html
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-create-compose-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: Create Compose configuration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 4: Create Compose configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-docker-composeyaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 docker-compose.yaml
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-env" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 .env
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-5-open-firewall-ports" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5: Open firewall ports
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-6-build-and-start-the-application" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 6: Build and start the application
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-7-verify-the-application" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 7: Verify the application
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tasks-part-a-capture-these-screens" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tasks (Part A) — capture these screens
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#73-part-b-ship-to-docker-hub" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.3 Part B - Ship to Docker Hub
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7.3 Part B - Ship to Docker Hub">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-login" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Login
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-push-your-two-custom-images" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Push your two custom images
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-verify-on-docker-hub" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Verify on Docker Hub
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tasks-part-b-capture-these-screens" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tasks (Part B) — capture these screens
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#74-part-c-redeploy-on-windows-docker-desktop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.4 Part C - Redeploy on Windows (Docker Desktop)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7.4 Part C - Redeploy on Windows (Docker Desktop)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-verify-docker-desktop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Verify Docker Desktop
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-create-the-project-folder-with-only-2-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Create the project folder with only 2 files
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-pull-and-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Pull and start
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-verify" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: Verify
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tasks-part-c-capture-these-screens" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tasks (Part C) — capture these screens
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#75-part-d-discussion-written-answers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.5 Part D - Discussion (written answers)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker-commands-cheat-sheet-workshop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Docker Commands Cheat Sheet (Workshop)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-workshop-webserver.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Workshop Webserver
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-workshop-fullstack.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Workshop Fullstack
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-cgroups-namespaces-security.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Cgroups, Namespaces & Security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Objectives
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#assignment-create-students-submission-along-tutorial" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Assignment: Create Student's Submission along tutorial
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#71-application-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 Application Architecture
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#72-part-a-build-run-on-the-linux-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2 Part A - Build &amp; Run on the Linux Server
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7.2 Part A - Build &amp; Run on the Linux Server">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-create-the-project-folder-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Create the project folder structure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-create-the-api-your-own-dockerfile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Create the API (your own Dockerfile)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 2: Create the API (your own Dockerfile)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-requirementstxt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 requirements.txt
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-apppy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 app.py
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-dockerfile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 Dockerfile
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-dockerignore" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 .dockerignore
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-create-the-web-frontend-menu-page" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Create the Web frontend (menu page)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 3: Create the Web frontend (menu page)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-cafe-webdockerfile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 cafe-web/Dockerfile
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-cafe-webindexhtml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 cafe-web/index.html
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-create-compose-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: Create Compose configuration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 4: Create Compose configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-docker-composeyaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 docker-compose.yaml
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-env" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 .env
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-5-open-firewall-ports" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5: Open firewall ports
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-6-build-and-start-the-application" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 6: Build and start the application
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-7-verify-the-application" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 7: Verify the application
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tasks-part-a-capture-these-screens" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tasks (Part A) — capture these screens
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#73-part-b-ship-to-docker-hub" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.3 Part B - Ship to Docker Hub
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7.3 Part B - Ship to Docker Hub">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-login" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Login
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-push-your-two-custom-images" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Push your two custom images
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-verify-on-docker-hub" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Verify on Docker Hub
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tasks-part-b-capture-these-screens" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tasks (Part B) — capture these screens
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#74-part-c-redeploy-on-windows-docker-desktop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.4 Part C - Redeploy on Windows (Docker Desktop)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7.4 Part C - Redeploy on Windows (Docker Desktop)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-verify-docker-desktop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Verify Docker Desktop
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-create-the-project-folder-with-only-2-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Create the project folder with only 2 files
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-pull-and-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Pull and start
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-verify" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: Verify
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tasks-part-c-capture-these-screens" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tasks (Part C) — capture these screens
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#75-part-d-discussion-written-answers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.5 Part D - Discussion (written answers)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker-commands-cheat-sheet-workshop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Docker Commands Cheat Sheet (Workshop)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="chapter-7-workshop-1-campus-cafe-build-push-redeploy">Chapter 7: Workshop 1 - Campus Café (Build → Push → Redeploy)</h1>
+<h2 id="overview">Overview</h2>
+<p>This is the <strong>capstone workshop</strong> of the course. You will build a complete full-stack application — a <strong>Campus Café</strong> food ordering system — using everything you learned in Chapters 4, 5, and 6:</p>
+<ul>
+<li>A custom <strong>Dockerfile</strong> to build your own API image (Chapter 4)</li>
+<li><strong>Docker Compose</strong> to orchestrate 4 services (Chapter 5)</li>
+<li><strong>Docker Hub</strong> push/pull and container isolation concepts (Chapter 6)</li>
+</ul>
+<p>Then you will <strong>ship</strong> it: push your images to Docker Hub, pull them on a <strong>Windows PC with Docker Desktop</strong>, deploy the exact same application again, and finally <strong>discuss</strong> what you observed.</p>
+<div class="highlight"><pre><span></span><code>   SERVER (CentOS Stream 10)                 DOCKER HUB                  YOUR PC (Windows)
+  ┌──────────────────────────┐          ┌────────────────┐          ┌───────────────────────┐
+  │  docker compose up --build│  push    │                │   pull   │  docker compose pull   │
+  │                           │ ───────► │  your-account/ │ ───────► │  docker compose up -d  │
+  │  Campus Café RUNNING      │          │  cafe-api      │          │  Campus Café RUNNING   │
+  │  from Dockerfiles         │  ◄─────  │  cafe-web       │          │  from pre-built images │
+  └──────────────────────────┘          └────────────────┘          └───────────────────────┘
+</code></pre></div>
+<h3 id="objectives">Objectives</h3>
+<ul>
+<li>Can build a multi-service application with a custom <code>Dockerfile</code> + <code>docker-compose.yaml</code></li>
+<li>Can configure a private bridge network, named volume, health check, and resource limits</li>
+<li>Can tag and push custom images to Docker Hub</li>
+<li>Can pull pre-built images and redeploy the application on a different machine</li>
+<li>Can explain why "the same compose file runs anywhere"</li>
+</ul>
+<hr />
+<h2 id="assignment-create-students-submission-along-tutorial">Assignment: Create Student's Submission along tutorial</h2>
+<ul>
+<li>Student will submit screen captures according to each <strong>Task</strong> in the tutorial.</li>
+<li>Student can use the Basic Template <a href="../assets/cafeworkshop1-submission.docx">Download</a> or generate their own version.</li>
+<li>Part D (Discussion) written answers are <strong>part of the submission</strong>.</li>
+</ul>
+<hr />
+<h2 id="71-application-architecture">7.1 Application Architecture</h2>
+<p>All 4 services run inside one Compose project on a custom bridge network called <code>cafe-net</code>.</p>
+<p><img alt="" src="../../assets/images/cafeworkshop1.png" /></p>
+<table>
+<thead>
+<tr>
+<th>Service</th>
+<th>Image / Build</th>
+<th>Role</th>
+<th>Published Port</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>cafe-web</code></td>
+<td>built from <code>quay.io/sclorg/httpd-24-c10s</code></td>
+<td>static menu page + JavaScript that calls the API</td>
+<td><code>8080</code></td>
+</tr>
+<tr>
+<td><code>cafe-api</code></td>
+<td>built from <code>python:3.12-slim</code> (your <code>Dockerfile</code>)</td>
+<td>Flask REST API: menu, place order, health</td>
+<td><code>5000</code></td>
+</tr>
+<tr>
+<td><code>cafe-db</code></td>
+<td><code>quay.io/sclorg/mariadb-118-c10s</code></td>
+<td>stores orders (persistent named volume)</td>
+<td><strong>not published</strong></td>
+</tr>
+<tr>
+<td><code>cafe-redis</code></td>
+<td><code>redis:alpine</code></td>
+<td>counts total orders served</td>
+<td><strong>not published</strong></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code>   Browser
+      │  http://&lt;server-ip&gt;:8080
+      ▼
+   cafe-web :8080  (static menu page + JS)
+      │  fetch http://&lt;server-ip&gt;:5000/api/...
+      ▼
+   cafe-api :5000  (Flask)
+      │                     │
+      ▼                     ▼
+   cafe-db (3306)      cafe-redis (6379)
+   MariaDB volume      in-memory counter
+   ● Both run INSIDE the cafe-net bridge
+   ● Only cafe-web and cafe-api are reachable from the host
+</code></pre></div>
+<blockquote>
+<p><strong>Note:</strong> <code>cafe-db</code> and <code>cafe-redis</code> have <strong>no <code>ports:</code> mapping</strong>. Other containers reach them using their <strong>service name</strong> as a DNS name on <code>cafe-net</code> (e.g., <code>cafe-db:3306</code>). Only the two user-facing services are published to the host.</p>
+</blockquote>
+<hr />
+<h2 id="72-part-a-build-run-on-the-linux-server">7.2 Part A - Build &amp; Run on the Linux Server</h2>
+<blockquote>
+<p>Environment: <strong>CentOS Stream 10</strong> server with Docker installed (rootless mode), same machine used in Chapters 4–6.</p>
+</blockquote>
+<h3 id="step-1-create-the-project-folder-structure">Step 1: Create the project folder structure</h3>
+<div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>-p<span class="w"> </span>~/cafe-app/cafe-api<span class="w"> </span>~/cafe-app/cafe-web
+<span class="nb">cd</span><span class="w"> </span>~/cafe-app
+</code></pre></div>
+<p>Project structure you will create:</p>
+<div class="highlight"><pre><span></span><code>cafe-app/
+├── cafe-api/
+│   ├── Dockerfile
+│   ├── app.py
+│   ├── requirements.txt
+│   └── .dockerignore
+├── cafe-web/
+│   ├── Dockerfile
+│   └── index.html
+├── docker-compose.yaml
+└── .env
+</code></pre></div>
+<hr />
+<h3 id="step-2-create-the-api-your-own-dockerfile">Step 2: Create the API (your own Dockerfile)</h3>
+<p><img alt="" src="../../assets/images/cafeworkshop2.png" /></p>
+<h4 id="21-requirementstxt">2.1 <code>requirements.txt</code></h4>
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>&gt;<span class="w"> </span>cafe-api/requirements.txt<span class="w"> </span><span class="s">&lt;&lt; 'EOF'</span>
+<span class="s">flask</span>
+<span class="s">redis</span>
+<span class="s">pymysql</span>
+<span class="s">EOF</span>
+</code></pre></div>
+<blockquote>
+<p><strong>Note:</strong> This time we remember the lesson from Chapter 5's Flask task — the <code>redis</code> package is in the file, and we also add <code>pymysql</code> (the MariaDB/MySQL driver) so the API can write to the database without crashing.</p>
+</blockquote>
+<h4 id="22-apppy">2.2 <code>app.py</code></h4>
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>&gt;<span class="w"> </span>cafe-api/app.py<span class="w"> </span><span class="s">&lt;&lt; 'EOF'</span>
+<span class="s">import os</span>
+<span class="s">import time</span>
+<span class="s">import pymysql</span>
+<span class="s">import redis</span>
+<span class="s">from flask import Flask, jsonify, request</span>
+
+<span class="s">app = Flask(__name__)</span>
+
+<span class="s">cache = redis.Redis(</span>
+<span class="s">    host=os.getenv("REDIS_HOST", "cafe-redis"),</span>
+<span class="s">    port=int(os.getenv("REDIS_PORT", "6379")),</span>
+<span class="s">    decode_responses=True,</span>
+<span class="s">)</span>
+
+<span class="s">DB_HOST = os.getenv("DB_HOST", "cafe-db")</span>
+<span class="s">DB_USER = os.getenv("DB_USER", "cafe_user")</span>
+<span class="s">DB_PASSWORD = os.getenv("DB_PASSWORD", "cafe_secret")</span>
+<span class="s">DB_NAME = os.getenv("DB_DATABASE", "cafe_db")</span>
+
+<span class="s">MENU = [</span>
+<span class="s">    {"id": 1, "name": "Thai Green Curry Rice", "price": 60},</span>
+<span class="s">    {"id": 2, "name": "Pad Thai", "price": 50},</span>
+<span class="s">    {"id": 3, "name": "Omelette Rice", "price": 45},</span>
+<span class="s">    {"id": 4, "name": "Thai Iced Tea", "price": 25},</span>
+<span class="s">    {"id": 5, "name": "Espresso", "price": 40},</span>
+<span class="s">]</span>
+
+
+<span class="s">def get_conn():</span>
+<span class="s">    return pymysql.connect(</span>
+<span class="s">        host=DB_HOST,</span>
+<span class="s">        user=DB_USER,</span>
+<span class="s">        password=DB_PASSWORD,</span>
+<span class="s">        database=DB_NAME,</span>
+<span class="s">        autocommit=True,</span>
+<span class="s">    )</span>
+
+
+<span class="s">def init_db():</span>
+<span class="s">    # MariaDB may still be starting -&gt; try for up to 60 seconds</span>
+<span class="s">    for _ in range(30):</span>
+<span class="s">        try:</span>
+<span class="s">            conn = get_conn()</span>
+<span class="s">            with conn.cursor() as cur:</span>
+<span class="s">                cur.execute(</span>
+<span class="s">                    """CREATE TABLE IF NOT EXISTS orders (</span>
+<span class="s">                        id INT AUTO_INCREMENT PRIMARY KEY,</span>
+<span class="s">                        item_name VARCHAR(100) NOT NULL,</span>
+<span class="s">                        qty INT NOT NULL,</span>
+<span class="s">                        price INT NOT NULL,</span>
+<span class="s">                        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP</span>
+<span class="s">                    )"""</span>
+<span class="s">                )</span>
+<span class="s">            conn.close()</span>
+<span class="s">            print("Database ready - orders table ensured.")</span>
+<span class="s">            return</span>
+<span class="s">        except Exception:</span>
+<span class="s">            time.sleep(2)</span>
+
+
+<span class="s">init_db()</span>
+
+
+<span class="s">@app.route("/health")</span>
+<span class="s">def health():</span>
+<span class="s">    return jsonify({"status": "ok"})</span>
+
+
+<span class="s">@app.route("/api/menu")</span>
+<span class="s">def menu():</span>
+<span class="s">    return jsonify({"items": MENU})</span>
+
+
+<span class="s">@app.route("/api/orders/count")</span>
+<span class="s">def orders_count():</span>
+<span class="s">    return jsonify({"hits": int(cache.get("hits") or 0)})</span>
+
+
+<span class="s">@app.route("/api/order", methods=["POST"])</span>
+<span class="s">def order():</span>
+<span class="s">    data = request.get_json()</span>
+<span class="s">    item = data.get("item")</span>
+<span class="s">    qty = int(data.get("qty", 1))</span>
+
+<span class="s">    found = next((m for m in MENU if m["name"] == item), None)</span>
+<span class="s">    if not found:</span>
+<span class="s">        return jsonify({"error": "menu item not found"}), 404</span>
+
+<span class="s">    conn = get_conn()</span>
+<span class="s">    with conn.cursor() as cur:</span>
+<span class="s">        cur.execute(</span>
+<span class="s">            "INSERT INTO orders (item_name, qty, price) VALUES (%s, %s, %s)",</span>
+<span class="s">            (found["name"], qty, found["price"] * qty),</span>
+<span class="s">        )</span>
+<span class="s">    conn.close()</span>
+
+<span class="s">    total = int(cache.incr("hits"))</span>
+<span class="s">    return jsonify({"message": f"{found['name']} ordered!", "total_orders": total})</span>
+
+
+<span class="s">if __name__ == "__main__":</span>
+<span class="s">    app.run(host="0.0.0.0", port=5000)</span>
+<span class="s">EOF</span>
+</code></pre></div>
+<h4 id="23-dockerfile">2.3 <code>Dockerfile</code></h4>
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>&gt;<span class="w"> </span>cafe-api/Dockerfile<span class="w"> </span><span class="s">&lt;&lt; 'EOF'</span>
+<span class="s">FROM python:3.12-slim</span>
+
+<span class="s">LABEL maintainer="student@example.com" \</span>
+<span class="s">      summary="Campus Cafe REST API"</span>
+
+<span class="s">WORKDIR /app</span>
+
+<span class="s"># Copy requirements first to leverage Docker layer cache</span>
+<span class="s">COPY requirements.txt .</span>
+
+<span class="s">RUN pip install --no-cache-dir -r requirements.txt</span>
+
+<span class="s">COPY . .</span>
+
+<span class="s">EXPOSE 5000</span>
+
+<span class="s">CMD ["python", "app.py"]</span>
+<span class="s">EOF</span>
+</code></pre></div>
+<blockquote>
+<p><strong>Note:</strong> <code>COPY requirements.txt .</code> first, then <code>RUN pip install</code>, then <code>COPY . .</code> — this is the Chapter 4 layer-caching trick. When you change only <code>app.py</code>, Docker reuses the cached <code>pip install</code> layer.</p>
+</blockquote>
+<h4 id="24-dockerignore">2.4 <code>.dockerignore</code></h4>
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>&gt;<span class="w"> </span>cafe-api/.dockerignore<span class="w"> </span><span class="s">&lt;&lt; 'EOF'</span>
+<span class="s">__pycache__</span>
+<span class="s">*.pyc</span>
+<span class="s">.env</span>
+<span class="s">.git</span>
+<span class="s">EOF</span>
+</code></pre></div>
+<blockquote>
+<p><strong>Note:</strong> <code>.dockerignore</code> (Chapter 6) keeps junk out of the build context — smaller uploads, faster builds, no secrets leaked into the image.</p>
+</blockquote>
+<hr />
+<h3 id="step-3-create-the-web-frontend-menu-page">Step 3: Create the Web frontend (menu page)</h3>
+<p><img alt="" src="../../assets/images/cafeworkshop3.png" /></p>
+<h4 id="31-cafe-webdockerfile">3.1 <code>cafe-web/Dockerfile</code></h4>
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>&gt;<span class="w"> </span>cafe-web/Dockerfile<span class="w"> </span><span class="s">&lt;&lt; 'EOF'</span>
+<span class="s"># SCLorg Apache HTTPD on CentOS Stream 10</span>
+<span class="s">FROM quay.io/sclorg/httpd-24-c10s</span>
+
+<span class="s">LABEL maintainer="student@example.com" \</span>
+<span class="s">      summary="Campus Cafe static menu page"</span>
+
+<span class="s"># Copy static files into Apache's document root</span>
+<span class="s">COPY index.html /opt/app-root/src/</span>
+
+<span class="s"># The base image already runs Apache as the 'default' user on port 8080</span>
+<span class="s">EXPOSE 8080</span>
+<span class="s">EOF</span>
+</code></pre></div>
+<blockquote>
+<p><strong>Note:</strong> The SCLorg <code>httpd-24-c10s</code> image serves static files from <code>/opt/app-root/src</code> as the non-root <code>default</code> user on port <code>8080</code>.</p>
+</blockquote>
+<h4 id="32-cafe-webindexhtml">3.2 <code>cafe-web/index.html</code></h4>
+<p>The page automatically uses <strong>the same IP/or hostname you open it with</strong> (<code>window.location.hostname</code>), so the exact same file works on the server and on your PC.</p>
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>&gt;<span class="w"> </span>cafe-web/index.html<span class="w"> </span><span class="s">&lt;&lt; 'EOF'</span>
+<span class="s">&lt;!DOCTYPE html&gt;</span>
+<span class="s">&lt;html lang="en"&gt;</span>
+<span class="s">&lt;head&gt;</span>
+<span class="s">    &lt;meta charset="UTF-8"&gt;</span>
+<span class="s">    &lt;title&gt;Campus Cafe&lt;/title&gt;</span>
+<span class="s">    &lt;style&gt;</span>
+<span class="s">        body { font-family: sans-serif; max-width: 640px; margin: 40px auto; color: #333; }</span>
+<span class="s">        .item { border: 1px solid #ddd; padding: 12px; margin: 8px 0; border-radius: 8px;</span>
+<span class="s">                display: flex; justify-content: space-between; align-items: center; }</span>
+<span class="s">        button { padding: 8px 14px; cursor: pointer; }</span>
+<span class="s">        #flash { color: green; font-weight: bold; }</span>
+<span class="s">    &lt;/style&gt;</span>
+<span class="s">&lt;/head&gt;</span>
+<span class="s">&lt;body&gt;</span>
+<span class="s">    &lt;h1&gt;Campus Cafe&lt;/h1&gt;</span>
+<span class="s">    &lt;p&gt;Total orders served: &lt;strong id="count"&gt;-&lt;/strong&gt;&lt;/p&gt;</span>
+<span class="s">    &lt;div id="menu"&gt;&lt;/div&gt;</span>
+<span class="s">    &lt;p id="flash"&gt;&lt;/p&gt;</span>
+
+<span class="s">    &lt;script&gt;</span>
+<span class="s">        const API = "http://" + window.location.hostname + ":5000";</span>
+
+<span class="s">        async function refresh() {</span>
+<span class="s">            const menuRes = await fetch(API + "/api/menu");</span>
+<span class="s">            const data = await menuRes.json();</span>
+<span class="s">            const box = document.getElementById("menu");</span>
+<span class="s">            box.innerHTML = "";</span>
+<span class="s">            data.items.forEach(item =&gt; {</span>
+<span class="s">                const div = document.createElement("div");</span>
+<span class="s">                div.className = "item";</span>
+<span class="s">                div.innerHTML = "&lt;span&gt;" + item.name + " - " + item.price + " THB&lt;/span&gt;";</span>
+<span class="s">                const btn = document.createElement("button");</span>
+<span class="s">                btn.textContent = "Order";</span>
+<span class="s">                btn.onclick = () =&gt; order(item.name);</span>
+<span class="s">                div.appendChild(btn);</span>
+<span class="s">                box.appendChild(div);</span>
+<span class="s">            });</span>
+
+<span class="s">            const countRes = await (await fetch(API + "/api/orders/count")).json();</span>
+<span class="s">            document.getElementById("count").textContent = countRes.hits;</span>
+<span class="s">        }</span>
+
+<span class="s">        async function order(name) {</span>
+<span class="s">            await fetch(API + "/api/order", {</span>
+<span class="s">                method: "POST",</span>
+<span class="s">                headers: { "Content-Type": "application/json" },</span>
+<span class="s">                body: JSON.stringify({ item: name, qty: 1 })</span>
+<span class="s">            });</span>
+<span class="s">            const flash = document.getElementById("flash");</span>
+<span class="s">            flash.textContent = name + " ordered!";</span>
+<span class="s">            refresh();</span>
+<span class="s">        }</span>
+
+<span class="s">        refresh();</span>
+<span class="s">    &lt;/script&gt;</span>
+<span class="s">&lt;/body&gt;</span>
+<span class="s">&lt;/html&gt;</span>
+<span class="s">EOF</span>
+</code></pre></div>
+<hr />
+<h3 id="step-4-create-compose-configuration">Step 4: Create Compose configuration</h3>
+<p><img alt="" src="../../assets/images/cafeworkshop4.png" /></p>
+<h4 id="41-docker-composeyaml">4.1 <code>docker-compose.yaml</code></h4>
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>&gt;<span class="w"> </span>docker-compose.yaml<span class="w"> </span><span class="s">&lt;&lt; 'EOF'</span>
+<span class="s">services:</span>
+<span class="s">  cafe-web:</span>
+<span class="s">    build: ./cafe-web</span>
+<span class="s">    image: ${DOCKER_USER}/cafe-web:latest</span>
+<span class="s">    restart: unless-stopped</span>
+<span class="s">    ports:</span>
+<span class="s">      - "${APP_WEB_PORT}:8080"</span>
+<span class="s">    networks:</span>
+<span class="s">      - cafe-net</span>
+
+<span class="s">  cafe-api:</span>
+<span class="s">    build: ./cafe-api</span>
+<span class="s">    image: ${DOCKER_USER}/cafe-api:latest</span>
+<span class="s">    restart: unless-stopped</span>
+<span class="s">    ports:</span>
+<span class="s">      - "${APP_API_PORT}:5000"</span>
+<span class="s">    environment:</span>
+<span class="s">      REDIS_HOST: cafe-redis</span>
+<span class="s">      REDIS_PORT: 6379</span>
+<span class="s">      DB_HOST: cafe-db</span>
+<span class="s">      DB_USER: ${DB_USER}</span>
+<span class="s">      DB_PASSWORD: ${DB_PASSWORD}</span>
+<span class="s">      DB_DATABASE: ${DB_DATABASE}</span>
+<span class="s">    depends_on:</span>
+<span class="s">      cafe-db:</span>
+<span class="s">        condition: service_healthy</span>
+<span class="s">      cafe-redis:</span>
+<span class="s">        condition: service_started</span>
+<span class="s">    mem_limit: 256m</span>
+<span class="s">    networks:</span>
+<span class="s">      - cafe-net</span>
+
+<span class="s">  cafe-db:</span>
+<span class="s">    image: quay.io/sclorg/mariadb-118-c10s</span>
+<span class="s">    restart: unless-stopped</span>
+<span class="s">    environment:</span>
+<span class="s">      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}</span>
+<span class="s">      MYSQL_DATABASE: ${DB_DATABASE}</span>
+<span class="s">      MYSQL_USER: ${DB_USER}</span>
+<span class="s">      MYSQL_PASSWORD: ${DB_PASSWORD}</span>
+<span class="s">    volumes:</span>
+<span class="s">      - cafe_data:/var/lib/mysql</span>
+<span class="s">    healthcheck:</span>
+<span class="s">      test: ["CMD-SHELL", "mariadb-admin ping --silent"]</span>
+<span class="s">      interval: 10s</span>
+<span class="s">      timeout: 5s</span>
+<span class="s">      retries: 10</span>
+<span class="s">    mem_limit: 512m</span>
+<span class="s">    networks:</span>
+<span class="s">      - cafe-net</span>
+
+<span class="s">  cafe-redis:</span>
+<span class="s">    image: redis:alpine</span>
+<span class="s">    restart: unless-stopped</span>
+<span class="s">    mem_limit: 64m</span>
+<span class="s">    networks:</span>
+<span class="s">      - cafe-net</span>
+
+<span class="s">volumes:</span>
+<span class="s">  cafe_data: {}</span>
+
+<span class="s">networks:</span>
+<span class="s">  cafe-net: {}</span>
+<span class="s">EOF</span>
+</code></pre></div>
+<blockquote>
+<p><strong>Note on <code>build:</code> + <code>image:</code> together (key Compose concept):</strong>
+- <code>build:</code> defines how to <strong>create</strong> the image locally (from your Dockerfile).
+- <code>image:</code> defines the <strong>name</strong> the result is tagged with — and what will be <strong>pulled</strong> later.
+- In Part A you run <code>docker compose up --build</code> → images are built and tagged <code>&lt;your-user&gt;/cafe-*</code>.
+- In Part C the source folders won't exist, so <code>docker compose pull</code> fetches the exact same tag.</p>
+</blockquote>
+<h4 id="42-env">4.2 <code>.env</code></h4>
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>&gt;<span class="w"> </span>.env<span class="w"> </span><span class="s">&lt;&lt; 'EOF'</span>
+<span class="s">DOCKER_USER=your_dockerhub_username</span>
+<span class="s">DB_USER=cafe_user</span>
+<span class="s">DB_PASSWORD=cafe_secret</span>
+<span class="s">DB_DATABASE=cafe_db</span>
+<span class="s">MYSQL_ROOT_PASSWORD=root_secret</span>
+<span class="s">APP_WEB_PORT=8080</span>
+<span class="s">APP_API_PORT=5000</span>
+<span class="s">EOF</span>
+</code></pre></div>
+<blockquote>
+<p><strong>Note:</strong> Replace <code>your_dockerhub_username</code> with <strong>your real Docker Hub username</strong> now. Compose reads <code>.env</code> automatically and injects these values into the file via <code>${...}</code> (the variable substitution you saw in Chapter 5).</p>
+</blockquote>
+<hr />
+<h3 id="step-5-open-firewall-ports">Step 5: Open firewall ports</h3>
+<p><img alt="" src="../../assets/images/cafeworkshop5.png" /></p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>firewall-cmd<span class="w"> </span>--permanent<span class="w"> </span>--add-port<span class="o">=</span><span class="m">8080</span>/tcp
+sudo<span class="w"> </span>firewall-cmd<span class="w"> </span>--permanent<span class="w"> </span>--add-port<span class="o">=</span><span class="m">5000</span>/tcp
+sudo<span class="w"> </span>firewall-cmd<span class="w"> </span>--reload
+sudo<span class="w"> </span>firewall-cmd<span class="w"> </span>--list-all
+</code></pre></div>
+<hr />
+<h3 id="step-6-build-and-start-the-application">Step 6: Build and start the application</h3>
+<p><img alt="" src="../../assets/images/cafeworkshop7.png" /></p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/cafe-app
+docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>--build
+docker<span class="w"> </span>compose<span class="w"> </span>ps
+</code></pre></div>
+<p>Expected: 4 services running (<code>cafe-web</code>, <code>cafe-api</code>, <code>cafe-db</code>, <code>cafe-redis</code>).</p>
+<p>List the images your project built/uses:</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>images
+docker<span class="w"> </span>image<span class="w"> </span>ls<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>cafe
+</code></pre></div>
+<blockquote>
+<p><strong>Note:</strong> <code>cafe-web</code> and <code>cafe-api</code> are tagged with your Docker Hub username. <code>cafe-db</code> and <code>cafe-redis</code> were pulled directly from <code>quay.io</code> and <code>hub.docker.com</code> — you do <strong>not</strong> need to push those.</p>
+</blockquote>
+<hr />
+<h3 id="step-7-verify-the-application">Step 7: Verify the application</h3>
+<p><img alt="" src="../../assets/images/cafeworkshop8.png" /></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Health endpoint</span>
+curl<span class="w"> </span>http://localhost:5000/health
+
+<span class="c1"># Menu</span>
+curl<span class="w"> </span>http://localhost:5000/api/menu
+</code></pre></div>
+<p>Open a browser on your <strong>own machine</strong> to <code>http://&lt;server-ip&gt;:8080</code> and place an order (click <strong>Order</strong>).</p>
+<p>Verify the order was saved <strong>twice</strong> — once in MariaDB (permanent) and once in Redis (counter):</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># MariaDB -&gt; order history</span>
+docker<span class="w"> </span>compose<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>cafe-db<span class="w"> </span>mariadb<span class="w"> </span>-u<span class="w"> </span>cafe_user<span class="w"> </span>-pcafe_secret<span class="w"> </span>cafe_db<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span><span class="s2">"SELECT * FROM orders;"</span>
+
+<span class="c1"># Redis -&gt; total orders served</span>
+docker<span class="w"> </span>compose<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>cafe-redis<span class="w"> </span>redis-cli<span class="w"> </span>GET<span class="w"> </span>hits
+</code></pre></div>
+<h2 id="tasks-part-a-capture-these-screens">Tasks (Part A) — capture these screens</h2>
+<ul>
+<li><code>docker compose up -d --build</code> and <code>docker compose ps</code> output</li>
+<li><code>docker compose images</code> output</li>
+<li>The café web page <code>http://&lt;server-ip&gt;:8080</code> after placing an order</li>
+<li>The MariaDB <code>SELECT * FROM orders;</code> result</li>
+<li>The Redis <code>GET hits</code> result</li>
+</ul>
+<hr />
+<h2 id="73-part-b-ship-to-docker-hub">7.3 Part B - Ship to Docker Hub</h2>
+<p><img alt="" src="../../assets/images/cafeworkshop9.png" /> </p>
+<h3 id="step-1-login">Step 1: Login</h3>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>login
+<span class="c1"># Username + password (or access token)</span>
+</code></pre></div>
+<blockquote>
+<p><strong>Note:</strong> A successful login shows <code>Login Succeeded</code> (Chapter 6, Lab 3.3).</p>
+</blockquote>
+<h3 id="step-2-push-your-two-custom-images">Step 2: Push your two custom images</h3>
+<p>Your images are <strong>already tagged</strong> with your username because of the <code>image:</code> key in compose. Check first:</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>image<span class="w"> </span>ls<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>cafe
+</code></pre></div>
+<p>If the tags are missing, tag them yourself:</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>tag<span class="w"> </span>cafe-app-cafe-web<span class="w">   </span>&lt;your-dockerhub-username&gt;/cafe-web:latest
+docker<span class="w"> </span>tag<span class="w"> </span>cafe-app-cafe-api<span class="w">   </span>&lt;your-dockerhub-username&gt;/cafe-api:latest
+</code></pre></div>
+<p>Then push (replace <code>&lt;your-dockerhub-username&gt;</code>):</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>push<span class="w"> </span>&lt;your-dockerhub-username&gt;/cafe-web:latest
+docker<span class="w"> </span>push<span class="w"> </span>&lt;your-dockerhub-username&gt;/cafe-api:latest
+</code></pre></div>
+<blockquote>
+<p><strong>Note:</strong> Only the <strong>new layers</strong> are uploaded. The base layers (<code>httpd-24-c10s</code>, <code>python:3.12-slim</code>) are re-used from their original registries — your push is small.</p>
+</blockquote>
+<h3 id="step-3-verify-on-docker-hub">Step 3: Verify on Docker Hub</h3>
+<p>Open <code>https://hub.docker.com/repositories</code> and confirm both repositories and their <code>latest</code> tags.</p>
+<h2 id="tasks-part-b-capture-these-screens">Tasks (Part B) — capture these screens</h2>
+<ul>
+<li><code>docker login</code> result (<code>Login Succeeded</code>)</li>
+<li><code>docker push</code> output for <strong>both</strong> images</li>
+<li>Your two repositories on the Docker Hub website</li>
+</ul>
+<hr />
+<h2 id="74-part-c-redeploy-on-windows-docker-desktop">7.4 Part C - Redeploy on Windows (Docker Desktop)</h2>
+<blockquote>
+<p>Environment: <strong>Windows PC with Docker Desktop installed</strong> (WSL2 backend). This is the machine where you will <strong>pull</strong> — no build tools, no source code needed.</p>
+</blockquote>
+<h3 id="step-1-verify-docker-desktop">Step 1: Verify Docker Desktop</h3>
+<div class="highlight"><pre><span></span><code><span class="n">docker</span> <span class="n">version</span>
+<span class="n">docker</span> <span class="n">run</span> <span class="p">-</span><span class="n">-rm</span> <span class="n">hello-world</span>
+</code></pre></div>
+<blockquote>
+<p><strong>Note:</strong> On Windows there is <strong>no <code>firewall-cmd</code></strong> — Docker Desktop manages its own port forwarding. You may see a Windows Firewall prompt the first time; allow it.</p>
+</blockquote>
+<h3 id="step-2-create-the-project-folder-with-only-2-files">Step 2: Create the project folder with only 2 files</h3>
+<div class="highlight"><pre><span></span><code><span class="n">mkdir</span> <span class="n">C</span><span class="p">:\</span><span class="n">cafe-app</span>
+<span class="nb">cd </span><span class="n">C</span><span class="p">:\</span><span class="n">cafe-app</span>
+</code></pre></div>
+<p>Using <strong>Notepad</strong> or <strong>VS Code</strong>, create these two files (you can also copy them from the server with a USB drive or <code>scp</code>):</p>
+<ul>
+<li><code>C:\cafe-app\docker-compose.yaml</code> — same content as 7.2 Step 4.1</li>
+<li><code>C:\cafe-app\.env</code> — same content as 7.2 Step 4.2, <strong>with the same <code>DOCKER_USER</code></strong></li>
+</ul>
+<blockquote>
+<p><strong>Note:</strong> you do <strong>not</strong> need the <code>cafe-api/</code> or <code>cafe-web/</code> folders here — the images are already built, pushed to Docker Hub, and will be pulled instead of built. This is exactly how production deployments ship: <em>build once, run anywhere</em>.</p>
+</blockquote>
+<h3 id="step-3-pull-and-start">Step 3: Pull and start</h3>
+<div class="highlight"><pre><span></span><code><span class="nb">cd </span><span class="n">C</span><span class="p">:\</span><span class="n">cafe-app</span>
+<span class="n">docker</span> <span class="n">compose</span> <span class="n">pull</span>
+<span class="n">docker</span> <span class="n">compose</span> <span class="n">up</span> <span class="n">-d</span>
+<span class="n">docker</span> <span class="n">compose</span> <span class="nb">ps</span>
+</code></pre></div>
+<h3 id="step-4-verify">Step 4: Verify</h3>
+<p>Open <strong>your browser</strong> on the PC: <code>http://localhost:8080</code> (or another PC: <code>http://&lt;your-pc-ip&gt;:8080</code>).</p>
+<p>Place another order. Same app, same menu, same database schema:</p>
+<p>Check what was pulled vs. built:</p>
+<div class="highlight"><pre><span></span><code><span class="n">docker</span> <span class="n">compose</span> <span class="n">images</span>
+<span class="n">docker</span> <span class="n">system</span> <span class="n">df</span>
+</code></pre></div>
+<h2 id="tasks-part-c-capture-these-screens">Tasks (Part C) — capture these screens</h2>
+<ul>
+<li><code>docker compose pull</code> output</li>
+<li><code>docker compose up -d</code> and <code>docker compose ps</code> output</li>
+<li>The café web page <code>http://localhost:8080</code> on the Windows PC</li>
+<li><code>docker compose images</code> output</li>
+</ul>
+<hr />
+<h2 id="75-part-d-discussion-written-answers">7.5 Part D - Discussion (written answers)</h2>
+<p>Answer the following <strong>in your own words</strong> and submit with your screenshots. (2–4 sentences each.)</p>
+<ol>
+<li>
+<p><strong>"It works on my machine"</strong> — The exact same <code>docker-compose.yaml</code> and image tags ran on a CentOS Stream 10 server and on a Windows PC with a completely different OS, ports, and IP address. What makes this possible? What do container images bundle that a normal <code>.exe</code>/package does not?</p>
+</li>
+<li>
+<p><strong>Pull vs. build</strong> — In Part C you never ran <code>docker build</code>. Where did the <code>cafe-web</code> and <code>cafe-api</code> images come from? Which of the 4 services were <em>pulled</em> from a registry, and which 2 were <em>pushed by you</em> in Part B?</p>
+</li>
+<li>
+<p><strong>Time &amp; network</strong> — Compare <code>docker compose up -d --build</code> (Part A) with <code>docker compose pull</code> + <code>docker compose up -d</code> (Part C). Which approach is faster for deploying to 100 machines? Which consumes more bandwidth, and why (hint: think layers and Chapter 6)?</p>
+</li>
+<li>
+<p><strong>Hidden services</strong> — <code>cafe-db</code> has no <code>ports:</code> mapping, yet <code>cafe-api</code> can still use it. How do the containers talk to each other, and what security benefit does not publishing the database port give you?</p>
+</li>
+<li>
+<p><strong>Volumes</strong> — Run <code>docker compose down -v</code> on the PC and you lose something that <code>docker compose down</code> alone preserves. What exactly, and why is losing it so dangerous for a real café order database?</p>
+</li>
+<li>
+<p><strong>Redis</strong> — <code>cafe-redis</code> only stores the <code>hits</code> counter in memory. If the Redis container is killed and restarted, what happens to the counter? Is the order history in MariaDB lost too? Explain the difference.</p>
+</li>
+<li>
+<p><strong>Secrets</strong> — Your database password never appears in the Dockerfile or the image — it is injected through <code>environment:</code> at runtime. What would go wrong (security-wise) if you baked the password into the image with <code>ENV</code> instead? (Hint: Chapter 4 layer caching + <code>docker history</code>.)</p>
+</li>
+<li>
+<p><strong>Optimization</strong> — The API image is built from <code>python:3.12-slim</code> in one stage. Chapter 6's multi-stage trick shrank the Go image ~55×. Why would multi-stage shrink a <strong>compiled Go</strong> app far more than a <strong>Python</strong> app, and would it still be worth doing?</p>
+</li>
+<li>
+<p><strong>Layer reuse</strong> — While pushing, only some MB were uploaded even though your images are big. What images' layers were <em>reused</em> instead of re-pushed (e.g., the base images)? Where do those layers already exist for anyone who pulls your images?</p>
+</li>
+<li>
+<p><strong>Inventory</strong> — List every Docker <strong>object</strong> your deployment uses by type: <code>n</code> images, <code>n</code> containers, <code>n</code> networks, <code>n</code> volumes, plus environment variables. This is the "inventory" a DevOps engineer keeps for every app.</p>
+</li>
+</ol>
+<hr />
+<h2 id="summary">Summary</h2>
+<table>
+<thead>
+<tr>
+<th>Service</th>
+<th>Image source</th>
+<th>Data</th>
+<th>Network</th>
+<th>Port on host</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>cafe-web</code></td>
+<td>built from <code>quay.io/sclorg/httpd-24-c10s</code></td>
+<td>static page</td>
+<td><code>cafe-net</code></td>
+<td><code>8080</code></td>
+</tr>
+<tr>
+<td><code>cafe-api</code></td>
+<td>built from <code>python:3.12-slim</code></td>
+<td>none (stateless)</td>
+<td><code>cafe-net</code></td>
+<td><code>5000</code></td>
+</tr>
+<tr>
+<td><code>cafe-db</code></td>
+<td><code>quay.io/sclorg/mariadb-118-c10s</code></td>
+<td><code>cafe_data</code> volume</td>
+<td><code>cafe-net</code></td>
+<td>hidden</td>
+</tr>
+<tr>
+<td><code>cafe-redis</code></td>
+<td><code>redis:alpine</code></td>
+<td>in-memory only</td>
+<td><code>cafe-net</code></td>
+<td>hidden</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code>Build (Dockerfile)  →  Ship (docker push)  →  Deploy (docker compose up -d anywhere)
+</code></pre></div>
+<h2 id="docker-commands-cheat-sheet-workshop">Docker Commands Cheat Sheet (Workshop)</h2>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>docker compose up -d --build</code></td>
+<td>Build images from Dockerfiles and start all services</td>
+</tr>
+<tr>
+<td><code>docker compose ps</code></td>
+<td>List running services of the project</td>
+</tr>
+<tr>
+<td><code>docker compose images</code></td>
+<td>Show images used by the project</td>
+</tr>
+<tr>
+<td><code>docker compose exec &lt;svc&gt; &lt;cmd&gt;</code></td>
+<td>Run a command inside a running service</td>
+</tr>
+<tr>
+<td><code>docker compose logs &lt;svc&gt;</code></td>
+<td>View service logs</td>
+</tr>
+<tr>
+<td><code>docker compose pull</code></td>
+<td>Pull the project's images without starting</td>
+</tr>
+<tr>
+<td><code>docker compose down</code></td>
+<td>Stop and remove containers/network (keeps volumes)</td>
+</tr>
+<tr>
+<td><code>docker compose down -v</code></td>
+<td>Stop and remove containers/network/volumes</td>
+</tr>
+<tr>
+<td><code>docker push &lt;user&gt;/&lt;image&gt;:&lt;tag&gt;</code></td>
+<td>Upload an image to a registry</td>
+</tr>
+<tr>
+<td><code>docker pull &lt;user&gt;/&lt;image&gt;:&lt;tag&gt;</code></td>
+<td>Download an image from a registry</td>
+</tr>
+</tbody>
+</table>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Likely cause / fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>cafe-api</code> exits with <code>ModuleNotFoundError: pymysql</code></td>
+<td><code>requirements.txt</code> missing a package — <code>docker compose build cafe-api</code> after fixing (the Chapter 5 lesson).</td>
+</tr>
+<tr>
+<td><code>cafe-api</code> retries, then still crashes</td>
+<td>Check <code>docker compose logs cafe-db</code>. MariaDB may need more time; healthcheck retries handle this.</td>
+</tr>
+<tr>
+<td><code>port is already allocated</code></td>
+<td>Change <code>APP_WEB_PORT</code> / <code>APP_API_PORT</code> in <code>.env</code> and update the firewall, then <code>docker compose up -d</code>.</td>
+</tr>
+<tr>
+<td>Cannot open the web page from another machine</td>
+<td>Forgot to open firewall ports 8080/5000 (Part A Step 5). On PC, check Windows Firewall prompt.</td>
+</tr>
+<tr>
+<td><code>docker compose up</code> tries to build on PC</td>
+<td>The <code>cafe-api/</code>/<code>cafe-web/</code> folders exist on the PC. Delete them — only <code>docker-compose.yaml</code> + <code>.env</code> are needed there (or use <code>docker compose pull</code> then <code>up</code>).</td>
+</tr>
+<tr>
+<td><code>docker push</code> rejected</td>
+<td>You are not logged in (<code>docker login</code>) or the tag doesn't start with your username.</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../06-advanced/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 6. Advanced">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                6. Advanced
+              </div>
+            </div>
+          </a>
+        
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2025 sawangpong muadphet
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.top", "navigation.footer"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

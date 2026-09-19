@@ -1,0 +1,2163 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Chapter 6: Docker Advanced (Practical) - Kmutnb Docker container</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans+Thai+Looped:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"IBM Plex Sans Thai Looped";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#chapter-6-docker-advanced-practical" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Kmutnb Docker container" class="md-header__button md-logo" aria-label="Kmutnb Docker container" data-md-component="logo">
+      
+  <img src="../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Kmutnb Docker container
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Chapter 6: Docker Advanced (Practical)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Kmutnb Docker container" class="md-nav__button md-logo" aria-label="Kmutnb Docker container" data-md-component="logo">
+      
+  <img src="../../assets/logo.png" alt="logo">
+
+    </a>
+    Kmutnb Docker container
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Book
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Book
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../book/01-fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Fundamentals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../book/02-installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../book/03-basic-operations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Basic Operations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../book/04-dockerfile/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Dockerfile
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../book/05-docker-compose/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Docker Compose
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../book/06-advanced/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Advanced
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../book/07-workshop-1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Workshop 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../book/08-workshop-webserver.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Workshop Webserver
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../book/09-workshop-fullstack.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Workshop Fullstack
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../book/10-cgroups-namespaces-security.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Cgroups, Namespaces & Security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Objectives
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#assignment-create-students-submission-along-tutorial" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Assignment: Create Student's Submission along tutorial
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workshop-1-build-a-production-app" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workshop 1: Build a Production App
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Workshop 1: Build a Production App">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#scenario-deploy-a-production-nodejs-application" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scenario: Deploy a Production Node.js Application
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lab-11-project-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lab 1.1: Project Setup
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lab 1.1: Project Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-create-project-directory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Create project directory
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-create-packagejson-and-appjs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Create package.json and app.js
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-create-dockerignore" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Create .dockerignore
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-create-single-stage-dockerfile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: Create single-stage Dockerfile
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lab-12-optimize-with-multi-stage-build" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lab 1.2: Optimize with Multi-stage Build
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lab 1.2: Optimize with Multi-stage Build">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-create-multi-stage-dockerfile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Create multi-stage Dockerfile
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-build-and-compare-sizes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Build and compare sizes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-use-buildkit-cache-mounts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Use BuildKit cache mounts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-add-health-check" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: Add health check
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-5-test-application" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5: Test application
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lab-13-production-hardening" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lab 1.3: Production Hardening
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lab 1.3: Production Hardening">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-run-as-non-root-user" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Run as non-root user
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-set-resource-limits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Set resource limits
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-add-logging-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Add logging configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-create-docker-composeyaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: Create docker-compose.yaml
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-5-deploy-and-verify" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5: Deploy and verify
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workshop-2-manage-container-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workshop 2: Manage Container Resources
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Workshop 2: Manage Container Resources">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#scenario-set-limits-and-monitor-containers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scenario: Set Limits and Monitor Containers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lab-21-resource-limit-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lab 2.1: Resource Limit Configuration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lab 2.1: Resource Limit Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-create-container-with-memory-limits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Create container with memory limits
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-create-container-with-cpu-limits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Create container with CPU limits
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-create-container-with-pid-limits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Create container with PID limits
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-monitor-resource-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: Monitor resource usage
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-5-compare-limited-vs-unlimited" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5: Compare limited vs unlimited
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lab-22-container-inspection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lab 2.2: Container Inspection
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lab 2.2: Container Inspection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-use-docker-inspect-for-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Use docker inspect for details
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-view-container-logs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: View container logs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-use-docker-stats" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Use docker stats
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-use-docker-top" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: Use docker top
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-5-use-docker-diff-to-see-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5: Use docker diff to see changes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lab-23-overlay-filesystem-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lab 2.3: Overlay Filesystem Management
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lab 2.3: Overlay Filesystem Management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-examine-container-filesystem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Examine container filesystem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-view-layer-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: View layer information
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-understand-copy-on-write" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Understand Copy-on-Write
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-manage-container-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: Manage container storage
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-5-clean-up-unused-layers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5: Clean up unused layers
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workshop-3-deploy-to-private-registry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workshop 3: Deploy to Private Registry
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Workshop 3: Deploy to Private Registry">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#scenario-set-up-and-use-local-docker-registry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scenario: Set Up and Use Local Docker Registry
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lab-31-registry-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lab 3.1: Registry Setup
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lab 3.1: Registry Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-run-local-registry-container" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Run local registry container
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-configure-storage-backend" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Configure storage backend
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-enable-authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Enable authentication
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-configure-tls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: Configure TLS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-5-test-registry-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5: Test registry access
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lab-32-push-and-pull-images" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lab 3.2: Push and Pull Images
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lab 3.2: Push and Pull Images">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-build-application-image" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Build application image
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-tag-for-local-registry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Tag for local registry
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-push-to-registry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Push to registry
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-pull-from-registry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: Pull from registry
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-5-verify-image-integrity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5: Verify image integrity
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lab-33-security-scanning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lab 3.3: Security Scanning
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lab 3.3: Security Scanning">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-scan-image-with-docker-scout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Scan image with Docker Scout
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-scan-with-trivy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Scan with Trivy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-review-vulnerabilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Review vulnerabilities
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-fix-high-severity-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: Fix high-severity issues
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-5-create-secure-deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5: Create secure deployment
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reading-note-docker-advanced-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reading Note: Docker Advanced Commands
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Reading Note: Docker Advanced Commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#advanced-docker-commands-cheat-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Advanced Docker Commands Cheat Sheet
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quiz" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quiz
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="chapter-6-docker-advanced-practical">Chapter 6: Docker Advanced (Practical)</h1>
+<h2 id="overview">Overview</h2>
+<h3 id="objectives">Objectives</h3>
+<ul>
+<li>Build production-ready Docker images</li>
+<li>Optimize container resource usage</li>
+<li>Deploy to private Docker registry</li>
+<li>Implement security best practices</li>
+</ul>
+<hr />
+<h2 id="assignment-create-students-submission-along-tutorial">Assignment: Create Student's Submission along tutorial</h2>
+<ul>
+<li>Student will submit Screen of Docker installation process according to step-by-step from manual.</li>
+<li>Student can use Basic Template <a href="../../assets/dockerbasic-advanced-submission.docx">Download</a> or generate own version.</li>
+</ul>
+<hr />
+<h2 id="workshop-1-build-a-production-app">Workshop 1: Build a Production App</h2>
+<h3 id="scenario-deploy-a-production-nodejs-application">Scenario: Deploy a Production Node.js Application</h3>
+<h3 id="lab-11-project-setup">Lab 1.1: Project Setup</h3>
+<h4 id="step-1-create-project-directory">Step 1: Create project directory</h4>
+<div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>~/nodejs-production
+<span class="nb">cd</span><span class="w"> </span>~/nodejs-production
+</code></pre></div>
+<h4 id="step-2-create-packagejson-and-appjs">Step 2: Create package.json and app.js</h4>
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>&gt;<span class="w"> </span>package.json<span class="w"> </span><span class="s">&lt;&lt; 'EOF'</span>
+<span class="s">{</span>
+<span class="s">  "name": "production-app",</span>
+<span class="s">  "version": "1.0.0",</span>
+<span class="s">  "description": "Production-ready Node.js application",</span>
+<span class="s">  "main": "app.js",</span>
+<span class="s">  "scripts": {</span>
+<span class="s">    "start": "node app.js"</span>
+<span class="s">  },</span>
+<span class="s">  "dependencies": {</span>
+<span class="s">    "express": "^4.18.2"</span>
+<span class="s">  }</span>
+<span class="s">}</span>
+<span class="s">EOF</span>
+
+cat<span class="w"> </span>&gt;<span class="w"> </span>app.js<span class="w"> </span><span class="s">&lt;&lt; 'EOF'</span>
+<span class="s">const express = require('express');</span>
+<span class="s">const os = require('os');</span>
+
+<span class="s">const app = express();</span>
+<span class="s">const PORT = process.env.PORT || 3000;</span>
+
+<span class="s">app.get('/', (req, res) =&gt; {</span>
+<span class="s">  res.json({</span>
+<span class="s">    message: 'Hello from production Node.js app!',</span>
+<span class="s">    hostname: os.hostname(),</span>
+<span class="s">    platform: os.platform(),</span>
+<span class="s">    nodeVersion: process.version,</span>
+<span class="s">    uptime: process.uptime()</span>
+<span class="s">  });</span>
+<span class="s">});</span>
+
+<span class="s">app.get('/health', (req, res) =&gt; {</span>
+<span class="s">  res.status(200).json({ status: 'healthy' });</span>
+<span class="s">});</span>
+
+<span class="s">app.listen(PORT, () =&gt; {</span>
+<span class="s">  console.log(`Server running on port ${PORT}`);</span>
+<span class="s">});</span>
+<span class="s">EOF</span>
+</code></pre></div>
+<h4 id="step-3-create-dockerignore">Step 3: Create .dockerignore</h4>
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>&gt;<span class="w"> </span>.dockerignore<span class="w"> </span><span class="s">&lt;&lt; 'EOF'</span>
+<span class="s">node_modules</span>
+<span class="s">npm-debug.log</span>
+<span class="s">.git</span>
+<span class="s">.gitignore</span>
+<span class="s">README.md</span>
+<span class="s">.env</span>
+<span class="s">.dockerignore</span>
+<span class="s">Dockerfile*</span>
+<span class="s">docker-compose*</span>
+<span class="s">EOF</span>
+</code></pre></div>
+<h4 id="step-4-create-single-stage-dockerfile">Step 4: Create single-stage Dockerfile</h4>
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>&gt;<span class="w"> </span>Dockerfile.single<span class="w"> </span><span class="s">&lt;&lt; 'EOF'</span>
+<span class="s">FROM node:18</span>
+
+<span class="s">WORKDIR /app</span>
+
+<span class="s">COPY package.json .</span>
+<span class="s">RUN npm install</span>
+
+<span class="s">COPY app.js .</span>
+
+<span class="s">EXPOSE 3000</span>
+
+<span class="s">CMD ["npm", "start"]</span>
+<span class="s">EOF</span>
+</code></pre></div>
+<hr />
+<h3 id="lab-12-optimize-with-multi-stage-build">Lab 1.2: Optimize with Multi-stage Build</h3>
+<h4 id="step-1-create-multi-stage-dockerfile">Step 1: Create multi-stage Dockerfile</h4>
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>&gt;<span class="w"> </span>Dockerfile<span class="w"> </span><span class="s">&lt;&lt; 'EOF'</span>
+<span class="s"># Build stage</span>
+<span class="s">FROM node:18 AS builder</span>
+
+<span class="s">WORKDIR /app</span>
+
+<span class="s">COPY package.json .</span>
+<span class="s">RUN npm install --only=production</span>
+
+<span class="s"># Final stage</span>
+<span class="s">FROM node:18-slim</span>
+
+<span class="s">WORKDIR /app</span>
+
+<span class="s"># Create non-root user</span>
+<span class="s">RUN groupadd -r appuser &amp;&amp; useradd -r -g appuser appuser</span>
+
+<span class="s">COPY --from=builder /app/node_modules ./node_modules</span>
+<span class="s">COPY app.js .</span>
+
+<span class="s"># Set ownership</span>
+<span class="s">RUN chown -R appuser:appuser /app</span>
+
+<span class="s">USER appuser</span>
+
+<span class="s">EXPOSE 3000</span>
+
+<span class="s">CMD ["node", "app.js"]</span>
+<span class="s">EOF</span>
+</code></pre></div>
+<h4 id="step-2-build-and-compare-sizes">Step 2: Build and compare sizes</h4>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>nodejs-single<span class="w"> </span>-f<span class="w"> </span>Dockerfile.single<span class="w"> </span>.
+docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>nodejs-multi<span class="w"> </span>.
+docker<span class="w"> </span>images<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>nodejs
+</code></pre></div>
+<h4 id="step-3-use-buildkit-cache-mounts">Step 3: Use BuildKit cache mounts</h4>
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>&gt;<span class="w"> </span>Dockerfile.buildkit<span class="w"> </span><span class="s">&lt;&lt; 'EOF'</span>
+<span class="s">FROM node:18 AS builder</span>
+
+<span class="s">WORKDIR /app</span>
+
+<span class="s">COPY package.json .</span>
+
+<span class="s"># Use cache mount for npm</span>
+<span class="s">RUN --mount=type=cache,target=/root/.npm \</span>
+<span class="s">    npm install --only=production</span>
+
+<span class="s">FROM node:18-slim</span>
+
+<span class="s">WORKDIR /app</span>
+
+<span class="s">RUN groupadd -r appuser &amp;&amp; useradd -r -g appuser appuser</span>
+
+<span class="s">COPY --from=builder /app/node_modules ./node_modules</span>
+<span class="s">COPY app.js .</span>
+
+<span class="s">RUN chown -R appuser:appuser /app</span>
+
+<span class="s">USER appuser</span>
+
+<span class="s">EXPOSE 3000</span>
+
+<span class="s">CMD ["node", "app.js"]</span>
+<span class="s">EOF</span>
+
+<span class="nv">DOCKER_BUILDKIT</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>nodejs-buildkit<span class="w"> </span>.
+</code></pre></div>
+<h4 id="step-4-add-health-check">Step 4: Add health check</h4>
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>&gt;<span class="w"> </span>Dockerfile.healthcheck<span class="w"> </span><span class="s">&lt;&lt; 'EOF'</span>
+<span class="s">FROM node:18-slim</span>
+
+<span class="s">WORKDIR /app</span>
+
+<span class="s">RUN groupadd -r appuser &amp;&amp; useradd -r -g appuser appuser</span>
+
+<span class="s">COPY package.json .</span>
+<span class="s">RUN npm install --only=production</span>
+
+<span class="s">COPY app.js .</span>
+
+<span class="s">RUN chown -R appuser:appuser /app</span>
+
+<span class="s">USER appuser</span>
+
+<span class="s">EXPOSE 3000</span>
+
+<span class="s">HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \</span>
+<span class="s">  CMD curl -f http://localhost:3000/health || exit 1</span>
+
+<span class="s">CMD ["node", "app.js"]</span>
+<span class="s">EOF</span>
+
+docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>nodejs-healthcheck<span class="w"> </span>.
+</code></pre></div>
+<h4 id="step-5-test-application">Step 5: Test application</h4>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>--name<span class="w"> </span>nodejs-app<span class="w"> </span>-p<span class="w"> </span><span class="m">3000</span>:3000<span class="w"> </span>nodejs-multi
+curl<span class="w"> </span>http://localhost:3000
+curl<span class="w"> </span>http://localhost:3000/health
+docker<span class="w"> </span>stop<span class="w"> </span>nodejs-app
+docker<span class="w"> </span>rm<span class="w"> </span>nodejs-app
+</code></pre></div>
+<hr />
+<h3 id="lab-13-production-hardening">Lab 1.3: Production Hardening</h3>
+<h4 id="step-1-run-as-non-root-user">Step 1: Run as non-root user</h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># Verify running as non-root</span>
+docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>nodejs-multi<span class="w"> </span>whoami
+docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>nodejs-multi<span class="w"> </span>id
+</code></pre></div>
+<h4 id="step-2-set-resource-limits">Step 2: Set resource limits</h4>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>--name<span class="w"> </span>nodejs-limited<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-p<span class="w"> </span><span class="m">3000</span>:3000<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--memory<span class="o">=</span>256m<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--cpus<span class="o">=</span><span class="m">0</span>.5<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--pids-limit<span class="o">=</span><span class="m">100</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>nodejs-multi
+
+docker<span class="w"> </span>stats<span class="w"> </span>nodejs-limited<span class="w"> </span>--no-stream
+</code></pre></div>
+<h4 id="step-3-add-logging-configuration">Step 3: Add logging configuration</h4>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>--name<span class="w"> </span>nodejs-logged<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-p<span class="w"> </span><span class="m">3000</span>:3000<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--log-driver<span class="o">=</span>json-file<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--log-opt<span class="w"> </span>max-size<span class="o">=</span>10m<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--log-opt<span class="w"> </span>max-file<span class="o">=</span><span class="m">3</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>nodejs-multi
+</code></pre></div>
+<h4 id="step-4-create-docker-composeyaml">Step 4: Create docker-compose.yaml</h4>
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>&gt;<span class="w"> </span>docker-compose.yaml<span class="w"> </span><span class="s">&lt;&lt; 'EOF'</span>
+<span class="s">services:</span>
+<span class="s">  nodejs-app:</span>
+<span class="s">    build: .</span>
+<span class="s">    ports:</span>
+<span class="s">      - "3000:3000"</span>
+<span class="s">    restart: unless-stopped</span>
+<span class="s">    deploy:</span>
+<span class="s">      resources:</span>
+<span class="s">        limits:</span>
+<span class="s">          memory: 256M</span>
+<span class="s">          cpus: '0.5'</span>
+<span class="s">    security_opt:</span>
+<span class="s">      - no-new-privileges:true</span>
+<span class="s">    read_only: true</span>
+<span class="s">    tmpfs:</span>
+<span class="s">      - /tmp</span>
+<span class="s">    logging:</span>
+<span class="s">      driver: json-file</span>
+<span class="s">      options:</span>
+<span class="s">        max-size: "10m"</span>
+<span class="s">        max-file: "3"</span>
+<span class="s">EOF</span>
+</code></pre></div>
+<h4 id="step-5-deploy-and-verify">Step 5: Deploy and verify</h4>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d
+docker<span class="w"> </span>compose<span class="w"> </span>ps
+docker<span class="w"> </span>compose<span class="w"> </span>logs
+curl<span class="w"> </span>http://localhost:3000
+docker<span class="w"> </span>compose<span class="w"> </span>down
+</code></pre></div>
+<hr />
+<h2 id="workshop-2-manage-container-resources">Workshop 2: Manage Container Resources</h2>
+<h3 id="scenario-set-limits-and-monitor-containers">Scenario: Set Limits and Monitor Containers</h3>
+<h3 id="lab-21-resource-limit-configuration">Lab 2.1: Resource Limit Configuration</h3>
+<h4 id="step-1-create-container-with-memory-limits">Step 1: Create container with memory limits</h4>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>--name<span class="w"> </span>mem-demo<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--memory<span class="o">=</span>128m<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--memory-swap<span class="o">=</span>256m<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>quay.io/centos/centos:stream10<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>tail<span class="w"> </span>-f<span class="w"> </span>/dev/null
+
+docker<span class="w"> </span>stats<span class="w"> </span>mem-demo<span class="w"> </span>--no-stream
+</code></pre></div>
+<h4 id="step-2-create-container-with-cpu-limits">Step 2: Create container with CPU limits</h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># Limit to 25% of one CPU</span>
+docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>--name<span class="w"> </span>cpu-demo<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--cpus<span class="o">=</span><span class="m">0</span>.25<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>quay.io/centos/centos:stream10<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>tail<span class="w"> </span>-f<span class="w"> </span>/dev/null
+
+<span class="c1"># Limit to specific CPUs</span>
+docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>--name<span class="w"> </span>cpu-set<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--cpuset-cpus<span class="o">=</span><span class="s2">"0,1"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>quay.io/centos/centos:stream10<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>tail<span class="w"> </span>-f<span class="w"> </span>/dev/null
+
+docker<span class="w"> </span>stats<span class="w"> </span>--no-stream
+</code></pre></div>
+<h4 id="step-3-create-container-with-pid-limits">Step 3: Create container with PID limits</h4>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>--name<span class="w"> </span>pid-demo<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--pids-limit<span class="o">=</span><span class="m">25</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>quay.io/centos/centos:stream10<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>tail<span class="w"> </span>-f<span class="w"> </span>/dev/null
+
+docker<span class="w"> </span>inspect<span class="w"> </span>--format<span class="o">=</span><span class="s1">'{{.HostConfig.PidsLimit}}'</span><span class="w"> </span>pid-demo
+</code></pre></div>
+<h4 id="step-4-monitor-resource-usage">Step 4: Monitor resource usage</h4>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>stats<span class="w"> </span>--no-stream<span class="w"> </span>--format<span class="w"> </span><span class="s2">"table {{.Name}}\t{{.CPUPerc}}\t{{.MemUsage}}\t{{.PIDs}}"</span>
+</code></pre></div>
+<h4 id="step-5-compare-limited-vs-unlimited">Step 5: Compare limited vs unlimited</h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># Run unlimited container</span>
+docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>--name<span class="w"> </span>unlimited<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>quay.io/centos/centos:stream10<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>tail<span class="w"> </span>-f<span class="w"> </span>/dev/null
+
+<span class="c1"># Run limited container</span>
+docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>--name<span class="w"> </span>limited<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--memory<span class="o">=</span>64m<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--cpus<span class="o">=</span><span class="m">0</span>.1<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>quay.io/centos/centos:stream10<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>tail<span class="w"> </span>-f<span class="w"> </span>/dev/null
+
+docker<span class="w"> </span>stats<span class="w"> </span>--no-stream
+</code></pre></div>
+<hr />
+<h3 id="lab-22-container-inspection">Lab 2.2: Container Inspection</h3>
+<h4 id="step-1-use-docker-inspect-for-details">Step 1: Use docker inspect for details</h4>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>inspect<span class="w"> </span>limited
+
+<span class="c1"># Get specific values</span>
+docker<span class="w"> </span>inspect<span class="w"> </span>--format<span class="o">=</span><span class="s1">'{{.HostConfig.Memory}}'</span><span class="w"> </span>limited
+docker<span class="w"> </span>inspect<span class="w"> </span>--format<span class="o">=</span><span class="s1">'{{.HostConfig.NanoCpus}}'</span><span class="w"> </span>limited
+docker<span class="w"> </span>inspect<span class="w"> </span>--format<span class="o">=</span><span class="s1">'{{.HostConfig.PidsLimit}}'</span><span class="w"> </span>limited
+</code></pre></div>
+<h4 id="step-2-view-container-logs">Step 2: View container logs</h4>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>logs<span class="w"> </span>limited
+docker<span class="w"> </span>logs<span class="w"> </span>--tail<span class="w"> </span><span class="m">5</span><span class="w"> </span>limited
+docker<span class="w"> </span>logs<span class="w"> </span>-f<span class="w"> </span>limited<span class="w">  </span><span class="c1"># Follow logs</span>
+docker<span class="w"> </span>logs<span class="w"> </span>--since<span class="w"> </span>10m<span class="w"> </span>limited<span class="w">  </span><span class="c1"># Logs from last 10 minutes</span>
+</code></pre></div>
+<h4 id="step-3-use-docker-stats">Step 3: Use docker stats</h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># Real-time stats</span>
+docker<span class="w"> </span>stats<span class="w"> </span>limited
+
+<span class="c1"># Single snapshot</span>
+docker<span class="w"> </span>stats<span class="w"> </span>--no-stream<span class="w"> </span>limited
+
+<span class="c1"># Custom format</span>
+docker<span class="w"> </span>stats<span class="w"> </span>--no-stream<span class="w"> </span>--format<span class="w"> </span><span class="s2">"table {{.Name}}\t{{.CPUPerc}}\t{{.MemUsage}}\t{{.NetIO}}\t{{.BlockIO}}"</span>
+</code></pre></div>
+<h4 id="step-4-use-docker-top">Step 4: Use docker top</h4>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>top<span class="w"> </span>limited
+docker<span class="w"> </span>top<span class="w"> </span>limited<span class="w"> </span>-o<span class="w"> </span>pid,ppid,comm
+</code></pre></div>
+<h4 id="step-5-use-docker-diff-to-see-changes">Step 5: Use docker diff to see changes</h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># Create some files in container</span>
+docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>limited<span class="w"> </span>touch<span class="w"> </span>/tmp/test.txt
+docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>limited<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>/data
+docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>limited<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"test"</span><span class="w"> </span>&gt;<span class="w"> </span>/data/file.txt
+
+<span class="c1"># View changes</span>
+docker<span class="w"> </span>diff<span class="w"> </span>limited
+</code></pre></div>
+<hr />
+<h3 id="lab-23-overlay-filesystem-management">Lab 2.3: Overlay Filesystem Management</h3>
+<h4 id="step-1-examine-container-filesystem">Step 1: Examine container filesystem</h4>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>--name<span class="w"> </span>fs-demo<span class="w"> </span>quay.io/centos/centos:stream10<span class="w"> </span>/bin/bash
+
+<span class="c1"># Inside container</span>
+df<span class="w"> </span>-h
+mount<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>overlay
+ls<span class="w"> </span>-la<span class="w"> </span>/
+</code></pre></div>
+<h4 id="step-2-view-layer-information">Step 2: View layer information</h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># Inside container</span>
+cat<span class="w"> </span>/proc/mounts<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>overlay
+
+<span class="c1"># Exit and check on host</span>
+<span class="nb">exit</span>
+docker<span class="w"> </span>inspect<span class="w"> </span>fs-demo<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span><span class="s2">"upperdir\|merged"</span>
+</code></pre></div>
+<h4 id="step-3-understand-copy-on-write">Step 3: Understand Copy-on-Write</h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># Create container from image</span>
+docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>--name<span class="w"> </span>cow-demo<span class="w"> </span>quay.io/centos/centos:stream10<span class="w"> </span>tail<span class="w"> </span>-f<span class="w"> </span>/dev/null
+
+<span class="c1"># Modify file in container</span>
+docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>cow-demo<span class="w"> </span>sh<span class="w"> </span>-c<span class="w"> </span><span class="s1">'echo "modified" &gt; /etc/hostname'</span>
+
+<span class="c1"># Check diff</span>
+docker<span class="w"> </span>diff<span class="w"> </span>cow-demo
+</code></pre></div>
+<h4 id="step-4-manage-container-storage">Step 4: Manage container storage</h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># Check container size</span>
+docker<span class="w"> </span>system<span class="w"> </span>df<span class="w"> </span>-v
+
+<span class="c1"># Check specific container</span>
+docker<span class="w"> </span>inspect<span class="w"> </span>cow-demo<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span><span class="s2">"size"</span>
+</code></pre></div>
+<h4 id="step-5-clean-up-unused-layers">Step 5: Clean up unused layers</h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># Remove stopped containers</span>
+docker<span class="w"> </span>container<span class="w"> </span>prune
+
+<span class="c1"># Remove unused images</span>
+docker<span class="w"> </span>image<span class="w"> </span>prune<span class="w"> </span>-a
+
+<span class="c1"># Check disk usage</span>
+docker<span class="w"> </span>system<span class="w"> </span>df
+</code></pre></div>
+<hr />
+<h2 id="workshop-3-deploy-to-private-registry">Workshop 3: Deploy to Private Registry</h2>
+<h3 id="scenario-set-up-and-use-local-docker-registry">Scenario: Set Up and Use Local Docker Registry</h3>
+<h3 id="lab-31-registry-setup">Lab 3.1: Registry Setup</h3>
+<h4 id="step-1-run-local-registry-container">Step 1: Run local registry container</h4>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>--name<span class="w"> </span>local-registry<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-p<span class="w"> </span><span class="m">5000</span>:5000<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--restart<span class="w"> </span>always<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>registry:2
+</code></pre></div>
+<h4 id="step-2-configure-storage-backend">Step 2: Configure storage backend</h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># Check registry is running</span>
+docker<span class="w"> </span>ps<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>registry
+curl<span class="w"> </span>http://localhost:5000/v2/
+
+<span class="c1"># Create custom config</span>
+mkdir<span class="w"> </span>-p<span class="w"> </span>/tmp/registry
+cat<span class="w"> </span>&gt;<span class="w"> </span>/tmp/registry/config.yml<span class="w"> </span><span class="s">&lt;&lt; 'EOF'</span>
+<span class="s">version: 0.1</span>
+<span class="s">log:</span>
+<span class="s">  fields:</span>
+<span class="s">    service: registry</span>
+<span class="s">storage:</span>
+<span class="s">  cache:</span>
+<span class="s">    blobdescriptor: inmemory</span>
+<span class="s">  filesystem:</span>
+<span class="s">    rootdirectory: /var/lib/registry</span>
+<span class="s">http:</span>
+<span class="s">  addr: :5000</span>
+<span class="s">  headers:</span>
+<span class="s">    X-Content-Type-Options: [nosniff]</span>
+<span class="s">EOF</span>
+
+<span class="c1"># Restart with custom config</span>
+docker<span class="w"> </span>stop<span class="w"> </span>local-registry
+docker<span class="w"> </span>rm<span class="w"> </span>local-registry
+
+docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>--name<span class="w"> </span>local-registry<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-p<span class="w"> </span><span class="m">5000</span>:5000<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--restart<span class="w"> </span>always<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-v<span class="w"> </span>/tmp/registry/config.yml:/etc/docker/registry/config.yml<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>registry:2
+</code></pre></div>
+<h4 id="step-3-enable-authentication">Step 3: Enable authentication</h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># Create password file</span>
+mkdir<span class="w"> </span>-p<span class="w"> </span>auth
+docker<span class="w"> </span>run<span class="w"> </span>--entrypoint<span class="w"> </span>htpasswd<span class="w"> </span>httpd:2<span class="w"> </span>-Bbn<span class="w"> </span>admin<span class="w"> </span>password123<span class="w"> </span>&gt;<span class="w"> </span>auth/htpasswd
+
+<span class="c1"># Stop old registry</span>
+docker<span class="w"> </span>stop<span class="w"> </span>local-registry
+docker<span class="w"> </span>rm<span class="w"> </span>local-registry
+
+<span class="c1"># Run registry with authentication</span>
+docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>--name<span class="w"> </span>local-registry<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-p<span class="w"> </span><span class="m">5000</span>:5000<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--restart<span class="w"> </span>always<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-v<span class="w"> </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/auth:/auth<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span><span class="s2">"REGISTRY_AUTH=htpasswd"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span><span class="s2">"REGISTRY_AUTH_HTPASSWD_REALM=Registry Realm"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span><span class="s2">"REGISTRY_AUTH_HTPASSWD_PATH=/auth/htpasswd"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>registry:2
+</code></pre></div>
+<h4 id="step-4-configure-tls">Step 4: Configure TLS</h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># Generate self-signed certificate</span>
+mkdir<span class="w"> </span>-p<span class="w"> </span>certs
+openssl<span class="w"> </span>req<span class="w"> </span>-newkey<span class="w"> </span>rsa:4096<span class="w"> </span>-nodes<span class="w"> </span>-sha256<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-keyout<span class="w"> </span>certs/domain.key<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-x509<span class="w"> </span>-days<span class="w"> </span><span class="m">365</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-out<span class="w"> </span>certs/domain.crt<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-subj<span class="w"> </span><span class="s2">"/CN=localhost"</span>
+
+<span class="c1"># Stop old registry</span>
+docker<span class="w"> </span>stop<span class="w"> </span>local-registry
+docker<span class="w"> </span>rm<span class="w"> </span>local-registry
+
+<span class="c1"># Run registry with TLS</span>
+docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>--name<span class="w"> </span>local-registry<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-p<span class="w"> </span><span class="m">5000</span>:5000<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--restart<span class="w"> </span>always<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-v<span class="w"> </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/certs:/certs<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span><span class="s2">"REGISTRY_HTTP_TLS_CERTIFICATE=/certs/domain.crt"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span><span class="s2">"REGISTRY_HTTP_TLS_KEY=/certs/domain.key"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>registry:2
+</code></pre></div>
+<h4 id="step-5-test-registry-access">Step 5: Test registry access</h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># Login to registry</span>
+docker<span class="w"> </span>login<span class="w"> </span>localhost:5000
+<span class="c1"># Enter admin / password123</span>
+
+<span class="c1"># Test registry</span>
+curl<span class="w"> </span>-k<span class="w"> </span>https://localhost:5000/v2/
+</code></pre></div>
+<hr />
+<h3 id="lab-32-push-and-pull-images">Lab 3.2: Push and Pull Images</h3>
+<h4 id="step-1-build-application-image">Step 1: Build application image</h4>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/nodejs-production
+docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>nodejs-app<span class="w"> </span>.
+</code></pre></div>
+<h4 id="step-2-tag-for-local-registry">Step 2: Tag for local registry</h4>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>tag<span class="w"> </span>nodejs-app<span class="w"> </span>localhost:5000/nodejs-app:latest
+docker<span class="w"> </span>tag<span class="w"> </span>nodejs-app<span class="w"> </span>localhost:5000/nodejs-app:v1.0
+</code></pre></div>
+<h4 id="step-3-push-to-registry">Step 3: Push to registry</h4>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>push<span class="w"> </span>localhost:5000/nodejs-app:latest
+docker<span class="w"> </span>push<span class="w"> </span>localhost:5000/nodejs-app:v1.0
+</code></pre></div>
+<h4 id="step-4-pull-from-registry">Step 4: Pull from registry</h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># Remove local images</span>
+docker<span class="w"> </span>rmi<span class="w"> </span>localhost:5000/nodejs-app:latest<span class="w"> </span>localhost:5000/nodejs-app:v1.0
+
+<span class="c1"># Pull from registry</span>
+docker<span class="w"> </span>pull<span class="w"> </span>localhost:5000/nodejs-app:latest
+docker<span class="w"> </span>pull<span class="w"> </span>localhost:5000/nodejs-app:v1.0
+</code></pre></div>
+<h4 id="step-5-verify-image-integrity">Step 5: Verify image integrity</h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># Check registry contents</span>
+curl<span class="w"> </span>-k<span class="w"> </span>https://localhost:5000/v2/_catalog
+curl<span class="w"> </span>-k<span class="w"> </span>https://localhost:5000/v2/nodejs-app/tags/list
+
+<span class="c1"># Run from registry</span>
+docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>--name<span class="w"> </span>from-registry<span class="w"> </span>-p<span class="w"> </span><span class="m">3000</span>:3000<span class="w"> </span>localhost:5000/nodejs-app:latest
+curl<span class="w"> </span>http://localhost:3000
+</code></pre></div>
+<hr />
+<h3 id="lab-33-security-scanning">Lab 3.3: Security Scanning</h3>
+<h4 id="step-1-scan-image-with-docker-scout">Step 1: Scan image with Docker Scout</h4>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>scout<span class="w"> </span>quickview<span class="w"> </span>nodejs-app
+docker<span class="w"> </span>scout<span class="w"> </span>cves<span class="w"> </span>nodejs-app
+</code></pre></div>
+<h4 id="step-2-scan-with-trivy">Step 2: Scan with Trivy</h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># Install Trivy</span>
+<span class="c1"># curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh</span>
+
+<span class="c1"># Scan image</span>
+trivy<span class="w"> </span>image<span class="w"> </span>nodejs-app
+</code></pre></div>
+<h4 id="step-3-review-vulnerabilities">Step 3: Review vulnerabilities</h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># View high and critical vulnerabilities</span>
+trivy<span class="w"> </span>image<span class="w"> </span>--severity<span class="w"> </span>HIGH,CRITICAL<span class="w"> </span>nodejs-app
+
+<span class="c1"># View all vulnerabilities</span>
+trivy<span class="w"> </span>image<span class="w"> </span>--severity<span class="w"> </span>MEDIUM,HIGH,CRITICAL<span class="w"> </span>nodejs-app
+</code></pre></div>
+<h4 id="step-4-fix-high-severity-issues">Step 4: Fix high-severity issues</h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># Update base image</span>
+docker<span class="w"> </span>pull<span class="w"> </span>node:18-slim
+
+<span class="c1"># Rebuild application</span>
+docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>nodejs-secure<span class="w"> </span>.
+
+<span class="c1"># Scan again</span>
+trivy<span class="w"> </span>image<span class="w"> </span>--severity<span class="w"> </span>HIGH,CRITICAL<span class="w"> </span>nodejs-secure
+</code></pre></div>
+<h4 id="step-5-create-secure-deployment">Step 5: Create secure deployment</h4>
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>&gt;<span class="w"> </span>docker-compose.secure.yaml<span class="w"> </span><span class="s">&lt;&lt; 'EOF'</span>
+<span class="s">services:</span>
+<span class="s">  secure-app:</span>
+<span class="s">    image: localhost:5000/nodejs-app:latest</span>
+<span class="s">    ports:</span>
+<span class="s">      - "3000:3000"</span>
+<span class="s">    read_only: true</span>
+<span class="s">    security_opt:</span>
+<span class="s">      - no-new-privileges:true</span>
+<span class="s">    deploy:</span>
+<span class="s">      resources:</span>
+<span class="s">        limits:</span>
+<span class="s">          memory: 256M</span>
+<span class="s">          cpus: '0.5'</span>
+<span class="s">    restart: unless-stopped</span>
+<span class="s">    logging:</span>
+<span class="s">      driver: json-file</span>
+<span class="s">      options:</span>
+<span class="s">        max-size: "10m"</span>
+<span class="s">        max-file: "3"</span>
+<span class="s">EOF</span>
+
+docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>docker-compose.secure.yaml<span class="w"> </span>up<span class="w"> </span>-d
+docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>docker-compose.secure.yaml<span class="w"> </span>ps
+docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>docker-compose.secure.yaml<span class="w"> </span>logs
+</code></pre></div>
+<hr />
+<h2 id="reading-note-docker-advanced-commands">Reading Note: Docker Advanced Commands</h2>
+<h3 id="advanced-docker-commands-cheat-sheet">Advanced Docker Commands Cheat Sheet</h3>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>docker buildx build</code></td>
+<td>Build with BuildKit builder</td>
+</tr>
+<tr>
+<td><code>docker buildx ls</code></td>
+<td>List available builders</td>
+</tr>
+<tr>
+<td><code>docker system df</code></td>
+<td>Show Docker disk usage</td>
+</tr>
+<tr>
+<td><code>docker system prune</code></td>
+<td>Remove unused data</td>
+</tr>
+<tr>
+<td><code>docker system prune -a</code></td>
+<td>Remove all unused data</td>
+</tr>
+<tr>
+<td><code>docker inspect</code></td>
+<td>Return container/image details</td>
+</tr>
+<tr>
+<td><code>docker stats</code></td>
+<td>Display resource usage</td>
+</tr>
+<tr>
+<td><code>docker top</code></td>
+<td>Display running processes</td>
+</tr>
+<tr>
+<td><code>docker diff</code></td>
+<td>Inspect changes in container</td>
+</tr>
+<tr>
+<td><code>docker logs</code></td>
+<td>Fetch container logs</td>
+</tr>
+<tr>
+<td><code>docker port</code></td>
+<td>List port mappings</td>
+</tr>
+<tr>
+<td><code>docker network ls</code></td>
+<td>List networks</td>
+</tr>
+<tr>
+<td><code>docker network inspect</code></td>
+<td>Inspect network details</td>
+</tr>
+<tr>
+<td><code>docker scout cves</code></td>
+<td>Scan for vulnerabilities</td>
+</tr>
+<tr>
+<td><code>docker scout quickview</code></td>
+<td>Quick vulnerability overview</td>
+</tr>
+<tr>
+<td><code>docker trust</code></td>
+<td>Content trust</td>
+</tr>
+<tr>
+<td><code>docker manifest</code></td>
+<td>Inspect image manifests</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="quiz">Quiz</h2>
+<details class="question">
+<summary>Question 1: What is the purpose of a health check in Docker?</summary>
+<p><strong>Answer:</strong></p>
+<p>A health check allows Docker to automatically monitor container health and restart unhealthy containers. It's defined with <code>HEALTHCHECK</code> instruction in Dockerfile or <code>healthcheck</code> in docker-compose.</p>
+</details>
+<details class="question">
+<summary>Question 2: How do you run a container as non-root?</summary>
+<p><strong>Answer:</strong></p>
+<p>Use the <code>USER</code> instruction in Dockerfile or <code>--user</code> flag in docker run. Example: <code>USER appuser</code> or <code>docker run --user 1000:1000 image</code></p>
+</details>
+<details class="question">
+<summary>Question 3: What is the benefit of read-only containers?</summary>
+<p><strong>Answer:</strong></p>
+<p>Read-only containers prevent write operations, improving security by reducing attack surface. Use <code>--read-only</code> flag.</p>
+</details>
+<details class="question">
+<summary>Question 4: How do you configure logging in Docker?</summary>
+<p><strong>Answer:</strong></p>
+<p>Use <code>--log-driver</code> to specify driver and <code>--log-opt</code> for options. Example: <code>docker run --log-driver=json-file --log-opt max-size=10m image</code></p>
+</details>
+<details class="question">
+<summary>Question 5: What is the difference between --memory and --memory-swap?</summary>
+<p><strong>Answer:</strong></p>
+<p><code>--memory</code> sets the memory limit, while <code>--memory-swap</code> sets the total memory + swap limit. Swap = --memory-swap - --memory.</p>
+</details>
+<details class="question">
+<summary>Question 6: How do you scan Docker images for vulnerabilities?</summary>
+<p><strong>Answer:</strong></p>
+<p>Use Docker Scout (<code>docker scout cves image</code>) or Trivy (<code>trivy image image</code>) to scan for known vulnerabilities.</p>
+</details>
+<details class="question">
+<summary>Question 7: What is a Docker private registry?</summary>
+<p><strong>Answer:</strong></p>
+<p>A private registry is a self-hosted Docker image storage service that allows you to store and distribute Docker images privately.</p>
+</details>
+<details class="question">
+<summary>Question 8: How do you enable authentication for a registry?</summary>
+<p><strong>Answer:</strong></p>
+<p>Use htpasswd to create credentials, then configure <code>REGISTRY_AUTH</code> environment variables with the htpasswd file path.</p>
+</details>
+<details class="question">
+<summary>Question 9: What is the purpose of .dockerignore?</summary>
+<p><strong>Answer:</strong></p>
+<p><code>.dockerignore</code> excludes files from the build context, reducing build time and preventing sensitive files from being copied into the image.</p>
+</details>
+<details class="question">
+<summary>Question 10: How do you clean up unused Docker resources?</summary>
+<p><strong>Answer:</strong></p>
+<p>Use <code>docker system prune</code> to remove unused data, <code>docker container prune</code> for stopped containers, <code>docker image prune -a</code> for unused images.</p>
+</details>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2025 sawangpong muadphet
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.top", "navigation.footer"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

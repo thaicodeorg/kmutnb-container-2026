@@ -630,14 +630,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../07-workshop-basic/" class="md-nav__link">
+      <a href="../07-workshop-1/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    7. Workshop Basic
+    7. Workshop 1
   
 
     
@@ -658,7 +658,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../08-workshop-webserver/" class="md-nav__link">
+      <a href="../08-workshop-webserver.md" class="md-nav__link">
         
   
   
@@ -686,7 +686,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../09-workshop-fullstack/" class="md-nav__link">
+      <a href="../09-workshop-fullstack.md" class="md-nav__link">
         
   
   
@@ -714,7 +714,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../10-cgroups-namespaces-security/" class="md-nav__link">
+      <a href="../10-cgroups-namespaces-security.md" class="md-nav__link">
         
   
   
@@ -1019,13 +1019,13 @@ output:
 cd myMariadb
 </code></pre></div></p>
 <p>1.1 create Dockerfile
-<div class="highlight"><pre><span></span><code>cat &gt;  Dockerfile &lt;&lt; &#39;EOF&#39;
+<div class="highlight"><pre><span></span><code>cat &gt;  Dockerfile &lt;&lt; 'EOF'
 # Use the official SCLorg CentOS Stream 10 MariaDB 11.8 image
 FROM quay.io/sclorg/mariadb-118-c10s
 
 # Metadata labels (optional)
-LABEL maintainer=&quot;your-email@example.com&quot; \
-      summary=&quot;Custom MariaDB 11.8 with baked-in environment variables&quot;
+LABEL maintainer="your-email@example.com" \
+      summary="Custom MariaDB 11.8 with baked-in environment variables"
 
 # Set environment variables for initialization
 ENV MYSQL_ROOT_PASSWORD=root_secret \
@@ -1086,7 +1086,7 @@ CREATE DATABASE my_test_db;
 <li>Run without <code>-p</code><br />
 <div class="highlight"><pre><span></span><code>docker exec -it mariadb-118-container mariadb -u root 
 
-GRANT ALL PRIVILEGES ON my_test_db.* TO &#39;app_user&#39;@&#39;%&#39;;
+GRANT ALL PRIVILEGES ON my_test_db.* TO 'app_user'@'%';
 FLUSH PRIVILEGES;
 </code></pre></div>
 <img alt="" src="../../assets/images/basic-docker23.png" /></li>
@@ -1126,13 +1126,13 @@ mkdir<span class="w"> </span>basicdocker1
 <span class="nb">cd</span><span class="w"> </span>basicdocker1
 </code></pre></div>
 - use structure to generate file (Linux Admin skill call heredoc)
-<div class="highlight"><pre><span></span><code>cat &gt; Dockerfile &lt;&lt; &#39;EOF&#39;
+<div class="highlight"><pre><span></span><code>cat &gt; Dockerfile &lt;&lt; 'EOF'
 
 ## content will go here
 EOF
 </code></pre></div></p>
 <p>2.2 generate <code>Dockerfile</code> to create docker image
-<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>&gt;<span class="w"> </span>Dockerfile<span class="w">  </span><span class="s">&lt;&lt; &#39;EOF&#39;</span>
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>&gt;<span class="w"> </span>Dockerfile<span class="w">  </span><span class="s">&lt;&lt; 'EOF'</span>
 <span class="s">FROM quay.io/sclorg/httpd-24-c10s</span>
 
 <span class="s"># --- Switch to root to install packages ---</span>
@@ -1141,7 +1141,7 @@ EOF
 <span class="s"># Install additional packages</span>
 <span class="s">RUN dnf install -y curl nginx</span>
 
-<span class="s"># --- Create log directories and set permissions for the &#39;default&#39; user ---</span>
+<span class="s"># --- Create log directories and set permissions for the 'default' user ---</span>
 <span class="s"># Added /var/log/nginx to the list of directories created and chowned</span>
 <span class="s">RUN mkdir -p /app/logs /run/nginx /var/lib/nginx/tmp /var/log/nginx &amp;&amp; \</span>
 <span class="s">    chown -R default:root /app/logs /run/nginx /var/lib/nginx /var/log/nginx</span>
@@ -1161,18 +1161,18 @@ EOF
 <span class="s"># Expose the unprivileged port</span>
 <span class="s">EXPOSE 8080</span>
 
-<span class="s">CMD [&quot;nginx&quot;, &quot;-g&quot;, &quot;daemon off;&quot;]</span>
+<span class="s">CMD ["nginx", "-g", "daemon off;"]</span>
 <span class="s">EOF</span>
 </code></pre></div>
 output:
 <img alt="" src="../../assets/images/basic-docker6.png" /></p>
 <p>2.3 generate <code>index.html</code>
-<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>&gt;<span class="w"> </span>index.html<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39;</span>
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>&gt;<span class="w"> </span>index.html<span class="w"> </span><span class="s">&lt;&lt; 'EOF'</span>
 <span class="s">&lt;!DOCTYPE html&gt;</span>
 <span class="s">&lt;html&gt;</span>
 <span class="s">&lt;head&gt;</span>
 <span class="s">    &lt;title&gt;Web is Running&lt;/title&gt;</span>
-<span class="s">    &lt;script src=&quot;app.js&quot;&gt;&lt;/script&gt;</span>
+<span class="s">    &lt;script src="app.js"&gt;&lt;/script&gt;</span>
 <span class="s">&lt;/head&gt;</span>
 <span class="s">&lt;body&gt;</span>
 <span class="s">    &lt;h1&gt;🚀 Web is Running!&lt;/h1&gt;</span>
@@ -1185,15 +1185,15 @@ output:
 output:
 <img alt="" src="../../assets/images/basic-docker7.png" /></p>
 <p>2.4 generate <code>app.js</code> 
-<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>&gt;<span class="w"> </span>app.js<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39;</span>
-<span class="s">console.log(&quot;✅ Web is running! App.js loaded successfully.&quot;);</span>
-<span class="s">alert(&quot;Hello from app.js!&quot;);</span>
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>&gt;<span class="w"> </span>app.js<span class="w"> </span><span class="s">&lt;&lt; 'EOF'</span>
+<span class="s">console.log("✅ Web is running! App.js loaded successfully.");</span>
+<span class="s">alert("Hello from app.js!");</span>
 <span class="s">EOF</span>
 </code></pre></div>
 output:
 <img alt="" src="../../assets/images/basic-docker8.png" /></p>
 <p>2.5 generate <code>nginx.conf</code>
-<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>&gt;<span class="w"> </span>nginx.conf<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39;</span>
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>&gt;<span class="w"> </span>nginx.conf<span class="w"> </span><span class="s">&lt;&lt; 'EOF'</span>
 <span class="s"># --- Tell Nginx to write the PID file in the writable directory ---</span>
 <span class="s">pid /run/nginx/nginx.pid;</span>
 <span class="s">error_log /app/logs/error.log;</span>
@@ -1227,7 +1227,7 @@ output:<br />
 <p>2.6 List output files in project folder </p>
 <p><img alt="" src="../../assets/images/basic-docker10.png" /></p>
 <p>2.7 Explaination
-<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>&gt;<span class="w"> </span>Dockerfile<span class="w">  </span>&lt;&lt;<span class="w"> </span><span class="s1">&#39;EOF&#39;</span>
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>&gt;<span class="w"> </span>Dockerfile<span class="w">  </span>&lt;&lt;<span class="w"> </span><span class="s1">'EOF'</span>
 <span class="k">FROM</span><span class="w"> </span><span class="s">quay.io/sclorg/httpd-24-c10s</span>
 
 <span class="c"># --- Switch to root to install packages ---</span>
@@ -1236,7 +1236,7 @@ output:<br />
 <span class="c"># Install additional packages</span>
 <span class="k">RUN</span><span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>curl<span class="w"> </span>nginx
 
-<span class="c"># --- Create log directories and set permissions for the &#39;default&#39; user ---</span>
+<span class="c"># --- Create log directories and set permissions for the 'default' user ---</span>
 <span class="c"># Added /var/log/nginx to the list of directories created and chowned</span>
 <span class="k">RUN</span><span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>/app/logs<span class="w"> </span>/run/nginx<span class="w"> </span>/var/lib/nginx/tmp<span class="w"> </span>/var/log/nginx<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>chown<span class="w"> </span>-R<span class="w"> </span>default:root<span class="w"> </span>/app/logs<span class="w"> </span>/run/nginx<span class="w"> </span>/var/lib/nginx<span class="w"> </span>/var/log/nginx
@@ -1256,7 +1256,7 @@ output:<br />
 <span class="c"># Expose the unprivileged port</span>
 <span class="k">EXPOSE</span><span class="w"> </span><span class="s">8080</span>
 
-<span class="k">CMD</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;nginx&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;-g&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;daemon off;&quot;</span><span class="p">]</span>
+<span class="k">CMD</span><span class="w"> </span><span class="p">[</span><span class="s2">"nginx"</span><span class="p">,</span><span class="w"> </span><span class="s2">"-g"</span><span class="p">,</span><span class="w"> </span><span class="s2">"daemon off;"</span><span class="p">]</span>
 EOF
 </code></pre></div>
 2.8 Enable firewall 
@@ -1266,7 +1266,7 @@ sudo<span class="w"> </span>firewall-cmd<span class="w"> </span>--reload
 <p>2.9 Build and Run
 - docker will run command line by line
 - each time when it run will create readonly layer
-<div class="highlight"><pre><span></span><code><span class="c1"># Build the image (do not &#39;dot&#39; end of command)</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># Build the image (do not 'dot' end of command)</span>
 docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>my-http-app<span class="w"> </span>.
 </code></pre></div>
 output: 
@@ -1286,7 +1286,7 @@ how we can check each layer
 <p>2.11 Create host_logs folder to store log outsite container
 <div class="highlight"><pre><span></span><code>mkdir -p ./host_logs
 sudo chmod 777 ./host_logs
-docker run  -p 8080:80 --name my-http-container  -v &quot;$(pwd)/host_logs:/app/logs&quot; my-http-app
+docker run  -p 8080:80 --name my-http-container  -v "$(pwd)/host_logs:/app/logs" my-http-app
 
 # after run terminal will hold session - not return terminal to user
 </code></pre></div>

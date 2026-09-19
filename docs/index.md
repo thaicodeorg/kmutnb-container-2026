@@ -12,6 +12,7 @@
 - [5. Create container image & Dockerfile](book/04-dockerfile.md)
 - [6. Docker Compose](book/05-docker-compose.md)
 - [7. Multi-Stage Build](book/06-advanced.md)
+- [8. Work shop 1 : Cafe App](book/07-workshop-1.md)
 
 
 

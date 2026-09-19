@@ -1,0 +1,1839 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>✅ Chapter 6: Docker Advanced — Student Self-Verification Checklist - Kmutnb Docker container</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans+Thai+Looped:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"IBM Plex Sans Thai Looped";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#chapter-6-docker-advanced-student-self-verification-checklist" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Kmutnb Docker container" class="md-header__button md-logo" aria-label="Kmutnb Docker container" data-md-component="logo">
+      
+  <img src="../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Kmutnb Docker container
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              ✅ Chapter 6: Docker Advanced — Student Self-Verification Checklist
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Kmutnb Docker container" class="md-nav__button md-logo" aria-label="Kmutnb Docker container" data-md-component="logo">
+      
+  <img src="../../assets/logo.png" alt="logo">
+
+    </a>
+    Kmutnb Docker container
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Book
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Book
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../book/01-fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Fundamentals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../book/02-installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../book/03-basic-operations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Basic Operations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../book/04-dockerfile/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Dockerfile
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../book/05-docker-compose/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Docker Compose
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../book/06-advanced/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Advanced
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../book/07-workshop-1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. Workshop 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../book/08-workshop-webserver.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Workshop Webserver
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../book/09-workshop-fullstack.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Workshop Fullstack
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../book/10-cgroups-namespaces-security.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Cgroups, Namespaces & Security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#workshop-1-image-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🏭 Workshop 1: Image Optimization
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🏭 Workshop 1: Image Optimization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lab-11-multi-stage-build-go-application" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📘 Lab 1.1: Multi-stage Build – Go Application
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lab-12-buildkit-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📘 Lab 1.2: BuildKit Features
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lab-13-image-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📘 Lab 1.3: Image Analysis
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workshop-2-container-internals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔬 Workshop 2: Container Internals
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔬 Workshop 2: Container Internals">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lab-21-understanding-overlay-filesystem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📘 Lab 2.1: Understanding Overlay Filesystem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lab-22-resource-limits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📘 Lab 2.2: Resource Limits
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lab-23-container-inspection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📘 Lab 2.3: Container Inspection
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workshop-3-advanced-networking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🌐 Workshop 3: Advanced Networking
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🌐 Workshop 3: Advanced Networking">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lab-31-docker-network-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📘 Lab 3.1: Docker Network Types
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lab-32-port-mapping-and-exposing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📘 Lab 3.2: Port Mapping and Exposing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lab-33-upload-image-to-docker-hub" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📘 Lab 3.3: Upload Image to Docker Hub
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overall-progress-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📋 Overall Progress Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#concept-mastery-self-check" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧠 Concept Mastery Self-Check
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quiz-self-check-chapter-6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📚 Quiz Self-Check (Chapter 6)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting-quick-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔑 Troubleshooting Quick Reference
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#submission-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ Submission Checklist
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="chapter-6-docker-advanced-student-self-verification-checklist">✅ Chapter 6: Docker Advanced — Student Self-Verification Checklist</h1>
+<blockquote>
+<p><strong>How to use this checklist:</strong>
+- Tick <code>☐</code> in the <strong>Done</strong> column as you complete each step.
+- Take a <strong>screenshot</strong> for every step marked with 📸 — required for submission.
+- Fill in the <strong>Notes</strong> column if you hit errors or made changes.
+- Complete the <strong>Concept Mastery</strong> and <strong>Quiz Self-Check</strong> sections at the end.</p>
+</blockquote>
+<hr />
+<h2 id="workshop-1-image-optimization">🏭 Workshop 1: Image Optimization</h2>
+<h3 id="lab-11-multi-stage-build-go-application">📘 Lab 1.1: Multi-stage Build – Go Application</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Step</th>
+<th>Command / Action</th>
+<th>Expected Result</th>
+<th style="text-align: center;">Done</th>
+<th style="text-align: center;">📸</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Create project dir</td>
+<td><code>mkdir ~/go-multistage &amp;&amp; cd ~/go-multistage</code></td>
+<td>Directory exists</td>
+<td style="text-align: center;">☐</td>
+<td style="text-align: center;">☐</td>
+<td></td>
+</tr>
+<tr>
+<td>2</td>
+<td>Create <code>main.go</code></td>
+<td><code>cat &gt; main.go &lt;&lt; 'EOF' ... EOF</code></td>
+<td>Go HTTP server on :8080</td>
+<td style="text-align: center;">☐</td>
+<td style="text-align: center;">☐</td>
+<td></td>
+</tr>
+<tr>
+<td>3</td>
+<td>Create <code>Dockerfile.single</code></td>
+<td>Single-stage <code>golang:1.21</code> build</td>
+<td>File exists</td>
+<td style="text-align: center;">☐</td>
+<td style="text-align: center;">☐</td>
+<td></td>
+</tr>
+<tr>
+<td>4</td>
+<td>Build single-stage</td>
+<td><code>docker build -t go-single -f Dockerfile.single .</code></td>
+<td>Image built</td>
+<td style="text-align: center;">☐</td>
+<td style="text-align: center;">☐</td>
+<td></td>
+</tr>
+<tr>
+<td>4b</td>
+<td>Check size</td>
+<td><code>docker images go-single</code></td>
+<td>~1.28 GB disk / 316 MB content</td>
+<td style="text-align: center;">☐</td>
+<td style="text-align: center;">☐</td>
+<td></td>
+</tr>
+<tr>
+<td>5</td>
+<td>Create multi-stage <code>Dockerfile</code></td>
+<td><code>builder</code> + <code>alpine:3.18</code> final</td>
+<td>File exists</td>
+<td style="text-align: center;">☐</td>
+<td style="text-align: center;">☐</td>
+<td></td>
+</tr>
+<tr>
+<td>6</td>
+<td>Build multi-stage</td>
+<td><code>docker build -t go-multi .</code></td>
+<td>~23 MB disk / 7.61 MB content</td>
+<td style="text-align: center;">☐</td>
+<td style="text-align: center;">☐</td>
+<td></td>
+</tr>
+<tr>
+<td>6b</td>
+<td>Compare</td>
+<td><code>docker images \| grep go-</code></td>
+<td>Both images listed</td>
+<td style="text-align: center;">☐</td>
+<td style="text-align: center;">☐</td>
+<td></td>
+</tr>
+<tr>
+<td>7</td>
+<td>Verify app works</td>
+<td><code>docker run -d --name go-app -p 8080:8080 go-multi</code> + <code>curl localhost:8080</code></td>
+<td>"Hello from Go container!"</td>
+<td style="text-align: center;">☐</td>
+<td style="text-align: center;">☐</td>
+<td></td>
+</tr>
+<tr>
+<td>7b</td>
+<td>Cleanup</td>
+<td><code>docker stop go-app &amp;&amp; docker rm go-app</code></td>
+<td>Container removed</td>
+<td style="text-align: center;">☐</td>
+<td style="text-align: center;">☐</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="lab-12-buildkit-features">📘 Lab 1.2: BuildKit Features</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Step</th>
+<th>Command / Action</th>
+<th>Expected Result</th>
+<th style="text-align: center;">Done</th>
+<th style="text-align: center;">📸</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Enable BuildKit</td>
+<td><code>export DOCKER_BUILDKIT=1</code></td>
+<td>Env var set</td>
+<td style="text-align: center;">☐</td>
+<td style="text-align: center;">☐</td>
+<td></td>
+</tr>
+<tr>
+<td>2</td>
+<td>Create <code>Dockerfile.buildkit</code></td>
+<td>With <code>--mount=type=cache</code> for Go mod/build</td>
+<td>File exists</td>
+<td style="text-align: center;">☐</td>
+<td style="text-align: center;">☐</td>
+<td></td>
+</tr>
+<tr>
+<td>3</td>
+<td>Build with BuildKit</td>
+<td><code>DOCKER_BUILDKIT=1 docker build -t go-buildkit -f Dockerfile.buildkit .</code></td>
+<td>Image built</td>
+<td style="text-align: center;">☐</td>
+<td style="text-align: center;">☐</td>
+<td></td>
+</tr>
+<tr>
+<td>3b</td>
+<td>Time cached rebuild</td>
+<td><code>time docker build -t go-buildkit-cache -f Dockerfile.buildkit .</code></td>
+<td>Second build faster</td>
+<td style="text-align: center;">☐</td>
+<td style="text-align: center;">☐</td>
+<td></td>
+</tr>
+<tr>
+<td>4</td>
+<td>Create secret file</td>
+<td><code>echo "my-api-key-12345" &gt; api-key.txt</code></td>
+<td>File exists</td>
+<td style="text-align: center;">☐</td>
+<td style="text-align: center;">☐</td>
+<td></td>
+</tr>
+<tr>
+<td>4b</td>
+<td>Create <code>Dockerfile.secret</code></td>
+<td>Uses <code>--mount=type=secret,id=apikey</code></td>
+<td>File exists</td>
+<td style="text-align: center;">☐</td>
+<td style="text-align: center;">☐</td>
+<td></td>
+</tr>
+<tr>
+<td>4c</td>
+<td>Build with secret</td>
+<td><code>docker build --secret id=apikey,src=api-key.txt -t go-secret .</code></td>
+<td>Image built</td>
+<td style="text-align: center;">☐</td>
+<td style="text-align: center;">☐</td>
+<td></td>
+</tr>
+<tr>
+<td>5</td>
+<td>Verify secret NOT in image</td>
+<td><code>docker history go-secret</code></td>
+<td>No <code>apikey</code> layer visible</td>
+<td style="text-align: center;">☐</td>
+<td style="text-align: center;">☐</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="lab-13-image-analysis">📘 Lab 1.3: Image Analysis</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Step</th>
+<th>Command / Action</th>
+<th>Expected Result</th>
+<th style="text-align: center;">Done</th>
+<th style="text-align: center;">📸</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Inspect layers</td>
+<td><code>docker history go-multi</code> and <code>docker history go-single</code></td>
+<td>Layer sizes shown</td>
+<td style="text-align: center;">☐</td>
+<td style="text-align: center;">☐</td>
+<td></td>
+</tr>
+<tr>
+<td>2</td>
+<td>Install <code>dive</code></td>
+<td><code>sudo dnf install -y https://github.com/wagoodman/dive/releases/download/v0.13.1/dive_0.13.1_linux_amd64.rpm</code></td>
+<td><code>dive --version</code> works</td>
+<td style="text-align: center;">☐</td>
+<td style="text-align: center;">☐</td>
+<td></td>
+</tr>
+<tr>
+<td>2b</td>
+<td>Analyze image</td>
+<td><code>dive go-multi</code></td>
+<td>Two-pane UI, efficiency score</td>
+<td style="text-align: center;">☐</td>
+<td style="text-align: center;">☐</td>
+<td></td>
+</tr>
+<tr>
+<td>3</td>
+<td>Create <code>.dockerignore</code></td>
+<td><code>cat &gt; .dockerignore &lt;&lt; 'EOF' ... EOF</code></td>
+<td>File exists</td>
+<td style="text-align: center;">☐</td>
+<td style="text-align: center;">☐</td>
+<td></td>
+</tr>
+<tr>
+<td>4</td>
+<td>Rebuild optimized</td>
+<td><code>DOCKER_BUILDKIT=1 docker build -t go-optimized .</code></td>
+<td>Image built faster</td>
+<td style="text-align: center;">☐</td>
+<td style="text-align: center;">☐</td>
+<td></td>
+</tr>
+<tr>
+<td>4b</td>
+<td>Compare</td>
+<td><code>docker images go-optimized</code></td>
+<td>Size close to <code>go-multi</code></td>
+<td style="text-align: center;">☐</td>
+<td style="text-align: center;">☐</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="workshop-2-container-internals">🔬 Workshop 2: Container Internals</h2>
+<h3 id="lab-21-understanding-overlay-filesystem">📘 Lab 2.1: Understanding Overlay Filesystem</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Step</th>
+<th>Command / Action</th>
+<th>Expected Result</th>
+<th style="text-align: center;">Done</th>
+<th style="text-align: center;">📸</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Run CentOS container</td>
+<td><code>docker run -it --name overlay-test quay.io/centos/centos:stream10 /bin/bash</code></td>
+<td>Shell inside container</td>
+<td style="text-align: center;">☐</td>
+<td style="text-align: center;">☐</td>
+<td></td>
+</tr>
+<tr>
+<td>2</td>
+<td>View overlay mount</td>
+<td><code>mount \| grep overlay</code> and <code>cat /proc/mounts \| grep overlay</code></td>
+<td>Shows <code>lowerdir</code>, <code>upperdir</code>, <code>workdir</code></td>
+<td style="text-align: center;">☐</td>
+<td style="text-align: center;">☐</td>
+<td></td>
+</tr>
+<tr>
+<td>2b</td>
+<td>Break down output</td>
+<td>Identify each field</td>
+<td>Can explain each</td>
+<td style="text-align: center;">☐</td>
+<td style="text-align: center;">☐</td>
+<td></td>
+</tr>
+<tr>
+<td>3</td>
+<td>Create files</td>
+<td><code>mkdir -p /test &amp;&amp; echo "container file" &gt; /test/file.txt &amp;&amp; cat /test/file.txt</code></td>
+<td>File created &amp; displayed</td>
+<td style="text-align: center;">☐</td>
+<td style="text-align: center;">☐</td>
+<td></td>
+</tr>
+<tr>
+<td>4</td>
+<td>Exit &amp; restart</td>
+<td><code>exit</code> then <code>docker start overlay-test &amp;&amp; docker ps</code></td>
+<td>Container running again</td>
+<td style="text-align: center;">☐</td>
+<td style="text-align: center;">☐</td>
+<td></td>
+</tr>
+<tr>
+<td>4b</td>
+<td>Find <code>upperdir</code></td>
+<td><code>cat /proc/$(docker inspect -f '{{.State.Pid}}' overlay-test)/mountinfo \| grep overlay</code></td>
+<td>Paths shown</td>
+<td style="text-align: center;">☐</td>
+<td style="text-align: center;">☐</td>
+<td></td>
+</tr>
+<tr>
+<td>5</td>
+<td>View layer contents</td>
+<td><strong>Rootless:</strong> <code>ls ~/.local/share/docker/containerd/.../snapshots/</code> <strong>Rootful:</strong> <code>sudo ls /var/lib/docker/overlay2/</code></td>
+<td>Layer dirs listed</td>
+<td style="text-align: center;">☐</td>
+<td style="text-align: center;">☐</td>
+<td></td>
+</tr>
+<tr>
+<td>6</td>
+<td>Compare &amp; commit</td>
+<td><code>docker diff overlay-test</code> → <code>docker commit overlay-test overlay-test-snapshot</code> → <code>docker history overlay-test-snapshot</code></td>
+<td>Diff shows <code>/test</code>, new image created</td>
+<td style="text-align: center;">☐</td>
+<td style="text-align: center;">☐</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="lab-22-resource-limits">📘 Lab 2.2: Resource Limits</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Step</th>
+<th>Command / Action</th>
+<th>Expected Result</th>
+<th style="text-align: center;">Done</th>
+<th style="text-align: center;">📸</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Memory limit</td>
+<td><code>docker run -d --name memory-limit --memory=256m quay.io/centos/centos:stream10 tail -f /dev/null</code></td>
+<td><code>docker stats</code> shows 256 MB limit</td>
+<td style="text-align: center;">☐</td>
+<td style="text-align: center;">☐</td>
+<td></td>
+</tr>
+<tr>
+<td>2</td>
+<td>CPU limit</td>
+<td><code>docker run -d --name cpu-limit --cpus=0.5 ...</code></td>
+<td>0.5 CPU limit in <code>stats</code></td>
+<td style="text-align: center;">☐</td>
+<td style="text-align: center;">☐</td>
+<td></td>
+</tr>
+<tr>
+<td>3</td>
+<td>PID limit</td>
+<td><code>docker run -d --name pid-limit --pids-limit=50 ...</code> + fork test</td>
+<td>PID fork fails after 50</td>
+<td style="text-align: center;">☐</td>
+<td style="text-align: center;">☐</td>
+<td></td>
+</tr>
+<tr>
+<td>4</td>
+<td>Monitor all</td>
+<td><code>docker stats --no-stream</code></td>
+<td>Table of running containers</td>
+<td style="text-align: center;">☐</td>
+<td style="text-align: center;">☐</td>
+<td></td>
+</tr>
+<tr>
+<td>5</td>
+<td>Combined limits</td>
+<td><code>docker run -d --name combined-limit --memory=128m --cpus=0.25 --pids-limit=25 ...</code></td>
+<td>All limits applied</td>
+<td style="text-align: center;">☐</td>
+<td style="text-align: center;">☐</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="lab-23-container-inspection">📘 Lab 2.3: Container Inspection</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Step</th>
+<th>Command / Action</th>
+<th>Expected Result</th>
+<th style="text-align: center;">Done</th>
+<th style="text-align: center;">📸</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Inspect container</td>
+<td><code>docker inspect combined-limit</code></td>
+<td>Full JSON config</td>
+<td style="text-align: center;">☐</td>
+<td style="text-align: center;">☐</td>
+<td></td>
+</tr>
+<tr>
+<td>1b</td>
+<td>Format queries</td>
+<td><code>docker inspect --format='{{.HostConfig.Memory}}' combined-limit</code></td>
+<td><code>134217728</code> (128 MB)</td>
+<td style="text-align: center;">☐</td>
+<td style="text-align: center;">☐</td>
+<td></td>
+</tr>
+<tr>
+<td>1c</td>
+<td>CPU format</td>
+<td><code>docker inspect --format='{{.HostConfig.NanoCpus}}' combined-limit</code></td>
+<td><code>250000000</code> (0.25 CPU)</td>
+<td style="text-align: center;">☐</td>
+<td style="text-align: center;">☐</td>
+<td></td>
+</tr>
+<tr>
+<td>2</td>
+<td>View logs</td>
+<td><code>docker logs overlay-test</code>, <code>docker logs -f ...</code>, <code>docker logs --tail 10 ...</code></td>
+<td>Logs shown (empty if idle)</td>
+<td style="text-align: center;">☐</td>
+<td style="text-align: center;">☐</td>
+<td></td>
+</tr>
+<tr>
+<td>3</td>
+<td>Stats table</td>
+<td><code>docker stats --no-stream --format "table {{.Name}}\t{{.CPUPerc}}\t{{.MemUsage}}"</code></td>
+<td>Formatted table</td>
+<td style="text-align: center;">☐</td>
+<td style="text-align: center;">☐</td>
+<td></td>
+</tr>
+<tr>
+<td>4</td>
+<td>Process list</td>
+<td><code>docker top combined-limit</code> and <code>-o pid,comm</code></td>
+<td>Processes shown</td>
+<td style="text-align: center;">☐</td>
+<td style="text-align: center;">☐</td>
+<td></td>
+</tr>
+<tr>
+<td>5</td>
+<td>Diff changes</td>
+<td><code>docker exec combined-limit touch /tmp/test-file</code> then <code>docker diff combined-limit</code></td>
+<td>Shows <code>A /tmp/test-file</code></td>
+<td style="text-align: center;">☐</td>
+<td style="text-align: center;">☐</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="workshop-3-advanced-networking">🌐 Workshop 3: Advanced Networking</h2>
+<h3 id="lab-31-docker-network-types">📘 Lab 3.1: Docker Network Types</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Step</th>
+<th>Command / Action</th>
+<th>Expected Result</th>
+<th style="text-align: center;">Done</th>
+<th style="text-align: center;">📸</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>List networks</td>
+<td><code>docker network ls</code>, <code>docker network inspect bridge</code></td>
+<td>Default bridge shown</td>
+<td style="text-align: center;">☐</td>
+<td style="text-align: center;">☐</td>
+<td></td>
+</tr>
+<tr>
+<td>2</td>
+<td>Create bridge</td>
+<td><code>docker network create --driver bridge my-bridge</code></td>
+<td>Network created</td>
+<td style="text-align: center;">☐</td>
+<td style="text-align: center;">☐</td>
+<td></td>
+</tr>
+<tr>
+<td>3</td>
+<td>Create host network</td>
+<td><code>docker network create --driver host my-host</code></td>
+<td>⚠️ May error (<code>host</code> is built-in)</td>
+<td style="text-align: center;">☐</td>
+<td style="text-align: center;">☐</td>
+<td></td>
+</tr>
+<tr>
+<td>4</td>
+<td>Run containers</td>
+<td><code>docker run -d --name net-test-1 --network my-bridge ...</code> and <code>net-test-2</code></td>
+<td>Both running</td>
+<td style="text-align: center;">☐</td>
+<td style="text-align: center;">☐</td>
+<td></td>
+</tr>
+<tr>
+<td>4b</td>
+<td>Install <code>ping</code></td>
+<td><code>docker exec -it net-test-1 bash -c "dnf install -y iputils &amp;&amp; ping -c 3 net-test-2"</code></td>
+<td>Ping succeeds</td>
+<td style="text-align: center;">☐</td>
+<td style="text-align: center;">☐</td>
+<td></td>
+</tr>
+<tr>
+<td>5</td>
+<td>Test communication</td>
+<td><code>docker exec net-test-1 ping net-test-2</code> and <code>curl net-test-2</code></td>
+<td>DNS resolves, ping succeeds</td>
+<td style="text-align: center;">☐</td>
+<td style="text-align: center;">☐</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="lab-32-port-mapping-and-exposing">📘 Lab 3.2: Port Mapping and Exposing</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Step</th>
+<th>Command / Action</th>
+<th>Expected Result</th>
+<th style="text-align: center;">Done</th>
+<th style="text-align: center;">📸</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Map port</td>
+<td><code>docker run -d --name port-test -p 8080:80 quay.io/sclorg/httpd-24-c10s</code> + <code>curl localhost:8080</code></td>
+<td>HTTP response</td>
+<td style="text-align: center;">☐</td>
+<td style="text-align: center;">☐</td>
+<td></td>
+</tr>
+<tr>
+<td>2</td>
+<td>Random ports</td>
+<td><code>docker run -d --name port-random -P quay.io/sclorg/httpd-24-c10s</code> + <code>docker port port-random</code></td>
+<td>Random host port assigned</td>
+<td style="text-align: center;">☐</td>
+<td style="text-align: center;">☐</td>
+<td></td>
+</tr>
+<tr>
+<td>3</td>
+<td>Query ports</td>
+<td><code>docker port port-test</code> and <code>docker port port-test 80</code></td>
+<td>Mapping shown</td>
+<td style="text-align: center;">☐</td>
+<td style="text-align: center;">☐</td>
+<td></td>
+</tr>
+<tr>
+<td>4</td>
+<td>Bind to interface</td>
+<td><code>docker run -d --name port-bind-2 -p 127.0.0.1:9092:80 ...</code> + <code>curl 127.0.0.1:9092</code></td>
+<td>Only localhost works</td>
+<td style="text-align: center;">☐</td>
+<td style="text-align: center;">☐</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="lab-33-upload-image-to-docker-hub">📘 Lab 3.3: Upload Image to Docker Hub</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Step</th>
+<th>Command / Action</th>
+<th>Expected Result</th>
+<th style="text-align: center;">Done</th>
+<th style="text-align: center;">📸</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Create Docker Hub account</td>
+<td>Sign up at https://hub.docker.com</td>
+<td>Account created</td>
+<td style="text-align: center;">☐</td>
+<td style="text-align: center;">☐</td>
+<td></td>
+</tr>
+<tr>
+<td>2</td>
+<td>Login from CLI</td>
+<td><code>docker login</code></td>
+<td>"Login Succeeded"</td>
+<td style="text-align: center;">☐</td>
+<td style="text-align: center;">☐</td>
+<td></td>
+</tr>
+<tr>
+<td>2b</td>
+<td>Login to website</td>
+<td>Browser login</td>
+<td>Dashboard visible</td>
+<td style="text-align: center;">☐</td>
+<td style="text-align: center;">☐</td>
+<td></td>
+</tr>
+<tr>
+<td>3</td>
+<td>Tag image</td>
+<td><code>docker tag go-multi &lt;username&gt;/go-app:latest</code> and <code>:v1.0</code></td>
+<td>Tags visible in <code>docker images</code></td>
+<td style="text-align: center;">☐</td>
+<td style="text-align: center;">☐</td>
+<td></td>
+</tr>
+<tr>
+<td>4</td>
+<td>Push image</td>
+<td><code>docker push &lt;username&gt;/go-app:latest</code> and <code>:v1.0</code></td>
+<td>Push succeeds</td>
+<td style="text-align: center;">☐</td>
+<td style="text-align: center;">☐</td>
+<td></td>
+</tr>
+<tr>
+<td>5</td>
+<td>Verify on Docker Hub</td>
+<td>https://hub.docker.com/repositories</td>
+<td>Image + both tags shown</td>
+<td style="text-align: center;">☐</td>
+<td style="text-align: center;">☐</td>
+<td></td>
+</tr>
+<tr>
+<td>6</td>
+<td>Pull image</td>
+<td><code>docker rmi ...</code> then <code>docker pull &lt;username&gt;/go-app:latest</code></td>
+<td>Pull succeeds</td>
+<td style="text-align: center;">☐</td>
+<td style="text-align: center;">☐</td>
+<td></td>
+</tr>
+<tr>
+<td>6b</td>
+<td>Run pulled image</td>
+<td><code>docker run -d --name hub-app -p 8080:8080 &lt;username&gt;/go-app:latest</code> + <code>curl localhost:8080</code></td>
+<td>Response works</td>
+<td style="text-align: center;">☐</td>
+<td style="text-align: center;">☐</td>
+<td></td>
+</tr>
+<tr>
+<td>6c</td>
+<td>Cleanup</td>
+<td><code>docker stop hub-app &amp;&amp; docker rm hub-app</code></td>
+<td>Container removed</td>
+<td style="text-align: center;">☐</td>
+<td style="text-align: center;">☐</td>
+<td></td>
+</tr>
+<tr>
+<td>7</td>
+<td>Push private image</td>
+<td>Create private repo, tag, push</td>
+<td>Private repo visible</td>
+<td style="text-align: center;">☐</td>
+<td style="text-align: center;">☐</td>
+<td></td>
+</tr>
+<tr>
+<td>8</td>
+<td>Logout</td>
+<td><code>docker logout</code></td>
+<td>Logged out</td>
+<td style="text-align: center;">☐</td>
+<td style="text-align: center;">☐</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="overall-progress-summary">📋 Overall Progress Summary</h2>
+<table>
+<thead>
+<tr>
+<th>Workshop</th>
+<th>Labs</th>
+<th style="text-align: center;">Total Steps</th>
+<th style="text-align: center;">Completed</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1 – Image Optimization</strong></td>
+<td>1.1, 1.2, 1.3</td>
+<td style="text-align: center;">24</td>
+<td style="text-align: center;">☐</td>
+</tr>
+<tr>
+<td><strong>2 – Container Internals</strong></td>
+<td>2.1, 2.2, 2.3</td>
+<td style="text-align: center;">17</td>
+<td style="text-align: center;">☐</td>
+</tr>
+<tr>
+<td><strong>3 – Advanced Networking</strong></td>
+<td>3.1, 3.2, 3.3</td>
+<td style="text-align: center;">22</td>
+<td style="text-align: center;">☐</td>
+</tr>
+<tr>
+<td><strong>TOTAL</strong></td>
+<td><strong>9 labs</strong></td>
+<td style="text-align: center;"><strong>63 steps</strong></td>
+<td style="text-align: center;">☐</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="concept-mastery-self-check">🧠 Concept Mastery Self-Check</h2>
+<p>Tick only if you can <strong>explain out loud</strong> without looking:</p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Concept</th>
+<th style="text-align: center;">Can Explain?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Difference between DISK USAGE and CONTENT SIZE</td>
+<td style="text-align: center;">☐</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Why multi-stage builds shrink images</td>
+<td style="text-align: center;">☐</td>
+</tr>
+<tr>
+<td>3</td>
+<td>How BuildKit cache mounts speed up rebuilds</td>
+<td style="text-align: center;">☐</td>
+</tr>
+<tr>
+<td>4</td>
+<td>How <code>--mount=type=secret</code> keeps secrets out of layers</td>
+<td style="text-align: center;">☐</td>
+</tr>
+<tr>
+<td>5</td>
+<td>What <code>dive</code> shows that <code>docker history</code> cannot</td>
+<td style="text-align: center;">☐</td>
+</tr>
+<tr>
+<td>6</td>
+<td>What <code>.dockerignore</code> optimizes (context, cache, security)</td>
+<td style="text-align: center;">☐</td>
+</tr>
+<tr>
+<td>7</td>
+<td>OverlayFS: <code>lowerdir</code>, <code>upperdir</code>, <code>workdir</code>, <code>merged</code></td>
+<td style="text-align: center;">☐</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Copy-on-Write (CoW) behavior</td>
+<td style="text-align: center;">☐</td>
+</tr>
+<tr>
+<td>9</td>
+<td><code>--memory</code>, <code>--cpus</code>, <code>--pids-limit</code> and verification</td>
+<td style="text-align: center;">☐</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Difference between <code>-p</code> and <code>-P</code></td>
+<td style="text-align: center;">☐</td>
+</tr>
+<tr>
+<td>11</td>
+<td>DNS-based discovery on custom bridge networks</td>
+<td style="text-align: center;">☐</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Push/pull from Docker Hub (public + private)</td>
+<td style="text-align: center;">☐</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="quiz-self-check-chapter-6">📚 Quiz Self-Check (Chapter 6)</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Question</th>
+<th style="text-align: center;">Answer Understood?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Benefit of multi-stage builds?</td>
+<td style="text-align: center;">☐</td>
+</tr>
+<tr>
+<td>2</td>
+<td>How to enable BuildKit?</td>
+<td style="text-align: center;">☐</td>
+</tr>
+<tr>
+<td>3</td>
+<td>What is the overlay filesystem?</td>
+<td style="text-align: center;">☐</td>
+</tr>
+<tr>
+<td>4</td>
+<td>How to limit container memory?</td>
+<td style="text-align: center;">☐</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Difference between <code>-p</code> and <code>-P</code>?</td>
+<td style="text-align: center;">☐</td>
+</tr>
+<tr>
+<td>6</td>
+<td>How to create a custom Docker network?</td>
+<td style="text-align: center;">☐</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Purpose of <code>.dockerignore</code>?</td>
+<td style="text-align: center;">☐</td>
+</tr>
+<tr>
+<td>8</td>
+<td>How to run with CPU limits?</td>
+<td style="text-align: center;">☐</td>
+</tr>
+<tr>
+<td>9</td>
+<td>What is a Docker private registry?</td>
+<td style="text-align: center;">☐</td>
+</tr>
+<tr>
+<td>10</td>
+<td>How to inspect container resource limits?</td>
+<td style="text-align: center;">☐</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="troubleshooting-quick-reference">🔑 Troubleshooting Quick Reference</h2>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ping: command not found</code></td>
+<td><code>docker exec -it &lt;container&gt; dnf install -y iputils</code></td>
+</tr>
+<tr>
+<td><code>docker logs</code> shows nothing</td>
+<td>Container's PID 1 produces no stdout (e.g., <code>tail -f /dev/null</code>) — normal</td>
+</tr>
+<tr>
+<td><code>/var/lib/docker/overlay2</code> not found</td>
+<td>Rootless Docker — use <code>~/.local/share/docker/containerd/.../snapshots/</code></td>
+</tr>
+<tr>
+<td><code>docker inspect</code> has no <code>GraphDriver</code></td>
+<td>Modern containerd snapshotter hides it — use <code>mountinfo</code> or <code>docker diff</code></td>
+</tr>
+<tr>
+<td><code>docker create --driver host</code> fails</td>
+<td><code>host</code> network already exists — skip or use <code>none</code>/<code>bridge</code></td>
+</tr>
+<tr>
+<td>Name conflict on <code>docker run</code></td>
+<td><code>docker rm &lt;name&gt;</code> first</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="submission-checklist">✅ Submission Checklist</h2>
+<p>Before submitting, confirm:</p>
+<ul>
+<li>☐ All <strong>63 steps</strong> completed and ticked</li>
+<li>☐ <strong>Screenshots</strong> taken for every 📸 row</li>
+<li>☐ <strong>Concept Mastery</strong> self-check completed (12 concepts)</li>
+<li>☐ <strong>Quiz</strong> answers understood (10 questions)</li>
+<li>☐ Containers cleaned up (<code>docker rm -f $(docker ps -aq)</code>) — optional but tidy</li>
+<li>☐ This checklist included with your submission document</li>
+</ul>
+<hr />
+<p><strong>Student Name:</strong> <strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>
+<strong>Student ID:</strong> </em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong>
+<strong>Date Submitted:</strong> <strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><em>
+<strong>Instructor Signature:</strong> <strong><em>_</em></strong>______</em></strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2025 sawangpong muadphet
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.top", "navigation.footer"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

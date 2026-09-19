@@ -867,14 +867,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../07-workshop-basic/" class="md-nav__link">
+      <a href="../07-workshop-1/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    7. Workshop Basic
+    7. Workshop 1
   
 
     
@@ -895,7 +895,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../08-workshop-webserver/" class="md-nav__link">
+      <a href="../08-workshop-webserver.md" class="md-nav__link">
         
   
   
@@ -923,7 +923,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../09-workshop-fullstack/" class="md-nav__link">
+      <a href="../09-workshop-fullstack.md" class="md-nav__link">
         
   
   
@@ -951,7 +951,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../10-cgroups-namespaces-security/" class="md-nav__link">
+      <a href="../10-cgroups-namespaces-security.md" class="md-nav__link">
         
   
   
@@ -1450,7 +1450,7 @@ docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </
 <div class="highlight"><pre><span></span><code>docker<span class="w"> </span>ps<span class="w">              </span><span class="c1"># Running containers</span>
 docker<span class="w"> </span>ps<span class="w"> </span>-a<span class="w">           </span><span class="c1"># All containers</span>
 docker<span class="w"> </span>ps<span class="w"> </span>-q<span class="w">           </span><span class="c1"># Container IDs only</span>
-docker<span class="w"> </span>ps<span class="w"> </span>--format<span class="w"> </span><span class="s2">&quot;table {{.ID}}\t{{.Names}}\t{{.Status}}&quot;</span>
+docker<span class="w"> </span>ps<span class="w"> </span>--format<span class="w"> </span><span class="s2">"table {{.ID}}\t{{.Names}}\t{{.Status}}"</span>
 </code></pre></div>
 <h3 id="stop-and-start-containers">Stop and Start Containers</h3>
 <div class="highlight"><pre><span></span><code>docker<span class="w"> </span>stop<span class="w"> </span>&lt;container_id&gt;
@@ -1491,13 +1491,13 @@ docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </sp
 </code></pre></div>
 <h3 id="check-port-mappings">Check Port Mappings</h3>
 <div class="highlight"><pre><span></span><code>docker<span class="w"> </span>port<span class="w"> </span>&lt;container_id&gt;
-docker<span class="w"> </span>inspect<span class="w"> </span>--format<span class="o">=</span><span class="s1">&#39;{{.NetworkSettings.Ports}}&#39;</span><span class="w"> </span>&lt;container_id&gt;
+docker<span class="w"> </span>inspect<span class="w"> </span>--format<span class="o">=</span><span class="s1">'{{.NetworkSettings.Ports}}'</span><span class="w"> </span>&lt;container_id&gt;
 </code></pre></div>
 <hr />
 <h2 id="34-docker-networks">3.4 Docker Networks</h2>
 <h3 id="list-networks">List Networks</h3>
 <div class="highlight"><pre><span></span><code>docker<span class="w"> </span>network<span class="w"> </span>ls
-docker<span class="w"> </span>network<span class="w"> </span>ls<span class="w"> </span>--format<span class="w"> </span><span class="s2">&quot;table {{.ID}}\t{{.Name}}\t{{.Driver}}&quot;</span>
+docker<span class="w"> </span>network<span class="w"> </span>ls<span class="w"> </span>--format<span class="w"> </span><span class="s2">"table {{.ID}}\t{{.Name}}\t{{.Driver}}"</span>
 </code></pre></div>
 <h3 id="create-a-network">Create a Network</h3>
 <div class="highlight"><pre><span></span><code><span class="c1"># Bridge network</span>
@@ -1531,7 +1531,7 @@ docker<span class="w"> </span>volume<span class="w"> </span>create<span class="w
 </code></pre></div>
 <h3 id="list-volumes">List Volumes</h3>
 <div class="highlight"><pre><span></span><code>docker<span class="w"> </span>volume<span class="w"> </span>ls
-docker<span class="w"> </span>volume<span class="w"> </span>ls<span class="w"> </span>--format<span class="w"> </span><span class="s2">&quot;table {{.Name}}\t{{.Driver}}&quot;</span>
+docker<span class="w"> </span>volume<span class="w"> </span>ls<span class="w"> </span>--format<span class="w"> </span><span class="s2">"table {{.Name}}\t{{.Driver}}"</span>
 </code></pre></div>
 <h3 id="use-volumes-with-containers">Use Volumes with Containers</h3>
 <div class="highlight"><pre><span></span><code><span class="c1"># Named volume</span>
