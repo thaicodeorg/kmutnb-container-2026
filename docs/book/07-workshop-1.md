@@ -81,6 +81,8 @@ mkdir -p ~/cafe-app/cafe-api ~/cafe-app/cafe-web
 cd ~/cafe-app
 ```
 
+![](../assets/images/cafecode1.png)
+
 Project structure you will create:
 
 ```
@@ -101,6 +103,8 @@ cafe-app/
 
 ### Step 2: Create the API (your own Dockerfile)
 
+> **Note** Student have to becareful the location of created file
+
 ![](../assets/images/cafeworkshop2.png)
 
 #### 2.1 `requirements.txt`
@@ -110,8 +114,11 @@ cat > cafe-api/requirements.txt << 'EOF'
 flask
 redis
 pymysql
+flask-cors
 EOF
 ```
+
+![](../assets/images/cafecode2.png)
 
 > **Note:** This time we remember the lesson from Chapter 5's Flask task — the `redis` package is in the file, and we also add `pymysql` (the MariaDB/MySQL driver) so the API can write to the database without crashing.
 
@@ -124,8 +131,10 @@ import time
 import pymysql
 import redis
 from flask import Flask, jsonify, request
+#from flask_cors import CORS
 
 app = Flask(__name__)
+#CORS(app)
 
 cache = redis.Redis(
     host=os.getenv("REDIS_HOST", "cafe-redis"),
@@ -265,11 +274,23 @@ EOF
 
 ---
 
+![](../assets/images/cafecode3.png)
+
+
 ### Step 3: Create the Web frontend (menu page)
 
 ![](../assets/images/cafeworkshop3.png)
 
 #### 3.1 `cafe-web/Dockerfile`
+
+```bash
+cat > cafe-web/static.conf << 'EOF'
+DocumentRoot "/opt/app-root/src"
+<Directory "/opt/app-root/src">
+    Require all granted
+</Directory>
+EOF
+```
 
 ```bash
 cat > cafe-web/Dockerfile << 'EOF'
@@ -281,7 +302,7 @@ LABEL maintainer="student@example.com" \
 
 # Copy static files into Apache's document root
 COPY index.html /opt/app-root/src/
-
+COPY static.conf /etc/httpd/conf.d/
 # The base image already runs Apache as the 'default' user on port 8080
 EXPOSE 8080
 EOF
@@ -450,8 +471,11 @@ APP_WEB_PORT=8080
 APP_API_PORT=5000
 EOF
 ```
+- Don't forget to change DOCER_USER
 
 > **Note:** Replace `your_dockerhub_username` with **your real Docker Hub username** now. Compose reads `.env` automatically and injects these values into the file via `${...}` (the variable substitution you saw in Chapter 5).
+
+![](../assets/images/cafecode4.png)
 
 ---
 
@@ -466,17 +490,30 @@ sudo firewall-cmd --reload
 sudo firewall-cmd --list-all
 ```
 
+![](../assets/images/cafecode5.png)
 ---
 
 ### Step 6: Build and start the application
 
 ![](../assets/images/cafeworkshop7.png)
-
+- **--build** for build image from source code
 ```bash
 cd ~/cafe-app
 docker compose up -d --build
 docker compose ps
 ```
+### Check file in docker
+```bash
+docker run --rm -it itbakery/cafe-web:latest ls -la /opt/app-root/src/
+
+docker run --rm -it itbakery/cafe-web:latest ls -la /etc/httpd/conf.d/
+```
+
+![](../assets/images/cafecode9.png)
+
+
+
+![](../assets/images/cafecode6.png)
 
 Expected: 4 services running (`cafe-web`, `cafe-api`, `cafe-db`, `cafe-redis`).
 
@@ -491,6 +528,7 @@ docker image ls | grep cafe
 
 > **Note:** `cafe-web` and `cafe-api` are tagged with your Docker Hub username. `cafe-db` and `cafe-redis` were pulled directly from `quay.io` and `hub.docker.com` — you do **not** need to push those.
 
+![](../assets/images/cafecode7.png)
 ---
 
 ### Step 7: Verify the application
@@ -505,10 +543,7 @@ curl http://localhost:5000/health
 curl http://localhost:5000/api/menu
 ```
 
-Open a browser on your **own machine** to `http://<server-ip>:8080` and place an order (click **Order**).
-
-
-Verify the order was saved **twice** — once in MariaDB (permanent) and once in Redis (counter):
+![](../assets/images/cafecode8.png)
 
 ```bash
 # MariaDB -> order history
@@ -519,14 +554,44 @@ docker compose exec cafe-db mariadb -u cafe_user -pcafe_secret cafe_db \
 docker compose exec cafe-redis redis-cli GET hits
 ```
 
+### Open Browser 
+Open a browser on your **own machine** to `http://<server-ip>:8080` and place an order (click **Order**).
 
-## Tasks (Part A) — capture these screens
-- `docker compose up -d --build` and `docker compose ps` output
-- `docker compose images` output
-- The café web page `http://<server-ip>:8080` after placing an order
-- The MariaDB `SELECT * FROM orders;` result
-- The Redis `GET hits` result
 
+Verify the order was saved **twice** — once in MariaDB (permanent) and once in Redis (counter):
+
+![](../assets/images/cafecode10.png)
+
+### Fix Error
+Fix Error by uncommment line 6, 9
+
+![](../assets/images/cafecode11.png)
+
+after uncommend
+```bash
+docker compose down -v
+docker compose up -d --build
+```
+
+![](../assets/images/cafecode12.png)
+
+## Query Database
+
+Look for the container running MariaDB and the one running Redis. Let's assume they're named mariadb and redis — adjust to match yours.
+
+
+```bash
+docker compose ps
+```
+![](../assets/images/cafecode13.png)
+
+- Rememnber in docker compose use service name to reference when connect to database
+
+```bash
+docker compose exec cafe-db mariadb -u cafe_user -pcafe_secret cafe_db -e "SELECT * FROM orders;"
+```
+
+![](../assets/images/cafecode14.png)
 ---
 
 ## 7.3 Part B - Ship to Docker Hub
@@ -540,6 +605,15 @@ docker login
 # Username + password (or access token)
 ```
 
+![](../assets/images/cafecode15.png)
+
+![](../assets/images/cafecode16.png)
+
+![](../assets/images/cafecode17.png)
+
+
+![](../assets/images/cafecode18.png)
+
 > **Note:** A successful login shows `Login Succeeded` (Chapter 6, Lab 3.3).
 
 ### Step 2: Push your two custom images
@@ -550,12 +624,7 @@ Your images are **already tagged** with your username because of the `image:` ke
 docker image ls | grep cafe
 ```
 
-If the tags are missing, tag them yourself:
 
-```bash
-docker tag cafe-app-cafe-web   <your-dockerhub-username>/cafe-web:latest
-docker tag cafe-app-cafe-api   <your-dockerhub-username>/cafe-api:latest
-```
 
 Then push (replace `<your-dockerhub-username>`):
 
@@ -564,7 +633,7 @@ docker push <your-dockerhub-username>/cafe-web:latest
 docker push <your-dockerhub-username>/cafe-api:latest
 ```
 
-
+![](../assets/images/cafecode19.png)
 
 > **Note:** Only the **new layers** are uploaded. The base layers (`httpd-24-c10s`, `python:3.12-slim`) are re-used from their original registries — your push is small.
 
@@ -572,133 +641,7 @@ docker push <your-dockerhub-username>/cafe-api:latest
 
 Open `https://hub.docker.com/repositories` and confirm both repositories and their `latest` tags.
 
-
-## Tasks (Part B) — capture these screens
-- `docker login` result (`Login Succeeded`)
-- `docker push` output for **both** images
-- Your two repositories on the Docker Hub website
-
----
-
-## 7.4 Part C - Redeploy on Windows (Docker Desktop)
-
-> Environment: **Windows PC with Docker Desktop installed** (WSL2 backend). This is the machine where you will **pull** — no build tools, no source code needed.
-
-### Step 1: Verify Docker Desktop
-
-```powershell
-docker version
-docker run --rm hello-world
-```
-
-> **Note:** On Windows there is **no `firewall-cmd`** — Docker Desktop manages its own port forwarding. You may see a Windows Firewall prompt the first time; allow it.
-
-### Step 2: Create the project folder with only 2 files
-
-```powershell
-mkdir C:\cafe-app
-cd C:\cafe-app
-```
-
-Using **Notepad** or **VS Code**, create these two files (you can also copy them from the server with a USB drive or `scp`):
-
-- `C:\cafe-app\docker-compose.yaml` — same content as 7.2 Step 4.1
-- `C:\cafe-app\.env` — same content as 7.2 Step 4.2, **with the same `DOCKER_USER`**
-
-> **Note:** you do **not** need the `cafe-api/` or `cafe-web/` folders here — the images are already built, pushed to Docker Hub, and will be pulled instead of built. This is exactly how production deployments ship: *build once, run anywhere*.
-
-### Step 3: Pull and start
-
-```powershell
-cd C:\cafe-app
-docker compose pull
-docker compose up -d
-docker compose ps
-```
+![](../assets/images/cafecode20.png)
 
 
-### Step 4: Verify
 
-Open **your browser** on the PC: `http://localhost:8080` (or another PC: `http://<your-pc-ip>:8080`).
-
-Place another order. Same app, same menu, same database schema:
-
-Check what was pulled vs. built:
-
-```powershell
-docker compose images
-docker system df
-```
-
-## Tasks (Part C) — capture these screens
-- `docker compose pull` output
-- `docker compose up -d` and `docker compose ps` output
-- The café web page `http://localhost:8080` on the Windows PC
-- `docker compose images` output
-
----
-
-## 7.5 Part D - Discussion (written answers)
-
-Answer the following **in your own words** and submit with your screenshots. (2–4 sentences each.)
-
-1. **"It works on my machine"** — The exact same `docker-compose.yaml` and image tags ran on a CentOS Stream 10 server and on a Windows PC with a completely different OS, ports, and IP address. What makes this possible? What do container images bundle that a normal `.exe`/package does not?
-
-2. **Pull vs. build** — In Part C you never ran `docker build`. Where did the `cafe-web` and `cafe-api` images come from? Which of the 4 services were *pulled* from a registry, and which 2 were *pushed by you* in Part B?
-
-3. **Time & network** — Compare `docker compose up -d --build` (Part A) with `docker compose pull` + `docker compose up -d` (Part C). Which approach is faster for deploying to 100 machines? Which consumes more bandwidth, and why (hint: think layers and Chapter 6)?
-
-4. **Hidden services** — `cafe-db` has no `ports:` mapping, yet `cafe-api` can still use it. How do the containers talk to each other, and what security benefit does not publishing the database port give you?
-
-5. **Volumes** — Run `docker compose down -v` on the PC and you lose something that `docker compose down` alone preserves. What exactly, and why is losing it so dangerous for a real café order database?
-
-6. **Redis** — `cafe-redis` only stores the `hits` counter in memory. If the Redis container is killed and restarted, what happens to the counter? Is the order history in MariaDB lost too? Explain the difference.
-
-7. **Secrets** — Your database password never appears in the Dockerfile or the image — it is injected through `environment:` at runtime. What would go wrong (security-wise) if you baked the password into the image with `ENV` instead? (Hint: Chapter 4 layer caching + `docker history`.)
-
-8. **Optimization** — The API image is built from `python:3.12-slim` in one stage. Chapter 6's multi-stage trick shrank the Go image ~55×. Why would multi-stage shrink a **compiled Go** app far more than a **Python** app, and would it still be worth doing?
-
-9. **Layer reuse** — While pushing, only some MB were uploaded even though your images are big. What images' layers were *reused* instead of re-pushed (e.g., the base images)? Where do those layers already exist for anyone who pulls your images?
-
-10. **Inventory** — List every Docker **object** your deployment uses by type: `n` images, `n` containers, `n` networks, `n` volumes, plus environment variables. This is the "inventory" a DevOps engineer keeps for every app.
-
----
-
-## Summary
-
-| Service | Image source | Data | Network | Port on host |
-|---------|--------------|------|---------|--------------|
-| `cafe-web` | built from `quay.io/sclorg/httpd-24-c10s` | static page | `cafe-net` | `8080` |
-| `cafe-api` | built from `python:3.12-slim` | none (stateless) | `cafe-net` | `5000` |
-| `cafe-db` | `quay.io/sclorg/mariadb-118-c10s` | `cafe_data` volume | `cafe-net` | hidden |
-| `cafe-redis` | `redis:alpine` | in-memory only | `cafe-net` | hidden |
-
-```
-Build (Dockerfile)  →  Ship (docker push)  →  Deploy (docker compose up -d anywhere)
-```
-
-## Docker Commands Cheat Sheet (Workshop)
-
-| Command | Purpose |
-|---------|---------|
-| `docker compose up -d --build` | Build images from Dockerfiles and start all services |
-| `docker compose ps` | List running services of the project |
-| `docker compose images` | Show images used by the project |
-| `docker compose exec <svc> <cmd>` | Run a command inside a running service |
-| `docker compose logs <svc>` | View service logs |
-| `docker compose pull` | Pull the project's images without starting |
-| `docker compose down` | Stop and remove containers/network (keeps volumes) |
-| `docker compose down -v` | Stop and remove containers/network/volumes |
-| `docker push <user>/<image>:<tag>` | Upload an image to a registry |
-| `docker pull <user>/<image>:<tag>` | Download an image from a registry |
-
-## Troubleshooting
-
-| Symptom | Likely cause / fix |
-|---------|--------------------|
-| `cafe-api` exits with `ModuleNotFoundError: pymysql` | `requirements.txt` missing a package — `docker compose build cafe-api` after fixing (the Chapter 5 lesson). |
-| `cafe-api` retries, then still crashes | Check `docker compose logs cafe-db`. MariaDB may need more time; healthcheck retries handle this. |
-| `port is already allocated` | Change `APP_WEB_PORT` / `APP_API_PORT` in `.env` and update the firewall, then `docker compose up -d`. |
-| Cannot open the web page from another machine | Forgot to open firewall ports 8080/5000 (Part A Step 5). On PC, check Windows Firewall prompt. |
-| `docker compose up` tries to build on PC | The `cafe-api/`/`cafe-web/` folders exist on the PC. Delete them — only `docker-compose.yaml` + `.env` are needed there (or use `docker compose pull` then `up`). |
-| `docker push` rejected | You are not logged in (`docker login`) or the tag doesn't start with your username. |
