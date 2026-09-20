@@ -14,7 +14,7 @@
 ## Assignment: Create Student's Submission along tutorial
 - Student will submit Screen of Docker installation process according to step-by-step from manual.
 - Student can use Basic Template [Download checklist submission](../assets/Student%20Self-Verification%20Checklist.docx) or generate own version.
-- check checklist file [Check list help](./06_checklist.md) 
+- check checklist file [Check list help](../archieve/06_checklist.md)
 
 ## Ref Reading
 - [docker officail reference](https://docs.docker.com/build/building/multi-stage/)
@@ -563,7 +563,7 @@ docker history overlay-test-snapshot
 
 ---
 
-[Reading Diff Explaination](./06-diff-explain.md)
+[Reading Diff Explaination](../archieve/06-diff-explain.md)
 
 # Lab 2.2: Resource Limits
 

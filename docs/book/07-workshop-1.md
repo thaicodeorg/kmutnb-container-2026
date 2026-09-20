@@ -32,7 +32,7 @@ Then you will **ship** it: push your images to Docker Hub, pull them on a **Wind
 
 ## Assignment: Create Student's Submission along tutorial
 - Student will submit screen captures according to each **Task** in the tutorial.
-- Student can use the Basic Template [Download](../assets/cafeworkshop1-submission.docx) or generate their own version.
+- Student will generate their own submission version.
 - Part D (Discussion) written answers are **part of the submission**.
 
 ---
