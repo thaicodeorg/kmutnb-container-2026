@@ -13,6 +13,8 @@
 - [6. Docker Compose](book/05-docker-compose.md)
 - [7. Multi-Stage Build](book/06-advanced.md)
 - [8. Work shop 1 : Cafe App](book/07-workshop-1.md)
+- [9. Portainer: Web ui management](book/07-workshop-2.md)
+
 
 
 
